@@ -15,6 +15,9 @@
         $status = 0;
     }
 
+    $descripcion = strtolower($descripcion);
+    $departamento = strtolower($departamento);
+
     $sql = "INSERT INTO producto VALUES (0,'$descripcion','$departamento','$precio','$existencia','$stock_max','$stock_min','$status')";
     $ejecutarInsertar = mysqli_query($con, $sql);
 

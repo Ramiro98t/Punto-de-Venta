@@ -102,7 +102,7 @@ $(document).ready(function () {
             var form = $('.mainForm')[0];
             var data = new FormData(form);
             $.ajax({
-                url: 'back/add' + ruta + '.php',
+                url: '../back/add' + ruta + '.php',
                 type: 'POST',
                 data: data,
                 enctype: 'multipart/form-data',
@@ -113,7 +113,7 @@ $(document).ready(function () {
                     if (res == 1) {
                         // Modifica el contenedor 'mensaje', inserta al html la imagen
                         $('.mensaje').html(
-                            'Realizando registro!<img src="./img/loading.gif" width="25px" height = "25px"/>'
+                            'Realizando registro!<img src="../img/loading.gif" width="25px" height = "25px"/>'
                         );
                         setTimeout("$('.mensaje').html('')", 1500);
                         // setTimeout("$('.mensaje').html('')", 1500);
