@@ -1,6 +1,5 @@
-// ** FUNCIONES EMPLEADO
-
-function valFormEmp() {
+// Valida los campos del empleado
+function evalFormWorker() {
     // Varibles que almacenan el valor de los input
     var nombre = $('input[name="nombre"]').val();
     var direccion = $('input[name="direccion"]').val();
@@ -27,7 +26,8 @@ function valFormEmp() {
     }
 }
 
-function valFormProd() {
+// Valida los campos del producto
+function evalFormProduct() {
     // Varibles que almacenan el valor de los input
     var descripcion = $('input[name="descripcion"]').val();
     var departamento = $('input[name="departamento"]').val();
@@ -52,7 +52,8 @@ function valFormProd() {
     }
 }
 
-function valFormProv() {
+// Valida los campos del proveedor
+function evalFormProvider() {
     // Varibles que almacenan el valor de los input
     var nombre = $('input[name="nombre"]').val();
     var correo = $('input[name="correo"]').val();
@@ -72,6 +73,7 @@ function valFormProv() {
 }
 
 $(document).ready(function () {
+    // Si el campo esta completado agrega un contorno verde
     $('.input').on('keyup', function () {
         if ($(this).val() != '') {
             $target = $(event.target);   
@@ -86,23 +88,23 @@ $(document).ready(function () {
     // Se cargan funciones al terminar de cargar la pagina completa
     $('.enviar').on('click', function () {
         let bandera = false;
-        let ruta = $('.wForm').val();
-        switch (ruta) {
-            case "Empleado":
-                if (valFormEmp()) { bandera = true; }
+        let route = $('.wForm').val();
+        switch (route) {
+            case "Worker":
+                if (evalFormWorker()) { bandera = true; }
                 break;
-            case "Producto":
-                if (valFormProd()) { bandera = true; }
+            case "Product":
+                if (evalFormProduct()) { bandera = true; }
                 break;
-            case "Proveedor":
-                if (valFormProv()) { bandera = true; }
+            case "Provider":
+                if (evalFormProvider()) { bandera = true; }
                 break;
         }
         if (bandera) {
             var form = $('.mainForm')[0];
             var data = new FormData(form);
             $.ajax({
-                url: '../back/add' + ruta + '.php',
+                url: '../back/add' + route + '.php',
                 type: 'POST',
                 data: data,
                 enctype: 'multipart/form-data',
@@ -130,6 +132,7 @@ $(document).ready(function () {
     });
     $('.cancelar').on('click', function () {
         $('.input').val('');
+        location.href='../index.php';
     });
 });
 

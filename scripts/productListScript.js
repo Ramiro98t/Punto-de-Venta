@@ -1,9 +1,12 @@
 // ** FUNCIONES LISTA DE PRODUCTOS
 
 $(document).ready(function () {
+    let type = $('#type').val();
+
     let data = '';      // Almacena el valor del input
     // Al presionar cualquier tecla dentro del input
     $('#search').on('keyup', function () {
+        alert(type);
         data = $(this).val();   // Almacena el texto
         if (data) {     // Si contiene info realiza la busqueda
             $.ajax({

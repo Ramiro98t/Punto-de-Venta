@@ -91,7 +91,7 @@
             </div>
         </div>
         <!-- Variable a considerar para reconocer el formulario -->
-        <input class="wForm" value="Producto">
+        <input class="wForm" value="Product">
     </div>
 </body>
 

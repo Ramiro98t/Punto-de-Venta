@@ -1,6 +1,4 @@
-<?php 
-    $label = $_GET["label"]
-?>
+<?php require_once("../back/conecta.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,7 +20,6 @@
 </head>
 
 <body>
-    <input id="type" style="display: none" value="<?= $label ?>">   <!-- Almacena la categoria par la lista -->
     <header class="hero has-background-grey-light">
         <div class="hero-body">
             <div class="container">
@@ -61,7 +58,7 @@
             <!-- Products List -->
             <div class="products">
                 <h1 class="title is-1 has-text-grey">
-                    <?= $label ?>
+                    Productos
                 </h1>
                 <div class="columns is-multiline result">
                     <!-- Content in DB -->
