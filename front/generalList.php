@@ -36,7 +36,7 @@
                         </h2>
                     </div>
                     <div class="column has-text-right">
-                        <a href="productList.php">
+                        <a href="generalList.php">
                             <img src="../img/icon.png" class="logo" alt="Logo">
                         </a>
                     </div>

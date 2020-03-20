@@ -23,13 +23,11 @@ else {
                         <div class="media-left">
                             <p class="title is-1 has-text-primary">' . $f->nombre . '</p>
                         </div>
-                        <div class="media-content">
-                            <p class="title is-4">' . $f->telefono . '</p>
-                        </div>
                     </div>
 
                     <div class="content">
-                        Email: ' . $f->correo . '
+                        <p class="title is-4">Tel: ' . $f->telefono . '</p>
+                        <p class="subtitle is-5">Correo: ' . $f->correo . '</p>
                     </div>
                 </div>
             </div>

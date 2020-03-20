@@ -21,14 +21,12 @@ else {                  // En caso de encontrar coincidencias, imprime todas
                         <div class="media-left">
                             <p class="title is-1 has-text-primary">' . $f->nombre . '</p>
                         </div>
-                        <div class="media-content">
-                            <p class="title is-4">' . $f->ciudad . '</p>
-                            <p class="subtitle is-6">Tel: ' . $f->telefono . '</p>
-                        </div>
                     </div>
 
                     <div class="content">
-                        Cargo: ' . $f->cargo . '
+                        <p class="title is-4">' . $f->ciudad . '</p>
+                        <p class="subtitle is-5">Cargo: ' . $f->cargo . '</p>
+                        <p class="subtitle is-6">Tel: ' . $f->telefono . '</p>
                     </div>
                 </div>
             </div>

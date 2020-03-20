@@ -1,5 +1,5 @@
 <?php
-require_once('./conecta.php');  //Conecta a la Base de datos
+require_once('../conecta.php');  //Conecta a la Base de datos
 
 $term = $_POST["search"];       // Termino a buscar
 
