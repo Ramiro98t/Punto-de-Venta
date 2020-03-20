@@ -14,7 +14,7 @@
     <!-- Relacion archivo(online) jquery-script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
-    <script src="../scripts/script.js"></script>
+    <script src="../scripts/evalScript.js"></script>
 </head>
 
 <body>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <!-- Variable a considerar para reconocer el formulario -->
-        <input class="wForm" value="Provider">
+        <input class="wForm" value="Proveedores">
     </div>
 </body>
 

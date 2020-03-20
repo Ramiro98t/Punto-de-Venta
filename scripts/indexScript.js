@@ -14,26 +14,24 @@ $(document).ready(function() {
 
         switch (op) {
             case '1':
-                $("#regBtn").attr("href", "./front/worker.php");
-                $("#viewBtn").attr("href", "./front/workerList.php");
-                $(".button").show();
+                $("#regBtn").attr("href", "./front/empleados.php");
+                $("#viewBtn").attr("href", "./front/generalList.php?label=Empleados");
                 break;
 
             case '2':
-                $("#regBtn").attr("href", "./front/product.php");
-                $("#viewBtn").attr("href", "./front/productList.php?label=Productos");
-                $(".button").show();
+                $("#regBtn").attr("href", "./front/productos.php");
+                $("#viewBtn").attr("href", "./front/generalList.php?label=Productos");
                 break;
 
             case '3':
-                $("#regBtn").attr("href", "./front/provider.php");
-                $("#viewBtn").attr("href", "./front/providerList.php");
-                $(".button").show();
+                $("#regBtn").attr("href", "./front/proveedores.php");
+                $("#viewBtn").attr("href", "./front/generalList.php?label=Proveedores");
                 break;
 
             default:
                 break;
         }
+        $(".button").show();
     });
     /*
      * Hide buttons at the beginning

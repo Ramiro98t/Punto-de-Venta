@@ -1,13 +1,13 @@
 <?php
-    require_once('./conecta.php');  //Conecta a la Base de datos
+    require_once('../conecta.php');  //Conecta a la Base de datos
 
     $nombre = $_POST["nombre"];
-    $ciudad = $_POST["ciudad"];
     $direccion = $_POST["direccion"];
-    $email = $_POST["email"];
+    $ciudad = $_POST["ciudad"];
     $telefono = $_POST["telefono"];
-    $salario = $_POST["salario"];
+    $email = $_POST["email"];
     $cargo = $_POST["cargo"];
+    $salario = $_POST["salario"];
     $status = $_POST["status"];
     
     if ($status == 'activo') {

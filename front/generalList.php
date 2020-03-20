@@ -1,4 +1,6 @@
-<?php require_once("../back/conecta.php"); ?>
+<?php 
+    $label = $_GET["label"]
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,11 +17,12 @@
     <!-- Relacion archivo(online) jquery-script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
-    <script src="../scripts/productListScript.js"></script>
+    <script src="../scripts/generalListScript.js"></script>
     <title>Catalogo</title>
 </head>
 
 <body>
+    <input id="type" style="display: none" value="<?= $label ?>">   <!-- Almacena la categoria par la lista -->
     <header class="hero has-background-grey-light">
         <div class="hero-body">
             <div class="container">
@@ -47,8 +50,7 @@
             <!-- Search Bar -->
             <div class="field search-bar">
                 <div class="control has-icons-left">
-                    <input class="input" type="text" id="search" name="search" 
-                            placeholder="ID, Descripción, Departamento">
+                    <input class="input" type="text" id="search" name="search">
                     <span class="icon is-small is-left">
                         <i class="fas fa-search"></i>
                     </span>
@@ -58,7 +60,7 @@
             <!-- Products List -->
             <div class="products">
                 <h1 class="title is-1 has-text-grey">
-                    Productos
+                    <?= $label ?>
                 </h1>
                 <div class="columns is-multiline result">
                     <!-- Content in DB -->
