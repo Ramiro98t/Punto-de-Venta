@@ -1,19 +1,15 @@
 <?php
 require_once('./conecta.php');  //Conecta a la Base de datos
 
-$term = $_POST["search"];
+$term = $_POST["search"];       // Termino a buscar
 
-$output = '';
+$output = '';                   // Almacena los resultados 
+
 // Consulta MySql por busqueda
 $sql = "SELECT * FROM producto WHERE id LIKE '%$term%' OR descripcion LIKE '%$term%' 
 OR departamento LIKE'%$term%' AND status = 1 AND existencia > 0 ORDER BY id DESC";
 $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
 $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
-
-// Consulta MySql general
-$sqlGeneral = "SELECT * FROM producto WHERE status = 1 AND existencia > 0 ORDER BY id DESC";
-$resGeneral = mysqli_query($con, $sqlGeneral);    // Ejecuta la consulta en 'sql', con la conexion establecida
-
 
 if (!$fila) echo 0;
 

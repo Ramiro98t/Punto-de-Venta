@@ -1,5 +1,5 @@
 <?php
-    require_once('./conecta.php');  //Conecta a la Base de datos
+    require_once('../conecta.php');  //Conecta a la Base de datos
 
     $descripcion = $_POST["descripcion"];
     $departamento = $_POST["departamento"];

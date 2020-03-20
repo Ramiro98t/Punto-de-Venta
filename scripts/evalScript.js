@@ -88,15 +88,15 @@ $(document).ready(function () {
     // Se cargan funciones al terminar de cargar la pagina completa
     $('.enviar').on('click', function () {
         let bandera = false;
-        let route = $('.wForm').val();
+        let route = $('.wForm').val();      // Almacena el tipo: Empleado, Producto, Proveedor
         switch (route) {
-            case "Worker":
+            case "Empleados":
                 if (evalFormWorker()) { bandera = true; }
                 break;
-            case "Product":
+            case "Productos":
                 if (evalFormProduct()) { bandera = true; }
                 break;
-            case "Provider":
+            case "Proveedores":
                 if (evalFormProvider()) { bandera = true; }
                 break;
         }
@@ -104,7 +104,7 @@ $(document).ready(function () {
             var form = $('.mainForm')[0];
             var data = new FormData(form);
             $.ajax({
-                url: '../back/add' + route + '.php',
+                url: '../back/' + route + '/add' + route + '.php',
                 type: 'POST',
                 data: data,
                 enctype: 'multipart/form-data',
@@ -120,7 +120,7 @@ $(document).ready(function () {
                         setTimeout("$('.mensaje').html('')", 1500);
                         // setTimeout("$('.mensaje').html('')", 1500);
                         setTimeout(function () {
-                            window.location.href = ruta + ".php";
+                            window.location.href = route + ".php";
                         }, 1500);
                     } else {
                         $('.mensaje').html('Datos incorrectos!'); // Mensaje de error
