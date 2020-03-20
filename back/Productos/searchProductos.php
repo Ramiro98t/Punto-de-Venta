@@ -6,8 +6,8 @@ $term = $_POST["search"];       // Termino a buscar
 $output = '';                   // Almacena los resultados 
 
 // Consulta MySql por busqueda
-$sql = "SELECT * FROM producto WHERE id LIKE '%$term%' OR descripcion LIKE '%$term%' 
-OR departamento LIKE'%$term%' AND status = 1 AND existencia > 0 ORDER BY id DESC";
+$sql = "SELECT * FROM producto WHERE (id LIKE '%$term%' OR descripcion LIKE '%$term%' 
+OR departamento LIKE'%$term%') AND status = 1 AND existencia > 0 ORDER BY id DESC";
 $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
 $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
