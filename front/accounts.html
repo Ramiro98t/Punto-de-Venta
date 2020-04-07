@@ -26,7 +26,7 @@
   <body>
     <!-- Navbar -->
     <nav
-      class="navbar has-background-white-ter"
+      class="navbar is-light"
       role="navigation"
       aria-label="main navigation"
     >
@@ -71,7 +71,7 @@
               <a class="navbar-item" title="Ramiro Mendez, 3314530630">
                 Contacto
               </a>
-              <hr class="navbar-divider"/>
+              <hr class="navbar-divider" />
               <a class="navbar-item" title="Al contacto 👆">
                 Reportar un problema
               </a>
@@ -82,12 +82,12 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
-                <strong>Registrarse</strong>
+              <a class="button is-primary" href="../index.php">
+                <strong>¿Admin?</strong>
               </a>
-              <a class="button is-light">
+              <!-- <a class="button is-light">
                 Ingresar
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
@@ -96,15 +96,75 @@
     <!-- End Navbar -->
 
     <!-- MAIN -->
-    <section class="hero has-background-grey-lighter is-fullheight-with-navbar">
+    <section class="hero is-light has-background is-fullheight-with-navbar">
+      <!-- Hero Background image -->
+      <img
+        alt="Main picture"
+        class="hero-background is-transparent"
+        src="../img/backgroundLogin.jpg "
+      />
+
       <div class="hero-body">
         <div class="container">
-          <p class="title is-1">
-            Proyecto ISW
-          </p>
+          <div class="columns">
+            <div class="column is-half">
+              <p class="title is-1 ">
+                Proyecto ISW
+              </p>
+            </div>
+
+            <div class="column is-two-fifths">
+              <div class="card has-background-light">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    Inicia Sesion
+                  </p>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    <div class="field">
+                      <p class="control has-icons-left has-icons-right">
+                        <input
+                          id="email"
+                          class="input"
+                          type="email"
+                          placeholder="Correo electronico"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </p>
+                    </div>
+                    <div class="field">
+                      <p class="control has-icons-left">
+                        <input
+                          id="email"
+                          class="input"
+                          type="password"
+                          placeholder="Cargo"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-sitemap"></i>
+                        </span>
+                      </p>
+                    </div>
+                    <p class="help"></p>
+                    <div class="field">
+                      <p class="control">
+                        <button id="btnLogin" class="button is-success">
+                          Ingresar
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
     <!-- Modal Acerca de Nosotros-->
     <div class="modal">
       <div class="modal-background"></div>
@@ -119,7 +179,8 @@
               Proyecto Final
             </p>
             <p class="subtitle">
-              Para la materia de Seminario de Solucion de Problemas de Ingenieria de Software
+              Para la materia de Seminario de Solucion de Problemas de
+              Ingenieria de Software
             </p>
             <p class="help has-text-grey">Por Ramiro Mendez</p>
           </section>
@@ -127,19 +188,25 @@
             <!-- <button class="button is-success">Entendido</button> -->
             <!-- <button class="button">Cerrar</button> -->
           </footer>
+        </div>
+        <button
+          class="modal-close is-large exit-modal"
+          aria-label="close"
+        ></button>
       </div>
-      <button class="modal-close is-large exit-modal" aria-label="close"></button>
     </div>
     <!-- End Modal -->
+
     <!-- End MAIN -->
-    
+
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer is-light">
       <div class="content has-text-centered">
         <p>
-          <strong>SSPISW</strong> por <a href="https://jgthms.com">Ramiro Mendez</a>. Codigo fuente
-          <a href="http://opensource.org/licenses/mit-license.php">GitHub</a>. The website content          ">MIT</a>. The website content
-          is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+          <strong>SSP-ISW</strong> por
+          <a href="https://www.facebook.com/Ramiro.MendezL">Ramiro Mendez</a>.
+          Codigo fuente >
+          <a href="https://github.com/Ramiro98t/Punto-de-Venta.git">GitHub</a>.
         </p>
       </div>
     </footer>
