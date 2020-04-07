@@ -1,7 +1,7 @@
 <?php
 // Establecer palabras reservadas para su posterior uso simplificado
 if (!defined('HOST')) define('HOST', 'localhost');    // Host
-if (!defined('BD')) define('BD', 'formulario');        // Base de Datos
+if (!defined('BD')) define('BD', 'puntoventa');        // Base de Datos
 if (!defined('USER_BD')) define('USER_BD', 'root');   // Usuario
 if (!defined('PASS_BD')) define('PASS_BD', '');       // Contraseña de usuario
 // define("HOST",'localhost');         // Host

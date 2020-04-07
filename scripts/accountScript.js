@@ -25,28 +25,36 @@ $(document).ready(function () {
    * Metodo para validar empleado
    */
   $("#btnLogin").on("click", function () {
-    $(this).addClass("is-loading");
+    $(this).addClass("is-loading"); // Boton cargando
+    // Recibe valores de inputs
     let email = $("#email").val();
     let position = $("#position").val();
-    alert(email + position);
-    // Datos correctos
+
     $.ajax({
       type: "post",
-      url: "../back/cuentas/evalWorker.php",
-      data: { correo: email,
-              cargo: position},
+      url: "../back/Cuentas/evalWorker.php",
+      data: { correo: email, cargo: position },
       success: function (response) {
-        $(".help").html("Bienvenido " + response);
-        // Reestblece campos 
-        setTimeout(() => {
-          $("#email").val("");
-          $("#position").val("");
-          $(".help").html("");
-          $(this).removeClass("is-loading");
-        }, 1000);
+        // Datos correctos
+        if (response != 0) {
+          $(".help").html("Bienvenido " + response);
+          // Restablece campos
+          setTimeout(() => {
+            $("#email").val("");
+            $("#position").val("");
+            $(".help").html("");
+            $("#btnLogin").removeClass("is-loading");
+            location.href = "../index.php";
+          }, 1200);
+        } else {
+          $("#btnLogin").removeClass("is-loading");
+          $(".help").html("Alguno de los datos es incorrecto");
+          setTimeout(() => {
+            $(".help").html("");
+          }, 2000);
+        }
+        // Datos incorrectos
       },
     });
-
-    // Datos incorrectos
   });
 });
