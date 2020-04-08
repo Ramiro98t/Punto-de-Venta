@@ -121,7 +121,7 @@ $(document).ready(function () {
             setTimeout("$('.mensaje').html('')", 1500);
             // setTimeout("$('.mensaje').html('')", 1500);
             setTimeout(function () {
-              window.location.href = route + ".php";
+              location.reload();
             }, 1500);
           } else {
             $(".mensaje").html("Datos incorrectos!"); // Mensaje de error
@@ -133,7 +133,7 @@ $(document).ready(function () {
   });
   $(".cancelar").on("click", function () {
     $(".input").val("");
-    location.href = "../index.php";
+    location.href = "operations.php";
   });
 });
 

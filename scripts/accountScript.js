@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "../back/Cuentas/evalWorker.php",
+      url: "./back/Cuentas/evalWorker.php",
       data: { correo: email, cargo: position },
       success: function (response) {
         // Datos correctos
@@ -44,7 +44,7 @@ $(document).ready(function () {
             $("#position").val("");
             $(".help").html("");
             $("#btnLogin").removeClass("is-loading");
-            location.href = "../index.php";
+            location.href = "./front/operations.php";
           }, 1200);
         } else {
           $("#btnLogin").removeClass("is-loading");

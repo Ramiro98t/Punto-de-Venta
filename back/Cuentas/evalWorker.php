@@ -10,14 +10,16 @@
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta, con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas de la consulta
 
+    // Si la consulta si genera algun resultado
     if($fila != 0) {
         $row = mysqli_fetch_assoc($res);
         $worker = $row['nombre'];
         $_SESSION['user'] = $worker;
-        echo $worker; // Si la consulta si genera algun resultado
+        echo $worker;                   
     }
     
+    // Si la consulta no genera ningun resultado
     else {
-        echo 0; // Si la consulta no genera ningun resultado
+        echo 0; 
     }
 ?>

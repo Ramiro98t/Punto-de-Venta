@@ -36,7 +36,7 @@
                         </h2>
                     </div>
                     <div class="column has-text-right">
-                        <a href="generalList.php">
+                        <a href="#">
                             <img src="../img/icon.png" class="logo" alt="Logo">
                         </a>
                     </div>
