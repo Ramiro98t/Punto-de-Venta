@@ -40,3 +40,38 @@ body {
 .search-bar {
   padding: 1rem 0;
 }
+
+.footer {
+  padding: 1.5rem;
+}
+/* BACKGROUND IMAGE HERO*/
+.is-transparent {
+  opacity: 0.9;
+}
+
+img {
+  max-width: 100%;
+}
+
+.hero.has-background {
+  position: relative;
+  /* overflow property specifies what should 
+  happen if content overflows an element's box */
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .hero-background {
+    /* position: absolute; */
+    /* object-fit: cover;  */
+    object-position: center center;
+    height: 100%;
+  }
+}

@@ -1,6 +1,7 @@
 <?php
     require_once('../conecta.php');  //Conecta a la Base de datos
 
+    // Recibe variables del formulario
     $nombre = $_POST["nombre"];
     $correo = $_POST["correo"];
     $telefono = $_POST["telefono"];

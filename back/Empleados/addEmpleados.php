@@ -1,6 +1,7 @@
 <?php
     require_once('../conecta.php');  //Conecta a la Base de datos
 
+    // Recibe variables del formulario
     $nombre = $_POST["nombre"];
     $direccion = $_POST["direccion"];
     $ciudad = $_POST["ciudad"];
@@ -23,3 +24,4 @@
         echo 0;     // Error en la linea de SQL
     }
     echo 1;         // Finalizado con exito
+?>
