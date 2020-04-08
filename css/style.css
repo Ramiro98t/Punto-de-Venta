@@ -75,3 +75,52 @@ img {
     height: 100%;
   }
 }
+
+/** MAIN PAGE **/
+.icono {
+  width: 15px;
+}
+
+.vista-carrito {
+  justify-content: space-between;
+}
+
+.cantidad-carrito {
+  width: 80px;
+  position: absolute;
+  right: 8%;
+  top: 18%;
+}
+
+.cantidad-carrito:hover,
+.icono:hover,
+.icono-basura:hover {
+  cursor: pointer;
+}
+
+.cantidad {
+  padding: auto;
+  border-radius: 1rem;
+  width: 30px;
+  height: auto;
+  position: absolute; 
+  left: 10px; 
+  bottom: 10px; 
+}
+
+.modificar-producto {
+  width: 50px;
+}
+
+.icono-basura{
+  width: 10%;
+}
+
+#carrito {
+  border-radius: 0.5rem;
+  width: 250px;
+  padding: 1.5rem;
+  position: absolute;
+  right: 12%;
+  top: 25%;
+}

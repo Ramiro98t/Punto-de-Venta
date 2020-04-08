@@ -44,7 +44,7 @@ $(document).ready(function () {
             $("#position").val("");
             $(".help").html("");
             $("#btnLogin").removeClass("is-loading");
-            location.href = "./front/operations.php";
+            location.href = "./front/mainPage.php";
           }, 1200);
         } else {
           $("#btnLogin").removeClass("is-loading");
