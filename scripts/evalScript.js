@@ -133,7 +133,7 @@ $(document).ready(function () {
   });
   $(".cancelar").on("click", function () {
     $(".input").val("");
-    location.href = "operations.php";
+    location.href = "operations.html";
   });
 });
 

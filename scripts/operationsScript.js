@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  // Index
   $("select").on("change", function () {
     // Metodo para cambios en el select
     // Inicializa el text de Botones

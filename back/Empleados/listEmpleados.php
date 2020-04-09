@@ -19,7 +19,7 @@
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
-                                <p class="title is-1 has-text-primary">' . $f->nombre . '</p>
+                                <p class="title has-text-primary">' . $f->nombre . '</p>
                             </div>
                         </div>
 

@@ -103,16 +103,16 @@ img {
   border-radius: 1rem;
   width: 30px;
   height: auto;
-  position: absolute; 
-  left: 10px; 
-  bottom: 10px; 
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
 }
 
 .modificar-producto {
   width: 50px;
 }
 
-.icono-basura{
+.icono-basura {
   width: 10%;
 }
 
@@ -123,4 +123,14 @@ img {
   position: absolute;
   right: 12%;
   top: 25%;
+}
+
+.clientField {
+  width: 25%;
+}
+
+@media (max-width: 768px) {
+  .clientField {
+    width: 100%;
+  }
 }

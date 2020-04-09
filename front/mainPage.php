@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once('../back/conecta.php');  //Conecta a la Base de datos
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
@@ -23,7 +24,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
 </head>
 
 <body>
-    <!-- Seccion principal  -->
+    <!-- Header  -->
     <section class="hero is-primary">
         <!-- Hero head: will stick at the top -->
         <div class="hero-head">
@@ -44,7 +45,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                             <a class="navbar-item is-active">Ventas</a>
                             <a class="navbar-item">Devolucion</a>
                             <span class="navbar-item">
-                                <a class="button is-primary is-inverted">
+                                <a id="logout" class="button is-primary is-inverted">
                                     <span class="icon">
                                         <i class="fas fa-user"></i>
                                     </span>
@@ -59,28 +60,52 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
 
         <!-- Hero content: will be in the middle -->
         <div class="hero-body">
-            <div class="container has-text-centered">
+            <div class="cont-mobile container has-text-centered">
+                <!-- Sesion en Empleado -->
                 <h1 class="title is-1">
-                    Bienvenido empleadoTal
+                    Bienvenido <?= $_SESSION['user'] ?>
                 </h1>
                 <h2 id="module" class="subtitle is-3">
                     Modulo Ventas
                 </h2>
-                <h2 class="subtitle is-5">
-                    Cliente: clienteTal
-                </h2>
+                <div class="columns container is-centered is-3">
+
+                    <div class="field clientField">
+                        <p class="control has-icons-left has-icons-right">
+                            <input id="clientEmail" class="input is-small is-rounded" type="email" placeholder="Correo electronico cliente" />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <!-- Sesion en Cliente -->
+                    <div id="clientUser" class="is-hidden">
+                        <h2 class="subtitle is-5">
+                            Cliente: <?= $_SESSION['client'] ?>
+                        </h2>
+                    </div>
+                    <a class="is-small button is-primary is-inverted is-rounded">
+                        <span class="icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <?php 
+                        if (isset($_SESSION['client'])) $btn = "Cambiar";
+                        else $btn = "Ingresar" ?>
+                        <span><?= $btn ?></span>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- Fin seccion principal -->
+    </section> <!-- Fin header -->
+
 
     <!-- Seccion Ventas  -->
-    <section id="Ventas" class="has-background-grey-lighter">
+    <section class="has-background-grey-lighter">
         <div class="container cont-mobile">
             <!-- Search Bar -->
             <div class="field search-bar">
                 <div class="control has-icons-left">
-                    <input class="input" type="text" id="search" name="search" />
+                    <input class="input is-rounded" type="text" id="search" name="search" placeholder="ID, Descripción o Departamento">
                     <span class="icon is-small is-left">
                         <i class="fas fa-search"></i>
                     </span>
@@ -88,47 +113,14 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
             </div> <!-- End Search Bar -->
 
             <!-- Products List -->
-            <?php
-            // Consulta MySql general
-            $sql = "SELECT * FROM producto WHERE status = 1 AND existencia > 0 ORDER BY id DESC";
-            $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
-            $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
-
-            ?>
             <div class="products">
                 <div class="columns is-multiline result">
-                    <?php for ($i = $fila; $f = $res->fetch_object(); $i--) { ?>
-                        <div class="column is-one-quarter">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <p class="title is-1 has-text-primary">$<?= $f->precio ?></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="content">
-                                        <p class="subtitle is-4">Stock: <?= $f->existencia ?></p>
-                                        <p class="title is-4"><?= $f->departamento ?></p>
-                                        Detalles: <?= $f->descripcion ?>
-                                    </div>
-                                </div>
-                                <footer id="<?= $f->id ?>" class="card-footer">
-                                    <a class="button card-footer-item is-primary is-light">
-                                        <span>Añadir al carrito</span>
-                                        <span class="icon">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </span>
-                                    </a>
-                                </footer>
-                            </div>
-                        </div>
-                    <?php } ?>
+                    <!-- Content in DB -->
                 </div>
-            </div>
-            <!-- End Products List -->
+            </div> <!-- End Products List -->
+
         </div>
-    </section> <!-- Fin seccion Ventas -->
+    </section>
 
     <div class="cantidad-carrito">
         <!-- Carrito - Cantidad -->
@@ -195,9 +187,10 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
             ?>
         </div> <!--  Fin ventana pedido -->
     </section>
+    <!-- Fin seccion Ventas -->
 
     <!-- Seccion Devolucion  -->
-    <section id="Devolucion" class="herois-hidden">
+    <section id="Devolucion" class="hero is-hidden">
         <!-- Hero content: will be in the middle -->
         <div class="hero-body">
             <div class="container has-text-centered">
@@ -210,7 +203,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
             </div>
         </div>
     </section>
-    <!-- Fin seccion Ventas -->
+    <!-- Fin seccion Devolucion -->
 </body>
 
 </html>
