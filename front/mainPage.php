@@ -65,33 +65,43 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                 <h1 class="title is-1">
                     Bienvenido <?= $_SESSION['user'] ?>
                 </h1>
+                <input id="workerUser" name="<?= $_SESSION['id_user'] ?>" class="is-hidden">
                 <h2 id="module" class="subtitle is-3">
                     Modulo Ventas
                 </h2>
                 <div class="columns container is-centered is-3">
-
-                    <div class="field clientField">
+                    <?php
+                    if ($_SESSION['client'] != "") {
+                        $flagInput = "is-hidden";
+                        $flagTitle = "";
+                    } else {
+                        $flagTitle = "is-hidden";
+                        $flagInput = "";
+                    }
+                    ?>
+                    <div class="field clientField <?= $flagInput ?>">
                         <p class="control has-icons-left has-icons-right">
-                            <input id="clientEmail" class="input is-small is-rounded" type="email" placeholder="Correo electronico cliente" />
+                            <input id="clientEmail" name="<?= $_SESSION['id_client'] ?>" class="input is-small is-rounded" type="email" placeholder="Correo electronico cliente" />
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
                         </p>
                     </div>
                     <!-- Sesion en Cliente -->
-                    <div id="clientUser" class="is-hidden">
+                    <div id="clientUser" class="<?= $flagTitle ?>">
                         <h2 class="subtitle is-5">
-                            Cliente: <?= $_SESSION['client'] ?>
+                            Cliente: <?= $_SESSION['client'] ?> -
                         </h2>
                     </div>
-                    <a class="is-small button is-primary is-inverted is-rounded">
+                    <a id="manageClient" class="is-small button is-primary is-inverted is-rounded">
                         <span class="icon">
                             <i class="fas fa-user"></i>
                         </span>
-                        <?php 
-                        if (isset($_SESSION['client'])) $btn = "Cambiar";
-                        else $btn = "Ingresar" ?>
-                        <span><?= $btn ?></span>
+                        <?php
+                        if ($_SESSION['client'] != "") $btn = "Cambiar";
+                        else $btn = "Ingresar"
+                        ?>
+                        <span id="type"><?= $btn ?></span>
                     </a>
                 </div>
             </div>
@@ -100,7 +110,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
 
 
     <!-- Seccion Ventas  -->
-    <section class="has-background-grey-lighter">
+    <section id="Ventas" class="has-background-grey-lighter">
         <div class="container cont-mobile">
             <!-- Search Bar -->
             <div class="field search-bar">
@@ -124,7 +134,10 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
 
     <div class="cantidad-carrito">
         <!-- Carrito - Cantidad -->
-        <img class="icono-carrito" src="../img/carrito.svg" alt="logo carrito" title="Productos venta"> <!-- SVG de icono carrito de compras -->
+        <!-- <span class="icon is-small icono-carrito icono">
+            <i class="fas fa-shopping-cart" title="Productos venta"></i>
+        </span> -->
+        <img class="icono-carrito icono" src="../img/carrito.svg" alt="logo carrito" title="Productos venta"> <!-- SVG de icono carrito de compras -->
         <?php
         $sql = "SELECT ventas.*, SUM(cantidad) AS total FROM venta_producto
                 INNER JOIN ventas ON venta_producto.id_venta = ventas.id WHERE status = 0";    // Suma la cantidad total de articulos en el pedido

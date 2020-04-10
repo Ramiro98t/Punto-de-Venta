@@ -35,17 +35,17 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-left">
-                            <p class="title is-1 has-text-primary">$' . $f->precio . '</p>
+                            <p class="title has-text-primary">$' . $f->precio . '</p>
                         </div>
                     </div>
                             
                     <div class="content">
                         <p class="title">' . $f->departamento . '</p>
-                        <p class="subtitle">Existencia: ' . $f->existencia . '</p>
+                        <p class="subtitle has-text-info">Existencia: ' . $f->existencia . '</p>
                         <p class="subtitle"> Detalles: ' . $f->descripcion . '</p>
                     </div>
                 </div>
-                <footer id="' .$f->id. '" class="card-footer is-hidden">
+                <footer id="' .$f->id. '" class="card-footer">
                     <a class="addBtn button card-footer-item is-primary is-light">
                         <span>Añadir al carrito</span>
                         <span class="icon">

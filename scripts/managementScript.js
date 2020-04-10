@@ -2,7 +2,6 @@
 function evalView(thisView) {
   // Modifica el subtitulo conforme la vista solicitada
   $("#module").html("Modulo " + thisView);
-
   // Ventana ventas
   if (thisView == "Ventas") {
     $("#Devolucion").addClass("is-hidden");
@@ -61,7 +60,7 @@ $(document).ready(function () {
         } else {
           // Al contenedor se le coloca el resultado de la busqueda
           $(".result").html(res);
-          $.getScript("../scripts/dbOperations.js");
+          $.getScript("../scripts/designOp.js");
         }
       },
     });

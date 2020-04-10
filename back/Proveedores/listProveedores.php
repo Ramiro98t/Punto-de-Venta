@@ -1,10 +1,26 @@
 <?php
     require_once('../conecta.php'); //Conecta a la Base de datos
+    
+    $term = $_POST["search"];       // Termino a buscar
+    
+    // Bandera que indica si es busqueda o muestra la lista completa
+    $flag = $_POST["flag"];  
 
     $output = '';                   // Almacena los resultados 
 
-    // Consulta MySql general
-    $sql = "SELECT * FROM proveedor ORDER BY id DESC";
+    // Si es busqueda
+    if ($flag) {
+        // Consulta MySql por busqueda
+        $sql = "SELECT * FROM proveedor WHERE (LOWER(nombre) LIKE LOWER('%$term%') 
+        OR LOWER(correo) LIKE LOWER('%$term%') OR LOWER(telefono) LIKE LOWER('%$term%')) ORDER BY id DESC";
+    }
+
+    // Muestra la lista completa
+    else {
+        // Consulta MySql general
+        $sql = "SELECT * FROM proveedor ORDER BY id DESC";
+    }
+    
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
@@ -16,10 +32,8 @@
             <div class="column is-one-quarter">
                 <div class="card">
                     <div class="card-content">
-                        <div class="media">
-                            <div class="media-left">
-                                <p class="title is-1 has-text-primary">' . $f->nombre . '</p>
-                            </div>
+                        <div class="">
+                            <p class="title is-1 has-text-primary">' . $f->nombre . '</p>
                         </div>
 
                         <div class="content">

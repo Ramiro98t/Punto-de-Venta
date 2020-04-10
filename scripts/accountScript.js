@@ -32,8 +32,10 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "./back/Cuentas/evalWorker.php",
-      data: { correo: email, cargo: position },
+      url: "./back/Cuentas/evalAccount.php",
+      data: { correo: email, 
+              cargo: position,
+              bandera: true },
       success: function (response) {
         // Datos correctos
         if (response != 0) {

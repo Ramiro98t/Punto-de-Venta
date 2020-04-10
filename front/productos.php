@@ -91,7 +91,7 @@
             </div>
         </div>
         <!-- Variable a considerar para reconocer el formulario -->
-        <input class="wForm" value="Productos">
+        <input class="wForm is-hidden" value="Productos">
     </div>
 </body>
 

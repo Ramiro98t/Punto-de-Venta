@@ -120,7 +120,7 @@
             </div>
         </div>
         <!-- Variable a considerar para reconocer el formulario -->
-        <input class="wForm" value="Empleados">
+        <input class="wForm is-hidden" value="Empleados">
     </div>
 </body>
 

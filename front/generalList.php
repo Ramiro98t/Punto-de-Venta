@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <input id="type" style="display: none" value="<?= $label ?>">   <!-- Almacena la categoria par la lista -->
+    <input id="type" class="is-hidden" value="<?= $label ?>">   <!-- Almacena la categoria par la lista -->
     <header class="hero has-background-grey-light">
         <div class="hero-body">
             <div class="container">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="column has-text-right">
                         <a href="#">
-                            <img src="../img/icon.png" class="logo" alt="Logo">
+                            <img src="../img/logo.png" class="logo" alt="Logo">
                         </a>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
             <!-- Search Bar -->
             <div class="field search-bar">
                 <div class="control has-icons-left">
-                    <input class="input" type="text" id="search" name="search">
+                    <input class="input is-rounded" type="text" id="search" name="search">
                     <span class="icon is-small is-left">
                         <i class="fas fa-search"></i>
                     </span>

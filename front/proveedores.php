@@ -64,7 +64,7 @@
             </div>
         </div>
         <!-- Variable a considerar para reconocer el formulario -->
-        <input class="wForm" value="Proveedores">
+        <input class="wForm is-hidden" value="Proveedores">
     </div>
 </body>
 
