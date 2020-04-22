@@ -1,8 +1,7 @@
-// ** FUNCIONES LISTA DE PRODUCTOS
+// ** FUNCIONES LISTAS
 $(document).ready(function () {
   // Almacena el tipo de vista: producto, empleado o proveedor
   let route = $("#type").val();
-  let data = ""; // Almacena el valor del input
   switch (route) {
     case "Empleados":
       $("#search").attr("placeholder", "Nombre, Ciudad, Cargo");
@@ -13,9 +12,13 @@ $(document).ready(function () {
     case "Proveedores":
       $("#search").attr("placeholder", "Nombre, Correo, Telefono");
       break;
+    case "Clientes":
+      $("#search").attr("placeholder", "Nombre, Correo, Telefono");
+      break;
   }
 
   /* BUSQUEDA */
+  let data = ""; // Almacena el valor del input de busqueda
   function ajaxSearch(data, flag) {
     $.ajax({
       url: "../back/" + route + "/list" + route + ".php",

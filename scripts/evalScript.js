@@ -1,6 +1,6 @@
 // Valida los campos del empleado
 function evalFormWorker() {
-  // Varibles que almacenan el valor de los input
+  // Variables que almacenan el valor de los input
   var nombre = $('input[name="nombre"]').val();
   var direccion = $('input[name="direccion"]').val();
   var ciudad = $('input[name="ciudad"]').val();
@@ -28,7 +28,7 @@ function evalFormWorker() {
 
 // Valida los campos del producto
 function evalFormProduct() {
-  // Varibles que almacenan el valor de los input
+  // Variables que almacenan el valor de los input
   var descripcion = $('input[name="descripcion"]').val();
   var departamento = $('input[name="departamento"]').val();
   var precio = $('input[name="precio"]').val();
@@ -54,7 +54,7 @@ function evalFormProduct() {
 
 // Valida los campos del proveedor
 function evalFormProvider() {
-  // Varibles que almacenan el valor de los input
+  // Variables que almacenan el valor de los input
   var nombre = $('input[name="nombre"]').val();
   var correo = $('input[name="correo"]').val();
   var telefono = $('input[name="telefono"]').val();
@@ -62,6 +62,30 @@ function evalFormProvider() {
   if (!nombre.length || !correo.length || !telefono.length) {
     $(".mensaje").html("Faltan campos por llenar"); // Modifica el contenedor, inserta al html.
     setTimeout("$('.mensaje').html('')", 2600);
+    return false;
+  } else {
+    return true;
+  }
+}
+
+// Valida los campos del cliente
+function evalFormClient() {
+  // Variables que almacenan el valor de los input
+  var nombre = $('input[name="nombre"]').val();
+  var direccion = $('input[name="direccion"]').val();
+  var telefono = $('input[name="telefono"]').val();
+  var cp = $('input[name="cp"]').val();
+  var email = $('input[name="email"]').val();
+  // Verifica que todos los datos del formulario hayan sido ingresados
+  if (
+    !nombre.length ||
+    !direccion.length ||
+    !telefono.length ||
+    !cp.length ||
+    !email.length
+  ) {
+    $(".mensaje").html("Faltan campos por llenar"); // Modifica el contenedor, inserta al html.
+    setTimeout("$('.mensaje').html('')", 2000);
     return false;
   } else {
     return true;
@@ -100,6 +124,11 @@ $(document).ready(function () {
           bandera = true;
         }
         break;
+      case "Clientes":
+        if (evalFormClient()) {
+          bandera = true;
+        }
+        break;
     }
     if (bandera) {
       var form = $(".mainForm")[0];
@@ -121,7 +150,7 @@ $(document).ready(function () {
             setTimeout("$('.mensaje').html('')", 1500);
             // setTimeout("$('.mensaje').html('')", 1500);
             setTimeout(function () {
-              location.reload();
+              // location.reload();
             }, 1500);
           } else {
             $(".mensaje").html("Datos incorrectos!"); // Mensaje de error

@@ -14,17 +14,22 @@ $(document).ready(function () {
 
     switch (op) {
       case "1":
-        $("#regBtn").attr("href", "./empleados.php");
+        $("#regBtn").attr("href", "./empleados.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Empleados");
         break;
 
       case "2":
-        $("#regBtn").attr("href", "./productos.php");
+        $("#regBtn").attr("href", "./productos.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Productos");
         break;
 
       case "3":
-        $("#regBtn").attr("href", "./proveedores.php");
+        $("#regBtn").attr("href", "./clientes.html");
+        $("#viewBtn").attr("href", "./generalList.php?label=Clientes");
+        break;
+
+      case "4":
+        $("#regBtn").attr("href", "./proveedores.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Proveedores");
         break;
 
