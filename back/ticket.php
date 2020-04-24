@@ -46,7 +46,7 @@ for ($i = $fila; $f = $res->fetch_object(); $i--) {
     $subtotal += $money;
     $fpdf->Text(15, $rPx, "$f->cantidad pz");
     $fpdf->Text(40, $rPx, "$f->descripcion");
-    $fpdf->Text(75, $rPx, "$money");
+    $fpdf->Text(75, $rPx, "$$money");
     $rPx+=3;
 }
 // Metodo de pago y Total
