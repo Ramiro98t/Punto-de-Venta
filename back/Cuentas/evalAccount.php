@@ -23,9 +23,10 @@
         $row = mysqli_fetch_assoc($res);
         $id_worker = $row['id'];
         $worker = $row['nombre'];
+        $arr = explode(' ',trim($worker));
 
         $_SESSION['id_user'] = $id_worker;
-        $_SESSION['user'] = $worker;
+        $_SESSION['user'] = $arr[0];
 
         $_SESSION['id_client'] = "";
         $_SESSION['client'] = "";

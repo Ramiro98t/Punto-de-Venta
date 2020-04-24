@@ -9,10 +9,8 @@ $(document).ready(function () {
     case "Productos":
       $("#search").attr("placeholder", "ID, Descripción, Departamento");
       break;
-    case "Proveedores":
-      $("#search").attr("placeholder", "Nombre, Correo, Telefono");
-      break;
     case "Clientes":
+    case "Proveedores":
       $("#search").attr("placeholder", "Nombre, Correo, Telefono");
       break;
   }
