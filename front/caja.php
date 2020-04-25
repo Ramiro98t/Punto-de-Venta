@@ -135,6 +135,7 @@ $id_worker = $_SESSION['id_user'];
             <div class="columns">
                 <h1 class="column title is-half">Total:</h1>
                 <h1 class="has-text-success column title is-half">$<?= $total ?></h1>
+                <input id="total" class="is-hidden" value="<?= $total ?>">
             </div>
             <div class="columns">
                 <div class="column">
@@ -148,24 +149,81 @@ $id_worker = $_SESSION['id_user'];
                     </div>
                 </div>
                 <div class="column">
-                    <form id="cash" class="cashForm" method="post">
+                    <!-- Formulario Efectivo -->
+                    <form id="cash" class="cashForm is-hidden">
                         <div class="datos-entrada">
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" type="text" name="recibo" placeholder="Recibido" />
+                                    <input id="cashInput" class="input" type="text" name="recibo" placeholder="Recibido" />
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> <!-- Fin Formulario Efectivo -->
+
+                    <!-- Formulario Tarjeta -->
+                    <form id="card" class="cardForm is-hidden">
+                        <div class="datos-entrada">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="numCard" placeholder="Numero de Tarjeta" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="fecha" placeholder="Fecha vencimiento" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="code" placeholder="Codigo CCV" />
+                                </div>
+                            </div>
+                            <!-- #cardInput almacena la cantidad a tomar de la tarjeta -->
+                        </div>
+                    </form> <!-- Fin Formulario Tarjeta -->
+
+                    <!-- Formulario Ambos -->
+                    <form id="both" class="bothForm is-hidden">
+                        <div class="datos-entrada">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="numCard" placeholder="Numero de Tarjeta" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="fecha" placeholder="Fecha vencimiento" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="code" placeholder="Codigo CCV" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input id="cardBoth" class="input" type="text" name="reciboCard" placeholder="Recibido Tarjeta" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input id="cashBoth" class="input" type="text" name="reciboCash" placeholder="Recibido Efectivo" />
+                                </div>
+                            </div>
+                        </div>
+                    </form> <!-- Fin Formulario Ambos -->
+
+
                     <div class="mensaje">
                         <!-- Contiene mensaje del sistema -->
                     </div>
+                    <hr>
                     <div class="field is-grouped">
                         <div class="control">
-                            <input type="submit" class="button is-outlined is-medium is-success enviar" value="Pagar" />
+                            <input type="submit" class="button is-outlined is-medium is-success enviar is-hidden" value="Pagar" />
                         </div>
                         <div class="control">
-                            <input type="button" class="button is-outlined is-medium is-danger cancelar" value="Cancelar" />
+                            <input type="button" class="button is-outlined is-medium is-danger cancelar is-hidden" value="Cancelar" />
                         </div>
                     </div>
                 </div>

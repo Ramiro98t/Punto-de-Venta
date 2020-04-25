@@ -22,6 +22,26 @@ function evalView(thisView) {
   }
 }
 
+/** FUNCIONES DE CAJA **/
+// return 0 = no hay cambio
+// return < 0 = hay cambio
+// return > 0 = no ajusta
+function charge(efectivo, tarjeta, total){
+  if (efectivo && tarjeta) {
+    total -= tarjeta;
+    total -= efectivo;
+  }
+  else if (efectivo) {
+    total -= efectivo;
+  } 
+  else if (tarjeta) {
+    total -= tarjeta;
+  }
+  return total 
+}
+/** FIN FUNCIONES DE CAJA **/
+
+
 $(document).ready(function () {
   // Boton ver productos carrito
   $(".cantidad-carrito").on("click", function () {
@@ -95,32 +115,82 @@ $(document).ready(function () {
     }
   });
 
-  /** DEVOLUCIONES */
+  /** CAJA */
 
+  let op;
   $("select").on("change", function () {
+    $(".enviar").removeClass("is-hidden");
+    $(".cancelar").removeClass("is-hidden");
+    // Activa botones pago
+    $("#cash, #card, #both").addClass("is-hidden");
+    op = $(this).val();
+
     switch (op) {
       case "1":
-        $("#card").toggleClass("is-hidden");
-        $("#both").toggleClass("is-hidden");
+        $("#cash").removeClass("is-hidden");
         break;
 
       case "2":
-        $("#cash").toggleClass("is-hidden");
-        $("#both").toggleClass("is-hidden");
+        $("#card").removeClass("is-hidden");
         break;
 
       case "3":
-        $("#cash").toggleClass("is-hidden");
-        $("#card").toggleClass("is-hidden");
-        break;
-
-      default:
+        $("#both").removeClass("is-hidden");
         break;
     }
-    $(".button").show();
   });
-  /*
-   * Hide buttons at the beginning
-   */
-  $(".button").hide();
+
+  $(".enviar").on("click", function () {
+    let total = $("#total").val();
+    let cash = $("#cashInput").val();
+    // let card = $("#cardInput").val();
+    let card = 1; // Suponiendo que almacena algo
+    // Validar info tarjetas
+    let cashBoth = $("#cashBoth").val();
+    let cardBoth = $("#cardBoth").val();
+    let absMoney = 0;
+
+    // inside if > || card
+    if (cash || cashBoth || cardBoth) {
+      switch (op) {
+        case "1":
+          absMoney = charge(cash, 0, total)
+          break;
+  
+        case "2":
+          // charge(cash, card, total)
+          absMoney = charge(0, total, total)
+          break;
+  
+        case "3":
+          absMoney = charge(cashBoth, cardBoth, total)
+          break;
+      }
+      absMoney = absMoney.toFixed(2);   // Muestra dos decimales
+      // Hay cambio
+      if (absMoney < 0) {
+        alert(`Le sobran: $${absMoney}, Gracias por su compra!`)
+      }
+      // No hay cambio
+      if (absMoney == 0) {
+        alert("Gracias por su compra!");
+      }
+      // No se ajusta
+      if (absMoney > 0) {
+        alert("Es insuficiente");
+      }
+    }
+    else {
+      $(".mensaje").html("Favor de revisar bien la informacion");
+      setTimeout(() => {
+        $(".mensaje").html("");
+      }, 2000);
+    }
+
+  });
+  
+  $(".cancelar").on("click", function () {
+    alert("cancelaar");
+  });
+
 });
