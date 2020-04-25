@@ -34,7 +34,7 @@
         // Si no existe un pedido con ese producto se inserta el nuevo producto
         else {
             $sql = "INSERT INTO venta_producto VALUES
-                    (0,'$id_venta','$producto',1)";
+                    ('$id_venta','$producto',1)";
             $res = mysqli_query($con,$sql);
         }
         echo 1;
@@ -57,7 +57,7 @@
         
             // Inserta a la misma venta el producto
             $sql = "INSERT INTO venta_producto VALUES
-                    (0,'$id_venta','$producto',1)";
+                    ('$id_venta','$producto',1)";
             $res = mysqli_query($con, $sql);
             echo 1;
         }

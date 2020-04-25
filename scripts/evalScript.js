@@ -150,7 +150,7 @@ $(document).ready(function () {
             setTimeout("$('.mensaje').html('')", 1500);
             // setTimeout("$('.mensaje').html('')", 1500);
             setTimeout(function () {
-              // location.reload();
+              location.reload();
             }, 1500);
           } else {
             $(".mensaje").html("Datos incorrectos!"); // Mensaje de error

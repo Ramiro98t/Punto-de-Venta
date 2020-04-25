@@ -17,6 +17,10 @@
 
     $res = mysqli_query($con, $sql);
 
+    // Eliminar donde sea cantidad llegue a 0
+    $xSql = "DELETE FROM venta_producto WHERE cantidad = 0";
+    $xRes = mysqli_query($con, $xSql);
+
     if ($res) {
         echo 1;
     }

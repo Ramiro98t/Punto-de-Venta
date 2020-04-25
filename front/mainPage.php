@@ -88,21 +88,23 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                         </p>
                     </div>
                     <!-- Sesion en Cliente -->
-                    <div id="clientUser" class="<?= $flagTitle ?>">
-                        <h2 class="subtitle is-5">
-                            Cliente: <?= $_SESSION['client'] ?> -
-                        </h2>
+                    <div id="clientSession">
+                        <div id="clientUser" class="<?= $flagTitle ?>">
+                            <h2 class="subtitle is-5">
+                                Cliente: <?= $_SESSION['client'] ?> -
+                            </h2>
+                        </div>
+                        <a id="manageClient" class="is-small button is-primary is-inverted is-rounded">
+                            <span class="icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <?php
+                            if ($_SESSION['client'] != "") $btn = "Cambiar";
+                            else $btn = "Ingresar"
+                            ?>
+                            <span id="type"><?= $btn ?></span>
+                        </a>
                     </div>
-                    <a id="manageClient" class="is-small button is-primary is-inverted is-rounded">
-                        <span class="icon">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <?php
-                        if ($_SESSION['client'] != "") $btn = "Cambiar";
-                        else $btn = "Ingresar"
-                        ?>
-                        <span id="type"><?= $btn ?></span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -208,11 +210,17 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title is-1">
-                    PROXIMAMENTE
+                    INGRESE EL CODIGO DE VENTA
                 </h1>
-                <h1 class="title">
-                    Seccion Devolucion
-                </h1>
+                <!-- Search Bar -->
+                <div id="search-dev">
+                    <div class="control has-icons-left">
+                        <input class="input is-rounded" type="text" id="search" name="search" placeholder="ID o Correo cliente">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div> <!-- End Search Bar -->
             </div>
         </div>
     </section>

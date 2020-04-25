@@ -7,14 +7,18 @@ function evalView(thisView) {
     $("#Devolucion").addClass("is-hidden");
     $("#" + thisView).removeClass("is-hidden");
     $(".cantidad-carrito").removeClass("is-hidden");
+    $("#clientSession").removeClass("is-hidden");
+    $(".clientField").removeClass("is-hidden");
   }
 
   // Ventana devolucion
   if (thisView == "Devolucion") {
+    $(".clientField").addClass("is-hidden");
     $("#Ventas").addClass("is-hidden");
     $("#carrito").addClass("is-hidden");
     $(".cantidad-carrito").addClass("is-hidden");
     $("#" + thisView).removeClass("is-hidden");
+    $("#clientSession").addClass("is-hidden");
   }
 }
 
@@ -90,4 +94,33 @@ $(document).ready(function () {
       location.href = "../back/desconecta.php";
     }
   });
+
+  /** DEVOLUCIONES */
+
+  $("select").on("change", function () {
+    switch (op) {
+      case "1":
+        $("#card").toggleClass("is-hidden");
+        $("#both").toggleClass("is-hidden");
+        break;
+
+      case "2":
+        $("#cash").toggleClass("is-hidden");
+        $("#both").toggleClass("is-hidden");
+        break;
+
+      case "3":
+        $("#cash").toggleClass("is-hidden");
+        $("#card").toggleClass("is-hidden");
+        break;
+
+      default:
+        break;
+    }
+    $(".button").show();
+  });
+  /*
+   * Hide buttons at the beginning
+   */
+  $(".button").hide();
 });

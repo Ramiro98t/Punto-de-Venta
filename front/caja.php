@@ -66,52 +66,20 @@ $id_worker = $_SESSION['id_user'];
                 <h1 class="title is-1">
                     Bienvenido <?= $_SESSION['user'] ?>
                 </h1>
-                <input id="workerUser" name="<?= $_SESSION['id_user'] ?>" class="is-hidden">
-                <h2 id="module" class="subtitle is-3">
+                <h2 class="subtitle is-3">
                     Modulo Caja
                 </h2>
-                <div class="columns container is-centered is-3">
-                    <?php
-                    if ($_SESSION['client'] != "") {
-                        $flagInput = "is-hidden";
-                        $flagTitle = "";
-                    } else {
-                        $flagTitle = "is-hidden";
-                        $flagInput = "";
-                    }
-                    ?>
-                    <div class="field clientField <?= $flagInput ?>">
-                        <p class="control has-icons-left has-icons-right">
-                            <input id="clientEmail" name="<?= $_SESSION['id_client'] ?>" class="input is-small is-rounded" type="email" placeholder="Correo electronico cliente" />
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                        </p>
-                    </div>
-                    <!-- Sesion en Cliente -->
-                    <div id="clientUser" class="<?= $flagTitle ?>">
-                        <h2 class="subtitle is-5">
-                            Cliente: <?= $_SESSION['client'] ?> -
-                        </h2>
-                    </div>
-                    <a id="manageClient" class="is-small button is-primary is-inverted is-rounded">
-                        <span class="icon">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <?php
-                        if ($_SESSION['client'] != "") $btn = "Cambiar";
-                        else $btn = "Ingresar"
-                        ?>
-                        <span id="type"><?= $btn ?></span>
-                    </a>
-                </div>
+                <!-- Sesion en Cliente -->
+                <h2 class="subtitle is-5">
+                    Cliente: <?= $_SESSION['client'] ?>
+                </h2>
             </div>
         </div>
     </section> <!-- Fin header -->
 
     <main class="container">
         <hr>
-        <div class="columns has-text-centered">
+        <div class="is-mobile columns has-text-centered">
             <div class="column is-one-third">
                 <h2 class="title">Articulo</h2>
             </div>
@@ -146,7 +114,7 @@ $id_worker = $_SESSION['id_user'];
             $money = $f->cantidad * $f->precio;
             $total += $money;
         ?>
-            <div class="columns has-text-centered card">
+            <div class="is-mobile columns has-text-centered card">
                 <!-- Fila de productos en pedido -->
                 <div class="column subtitle is-one-third is-marginless">
                     <div><?= $f->descripcion ?></div>
@@ -161,13 +129,49 @@ $id_worker = $_SESSION['id_user'];
         <?php
         }
         ?>
+        <hr>
 
-        <div class="columns has-text-centered is-multiline">
-            <h1 class="column title is-half">Total:</h1>
-            <h1 class="has-text-success column title is-half">$<?= $total ?></h1>
-            <hr>
-            <div class="column">
-                <a class="button is-dark" href="../back/ticket.php?id_v=<?=$id_venta?>" target="_blank">Imprimir ticket</a>
+        <div class=" has-text-centered is-multiline">
+            <div class="columns">
+                <h1 class="column title is-half">Total:</h1>
+                <h1 class="has-text-success column title is-half">$<?= $total ?></h1>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="select">
+                        <select>
+                            <option disabled selected>Metodo de pago</option>
+                            <option value="1">Efectivo</option>
+                            <option value="2">Tarjeta</option>
+                            <option value="3">Ambas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <form id="cash" class="cashForm" method="post">
+                        <div class="datos-entrada">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" name="recibo" placeholder="Recibido" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mensaje">
+                        <!-- Contiene mensaje del sistema -->
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <input type="submit" class="button is-outlined is-medium is-success enviar" value="Pagar" />
+                        </div>
+                        <div class="control">
+                            <input type="button" class="button is-outlined is-medium is-danger cancelar" value="Cancelar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="imprimir" class="is-hidden">
+                <a class="button is-dark" href="../back/ticket.php?id_v=<?= $id_venta ?>" target="_blank">Imprimir ticket</a>
             </div>
         </div>
 
