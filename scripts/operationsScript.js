@@ -1,5 +1,11 @@
 $(document).ready(function () {
+  $("#corte").on("click", function () {
+    // Trigger Click
+    alert("CORTE DE CAJA"); // Corte de Caja
+  });
+
   $("select").on("change", function () {
+    $(".button").removeClass("is-hidden");
     // Metodo para cambios en el select
     // Inicializa el text de Botones
     $("#regBtn").html("Registrar");
@@ -33,13 +39,15 @@ $(document).ready(function () {
         $("#viewBtn").attr("href", "./generalList.php?label=Proveedores");
         break;
 
+      case "5":
+        $("#regBtn").html($("#viewBtn").html());
+        $("#regBtn").attr("href", "./generalList.php?label=Movimientos");
+        $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");
+        break;
+
       default:
         break;
     }
     $(".button").show();
   });
-  /*
-   * Hide buttons at the beginning
-   */
-  $(".button").hide();
 });

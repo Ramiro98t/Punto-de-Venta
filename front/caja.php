@@ -231,6 +231,8 @@ $id_worker = $_SESSION['id_user'];
             <div id="imprimir" class="is-hidden">
                 <a class="button is-dark" href="../back/ticket.php?id_v=<?= $id_venta ?>" target="_blank">Imprimir ticket</a>
             </div>
+            <hr>
+            
         </div>
 
     </main>

@@ -2,6 +2,8 @@
 $(document).ready(function () {
   // Almacena el tipo de vista: producto, empleado o proveedor
   let route = $("#type").val();
+
+  // Vistas - Modifica PlaceHolder de Busqueda
   switch (route) {
     case "Empleados":
       $("#search").attr("placeholder", "Nombre, Ciudad, Cargo");
@@ -13,6 +15,37 @@ $(document).ready(function () {
     case "Proveedores":
       $("#search").attr("placeholder", "Nombre, Correo, Telefono");
       break;
+    case "Movimientos":
+      $("#search").attr("placeholder", "ID de Movimiento");
+      // Oculta la barra de busqueda si es Movimientos
+      $(".search-bar").addClass("is-hidden");
+      break;
+  }
+
+  if (route == "Movimientos") {
+    // Vistas de Movimientos
+    $("select").on("change", function () {
+      // Trigger change, modifica la busqueda
+      let type = $(this).val();
+      switch (type) {
+        case "1": // Entrada - Compra
+          route = "Compras";
+          break;
+        case "2": // Entrada - Devolucion
+          route = "Devoluciones";
+          break;
+        case "3": // Salida - Venta
+          route = "Ventas";
+          break;
+        case "4": // Salida - Devolucion Proveedor
+          route = "devProveedores";
+          break;
+        default:
+          break;
+      }
+      // Muestra la barra de busqueda
+      $(".search-bar").removeClass("is-hidden");
+    });
   }
 
   /* BUSQUEDA */
@@ -24,11 +57,14 @@ $(document).ready(function () {
       data: { search: data, flag: flag },
       dataType: "text",
       success: function (res) {
+        // No encuentra datos
         if (res == 0) {
           $(".result").html(
             '<div class="column"><p class="subtitle is-1">Sin Resultados</p></div>'
           );
         } else {
+          // Encuentra datos
+          $.getScript("../scripts/buttonScripts.js");
           // Al contenedor se le coloca el resultado de la busqueda
           $(".result").html(res);
         }
@@ -36,8 +72,8 @@ $(document).ready(function () {
     });
   }
 
-  // Al inicio siempre muestra los productos
-  if (!data) {
+  // Al inicio siempre muestra los registros | Mientras no sean Movimientos
+  if (!data && route != "Movimientos") {
     ajaxSearch(data, false);
   }
 

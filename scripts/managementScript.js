@@ -8,17 +8,32 @@ function evalView(thisView) {
     $("#" + thisView).removeClass("is-hidden");
     $(".cantidad-carrito").removeClass("is-hidden");
     $("#clientSession").removeClass("is-hidden");
-    $(".clientField").removeClass("is-hidden");
+    // $(".clientField").removeClass("is-hidden");
   }
 
   // Ventana devolucion
   if (thisView == "Devolucion") {
-    $(".clientField").addClass("is-hidden");
+    // $(".clientField").addClass("is-hidden");
     $("#Ventas").addClass("is-hidden");
     $("#carrito").addClass("is-hidden");
     $(".cantidad-carrito").addClass("is-hidden");
     $("#" + thisView).removeClass("is-hidden");
     $("#clientSession").addClass("is-hidden");
+  }
+  /** ALMACEN */
+  if (thisView == "Movimientos") {
+    $("#titulo").html("INGRESE EL CODIGO DE VENTA");
+    $("#adjust").addClass("is-hidden");
+    $("#mov").removeClass("is-hidden");
+    $("#busqueda").addClass("is-hidden");
+  }
+  if (thisView == "Ajustes") {
+    $("#tipo").prop("selectedIndex", 0); // Reinicia Select
+    $("#motivo").prop("selectedIndex", 0); // Reinicia Select
+    $("#titulo").html("INGRESE EL CODIGO DE MOVIMIENTO");
+    $("#adjust").removeClass("is-hidden");
+    $("#mov").addClass("is-hidden");
+    $("#busqueda").removeClass("is-hidden");
   }
 }
 
@@ -158,6 +173,7 @@ $(document).ready(function () {
           break;
   
         case "2":
+        location.href = "./back/validaCompra.php";
           // charge(cash, card, total)
           absMoney = charge(0, total, total)
           break;
@@ -167,13 +183,25 @@ $(document).ready(function () {
           break;
       }
       absMoney = absMoney.toFixed(2);   // Muestra dos decimales
-      // Hay cambio
-      if (absMoney < 0) {
-        alert(`Le sobran: $${absMoney}, Gracias por su compra!`)
-      }
-      // No hay cambio
-      if (absMoney == 0) {
-        alert("Gracias por su compra!");
+      if (absMoney < 0 || absMoney == 0) {
+        // Hay cambio
+        if (absMoney < 0) {
+          alert(`Le sobran: $${absMoney}, Gracias por su compra!`);
+        }
+        // No hay cambio
+        else {      
+          alert("Gracias por su compra!");
+        }
+        $.ajax({
+          // type: "method",
+          url: "../back/validaCompra.php",
+          // data: "data",
+          // dataType: "dataType",
+          success: function (response) {
+            $("#imprimir").removeClass("is-hidden");
+          }
+        });
+        // location.href = "";
       }
       // No se ajusta
       if (absMoney > 0) {
@@ -191,6 +219,42 @@ $(document).ready(function () {
   
   $(".cancelar").on("click", function () {
     alert("cancelaar");
+  });
+
+  /** DEVOLUCION */
+
+  function ajaxSearchDev(data) {
+    $.ajax({
+      url: "../back/Ventas/pedidos.php",
+      type: "POST",
+      data: { search: data },
+      dataType: "text",
+      success: function (res) {
+        if (res == 0) {
+          $(".resultDev").html(
+            '<div class="column"><p class="subtitle is-1">Sin Resultados</p></div>'
+          );
+
+          // Recarga el contenedor y agrega el script
+        } else {
+          // Al contenedor se le coloca el resultado de la busqueda
+          $(".resultDev").html(res);
+          // script devoluciones
+          $.getScript("../scripts/devScript.js");
+        }
+      },
+    });
+  }
+
+  $("#searchDev").on("keyup", function () {
+    data = $(this).val(); // Almacena el texto
+    if (data) {
+      // Si contiene info realiza la busqueda
+      ajaxSearchDev(data);
+    } 
+    else{
+      $(".resultDev").html("");
+    }
   });
 
 });

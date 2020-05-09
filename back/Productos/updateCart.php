@@ -7,7 +7,17 @@
     $bandera = $_POST["bandera"];   // Valida si se vacia el carrito
 
     if ($bandera) { // Modificacion total (Vaciar carrito)
-        $sql = "UPDATE venta_producto SET cantidad = '$cantidad'";
+        $sql = "SELECT * FROM ventas WHERE status = 0";
+        $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
+       
+        $id_v = $res->fetch_object();
+        $id_v = $id_v->id;
+
+        // Cerrar venta
+        $sql = "DELETE FROM ventas WHERE status = 0";
+        $res = mysqli_query($con, $sql);
+
+        $sql = "UPDATE venta_producto SET cantidad = '$cantidad' WHERE id_venta = '$id_v'";
     }
     
     else {          // Modificacion individual

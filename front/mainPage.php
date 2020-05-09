@@ -207,7 +207,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
     <!-- Seccion Devolucion  -->
     <section id="Devolucion" class="hero is-hidden">
         <!-- Hero content: will be in the middle -->
-        <div class="hero-body">
+        <div class="hero-body has-background-grey-lighter">
             <div class="container has-text-centered">
                 <h1 class="title is-1">
                     INGRESE EL CODIGO DE VENTA
@@ -215,15 +215,53 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                 <!-- Search Bar -->
                 <div id="search-dev">
                     <div class="control has-icons-left">
-                        <input class="input is-rounded" type="text" id="search" name="search" placeholder="ID o Correo cliente">
+                        <input class="input is-rounded" type="text" id="searchDev" name="search" placeholder="ID o Correo cliente">
                         <span class="icon is-small is-left">
                             <i class="fas fa-search"></i>
                         </span>
                     </div>
                 </div> <!-- End Search Bar -->
+                <hr>
+                <!-- Sells List -->
+                <div class="sells">
+                    <div class="columns is-multiline resultDev">
+                        <!-- Content in DB -->
+                    </div>
+                </div> <!-- End Sells List -->
             </div>
         </div>
     </section>
+
+     <!-- Modal Devolucion Unitaria-->
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Devolucion unitaria</p>
+            <button class="delete exit-modal" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <p class="title">
+              Pedido: ID
+            </p>
+            <p class="subtitle pedidos_venta">
+              
+            </p>
+            <p class="help has-text-grey">Por Ramiro Mendez</p>
+          </section>
+          <footer class="modal-card-foot">
+            <!-- <button class="button is-success">Entendido</button> -->
+            <!-- <button class="button">Cerrar</button> -->
+          </footer>
+        </div>
+        <button
+          class="modal-close is-large exit-modal"
+          aria-label="close"
+        ></button>
+      </div>
+    </div>
+    <!-- End Modal -->
     <!-- Fin seccion Devolucion -->
 </body>
 

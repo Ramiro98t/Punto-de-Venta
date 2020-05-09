@@ -1,5 +1,5 @@
-<?php 
-    $label = $_GET["label"]
+<?php
+$label = $_GET["label"]
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,12 +17,13 @@
     <!-- Relacion archivo(online) jquery-script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
+    <script src="../scripts/designScript.js"></script>
     <script src="../scripts/generalListScript.js"></script>
     <title>Catalogo</title>
 </head>
 
 <body>
-    <input id="type" class="is-hidden" value="<?= $label ?>">   <!-- Almacena la categoria par la lista -->
+    <input id="type" class="is-hidden" value="<?= $label ?>"> <!-- Almacena la categoria par la lista -->
     <header class="hero has-background-grey-light">
         <div class="hero-body">
             <div class="container">
@@ -40,6 +41,15 @@
                             <img src="../img/logo.png" class="logo" alt="Logo">
                         </a>
                     </div>
+                </div>
+                <div class="select is-small">
+                    <select>
+                        <option disabled selected>Tipo</option>
+                        <option value="1">Entrada - Compra</option>
+                        <option value="2">Entrada - Devolucion</option>
+                        <option value="3">Salida - Venta</option>
+                        <option value="4">Salida - Devolucion Proveedor</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -70,6 +80,27 @@
         </div>
     </section>
     <!-- End Main -->
+
+    <!-- Modal Detalle -->
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Información General</p>
+                    <button class="delete exit-modal" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content in DB -->
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button exit-modal">Cerrar</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large exit-modal" aria-label="close"></button>
+        </div>
+    </div>
+    <!-- End Modal -->
 </body>
 
 </html>
