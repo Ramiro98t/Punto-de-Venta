@@ -10,6 +10,9 @@ $(document).ready(function () {
       case "devolucion":
         url = "../back/Devoluciones/detalles.php";
         break;
+      case "movimiento":
+        url = "../back/Movimientos/detalles.php";
+        break;
 
       default:
         break;
@@ -26,4 +29,6 @@ $(document).ready(function () {
       },
     });
   });
+
+
 });

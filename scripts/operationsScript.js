@@ -38,10 +38,22 @@ $(document).ready(function () {
         $("#regBtn").attr("href", "./proveedores.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Proveedores");
         break;
-
+      
       case "5":
         $("#regBtn").html($("#viewBtn").html());
-        $("#regBtn").attr("href", "./generalList.php?label=Movimientos");
+        $("#regBtn").attr("href", "./generalList.php?label=Ventas");
+        $("#viewBtn").attr("href", "./generalList.php?label=Ventas");
+        break;
+
+      case "6":
+        $("#regBtn").html($("#viewBtn").html());
+        $("#regBtn").attr("href", "./generalList.php?label=Devoluciones");
+        $("#viewBtn").attr("href", "./generalList.php?label=Devoluciones");
+        break;
+
+      case "7":
+        $("#regBtn").html("Registrar Ajuste");
+        $("#regBtn").attr("href", "./ajuste.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");
         break;
 
@@ -49,5 +61,8 @@ $(document).ready(function () {
         break;
     }
     $(".button").show();
+  });
+  $(".button").on("click", function () {
+    $("select").prop("selectedIndex", 0); // Reinicia Select
   });
 });

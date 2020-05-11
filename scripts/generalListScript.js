@@ -8,53 +8,44 @@ $(document).ready(function () {
     case "Empleados":
       $("#search").attr("placeholder", "Nombre, Ciudad, Cargo");
       break;
+
     case "Productos":
       $("#search").attr("placeholder", "ID, Descripción, Departamento");
       break;
+
     case "Clientes":
     case "Proveedores":
       $("#search").attr("placeholder", "Nombre, Correo, Telefono");
       break;
+
+    case "Ventas":
+    case "Devoluciones":
+      $("#search").attr("placeholder", "ID, Nombre Empleado, Fecha");
+      break;
+
     case "Movimientos":
       $("#search").attr("placeholder", "ID de Movimiento");
       // Oculta la barra de busqueda si es Movimientos
       $(".search-bar").addClass("is-hidden");
+      // Vistas de Movimientos
+      $("select").on("change", function () {
+        // Trigger change, modifica la busqueda
+        type = $(this).val(); // Obtiene el tipo de movimiento
+        // Muestra la barra de busqueda
+        $(".search-bar").removeClass("is-hidden");
+      });
       break;
   }
 
-  if (route == "Movimientos") {
-    // Vistas de Movimientos
-    $("select").on("change", function () {
-      // Trigger change, modifica la busqueda
-      let type = $(this).val();
-      switch (type) {
-        case "1": // Entrada - Compra
-          route = "Compras";
-          break;
-        case "2": // Entrada - Devolucion
-          route = "Devoluciones";
-          break;
-        case "3": // Salida - Venta
-          route = "Ventas";
-          break;
-        case "4": // Salida - Devolucion Proveedor
-          route = "devProveedores";
-          break;
-        default:
-          break;
-      }
-      // Muestra la barra de busqueda
-      $(".search-bar").removeClass("is-hidden");
-    });
-  }
-
   /* BUSQUEDA */
+  let type = ""; // Almacena el valor del tipo para movimientos
   let data = ""; // Almacena el valor del input de busqueda
-  function ajaxSearch(data, flag) {
+
+  function ajaxSearch(data, flag, type) {
     $.ajax({
       url: "../back/" + route + "/list" + route + ".php",
       type: "POST",
-      data: { search: data, flag: flag },
+      data: { search: data, flag: flag, type: type },
       dataType: "text",
       success: function (res) {
         // No encuentra datos
@@ -74,7 +65,7 @@ $(document).ready(function () {
 
   // Al inicio siempre muestra los registros | Mientras no sean Movimientos
   if (!data && route != "Movimientos") {
-    ajaxSearch(data, false);
+    ajaxSearch(data, false, type);
   }
 
   // Al teclear en el input se ejecuta la busqueda
@@ -82,10 +73,10 @@ $(document).ready(function () {
     data = $(this).val(); // Almacena el texto
     if (data) {
       // Si contiene info realiza la busqueda
-      ajaxSearch(data, true);
+      ajaxSearch(data, true, type);
     } else {
       // Si no contiene nada muestra todos los productos
-      ajaxSearch(data, false);
+      ajaxSearch(data, false, type);
     }
   });
 });
