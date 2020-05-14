@@ -8,12 +8,12 @@ function evalView(thisView) {
     $("#" + thisView).removeClass("is-hidden");
     $(".cantidad-carrito").removeClass("is-hidden");
     $("#clientSession").removeClass("is-hidden");
-    // $(".clientField").removeClass("is-hidden");
+    $(".clientField").removeClass("is-hidden");
   }
 
   // Ventana devolucion
   if (thisView == "Devolucion") {
-    // $(".clientField").addClass("is-hidden");
+    $(".clientField").addClass("is-hidden");
     $("#Ventas").addClass("is-hidden");
     $("#carrito").addClass("is-hidden");
     $(".cantidad-carrito").addClass("is-hidden");
@@ -41,21 +41,18 @@ function evalView(thisView) {
 // return 0 = no hay cambio
 // return < 0 = hay cambio
 // return > 0 = no ajusta
-function charge(efectivo, tarjeta, total){
+function charge(efectivo, tarjeta, total) {
   if (efectivo && tarjeta) {
     total -= tarjeta;
     total -= efectivo;
-  }
-  else if (efectivo) {
+  } else if (efectivo) {
     total -= efectivo;
-  } 
-  else if (tarjeta) {
+  } else if (tarjeta) {
     total -= tarjeta;
   }
-  return total 
+  return total;
 }
 /** FIN FUNCIONES DE CAJA **/
-
 
 $(document).ready(function () {
   // Boton ver productos carrito
@@ -131,7 +128,51 @@ $(document).ready(function () {
   });
 
   /** CAJA */
+  $("#cantidadTotal").html("TOTAL $" + $("#subTotalIva").val());  // Inicializa el total
+  $("#total").val($("#subTotalIva").val());
 
+  // Descuento
+  $("#desc").on("click", function () {
+    if (!$("#codesc").val()) {
+      $(".mensaje").html("No se ha ingresado Codigo");
+      setTimeout(() => {
+        $(".mensaje").html("");
+      }, 1500);
+    } else {
+      let codigo = $("#codesc").val();
+      $.ajax({
+        type: "post",
+        url: "../back/Ventas/descuento.php",
+        data: { codigo: codigo },
+        dataType: "text",
+        success: function (r) {
+          if (r == 0) {
+            $(".mensaje").html("Lo sentimos, Su codigo no aplica");
+            setTimeout(() => {
+              $(".mensaje").html("");
+            }, 2000);
+          } else {
+            // Modifica Descuento
+            $("#aplicaDesc").html("Descuento: " + r[2] + r[3] + "%");
+            $("#descuento").val(r);       // Porcentaje descuento
+
+            let new_total = $("#subtotal").val(); // Subtotal
+            new_total *= r;               // Total = Subtotal * Descuento
+            new_total += new_total * $("#iva").val(); // Total += Total * IVA
+            
+            // Redondeo new total
+            new_total = Math.round(new_total * 100) / 100
+
+            // Asigna nuevo total
+            $("#total").val(new_total);
+            $("#cantidadTotal").html("TOTAL $" + new_total);
+          }
+        },
+      });
+    }
+  });
+
+  // Metodo de pago
   let op;
   $("select").on("change", function () {
     $(".enviar").removeClass("is-hidden");
@@ -140,87 +181,98 @@ $(document).ready(function () {
     $("#cash, #card, #both").addClass("is-hidden");
     op = $(this).val();
 
-    switch (op) {
-      case "1":
+    switch (
+      op // Valida metodo de pago
+    ) {
+      case "1": // Efectivo
         $("#cash").removeClass("is-hidden");
         break;
 
-      case "2":
+      case "2": // Tarjeta
         $("#card").removeClass("is-hidden");
         break;
 
-      case "3":
+      case "3": // Ambos
+        $("#card").removeClass("is-hidden");
         $("#both").removeClass("is-hidden");
         break;
     }
   });
 
+  function ejecutaPago(metodo) {
+    $.ajax({
+      type: "post",
+      url: "../back/validaCompra.php",
+      data: { pago: metodo },
+      dataType: "text",
+      success: function () {
+        $("#imprimir").removeClass("is-hidden");
+      },
+    });
+  }
+
   $(".enviar").on("click", function () {
     let total = $("#total").val();
     let cash = $("#cashInput").val();
-    // let card = $("#cardInput").val();
-    let card = 1; // Suponiendo que almacena algo
+    // let card = $("#cardInput").val();    // No se va a tomar una cantidad de la tarjeta
+    let card = 1;
     // Validar info tarjetas
     let cashBoth = $("#cashBoth").val();
     let cardBoth = $("#cardBoth").val();
     let absMoney = 0;
 
-    // inside if > || card
-    if (cash || cashBoth || cardBoth) {
-      switch (op) {
-        case "1":
-          absMoney = charge(cash, 0, total)
+    // Valida si algun input de pago ha sido recibido
+    if (cash || card || cashBoth || cardBoth) {
+      switch (
+        op // Valida el metodo de pago seleccionado
+      ) {
+        case "1": // Efectivo
+          absMoney = charge(cash, 0, total);
           break;
-  
-        case "2":
-        location.href = "./back/validaCompra.php";
-          // charge(cash, card, total)
-          absMoney = charge(0, total, total)
+
+        case "2": // Tarjeta
+          absMoney = charge(0, total, total);
+          ejecutaPago(op);
           break;
-  
-        case "3":
-          absMoney = charge(cashBoth, cardBoth, total)
+
+        case "3": // Ambos
+          absMoney = charge(cashBoth, cardBoth, total);
           break;
       }
-      absMoney = absMoney.toFixed(2);   // Muestra dos decimales
+      absMoney = absMoney.toFixed(2); // Muestra dos decimales
       if (absMoney < 0 || absMoney == 0) {
+        // Valida si hay cambio o si se pago(sin cambio)
         // Hay cambio
         if (absMoney < 0) {
           alert(`Le sobran: $${absMoney}, Gracias por su compra!`);
         }
         // No hay cambio
-        else {      
+        else {
           alert("Gracias por su compra!");
         }
-        $.ajax({
-          // type: "method",
-          url: "../back/validaCompra.php",
-          // data: "data",
-          // dataType: "dataType",
-          success: function (response) {
-            $("#imprimir").removeClass("is-hidden");
-          }
-        });
-        // location.href = "";
+        ejecutaPago(op);
       }
       // No se ajusta
       if (absMoney > 0) {
         alert("Es insuficiente");
       }
-    }
-    else {
+    } else {
       $(".mensaje").html("Favor de revisar bien la informacion");
       setTimeout(() => {
         $(".mensaje").html("");
       }, 2000);
     }
-
   });
-  
+
   $(".cancelar").on("click", function () {
     alert("cancelaar");
   });
 
+  $("#imprimir").on("click", function () {
+    window.open("../back/ticket.php?type=0", "_blank");
+    location.reload();
+    // onClick="window.location.reload();" href="../back/ticket.php?type=0" target="_blank"
+  });
   /** DEVOLUCION */
 
   function ajaxSearchDev(data) {
@@ -240,7 +292,7 @@ $(document).ready(function () {
           // Al contenedor se le coloca el resultado de la busqueda
           $(".resultDev").html(res);
           // script devoluciones
-          $.getScript("../scripts/devScript.js");
+          $.getScript("../scripts/designScript.js");
         }
       },
     });
@@ -251,10 +303,8 @@ $(document).ready(function () {
     if (data) {
       // Si contiene info realiza la busqueda
       ajaxSearchDev(data);
-    } 
-    else{
+    } else {
       $(".resultDev").html("");
     }
   });
-
 });

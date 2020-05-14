@@ -44,7 +44,7 @@
     else {
         // Crea una nueva venta para el cliente 
         $sql = "INSERT INTO ventas VALUES
-                (0,'$fecha', '$empleado', '$cliente', 0)";
+                (0,'$fecha', '$empleado', '$cliente', 0, 0)";
         $res = mysqli_query($con,$sql);
         
         if($res){

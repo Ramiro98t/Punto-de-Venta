@@ -215,7 +215,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                 <!-- Search Bar -->
                 <div id="search-dev">
                     <div class="control has-icons-left">
-                        <input class="input is-rounded" type="text" id="searchDev" name="search" placeholder="ID o Correo cliente">
+                        <input class="input is-rounded" type="text" id="searchDev" name="search" placeholder="ID">
                         <span class="icon is-small is-left">
                             <i class="fas fa-search"></i>
                         </span>
@@ -232,34 +232,40 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
         </div>
     </section>
 
-     <!-- Modal Devolucion Unitaria-->
+    <!-- Modal Devolucion Unitaria-->
     <div class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Devolucion unitaria</p>
-            <button class="delete exit-modal" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <p class="title">
-              Pedido: ID
-            </p>
-            <p class="subtitle pedidos_venta">
-              
-            </p>
-            <p class="help has-text-grey">Por Ramiro Mendez</p>
-          </section>
-          <footer class="modal-card-foot">
-            <!-- <button class="button is-success">Entendido</button> -->
-            <!-- <button class="button">Cerrar</button> -->
-          </footer>
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Devolucion unitaria</p>
+                    <button class="delete exit-modal" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <p class="title">
+                        Pedido:
+                    </p>
+                    <div class="columns">
+                        <p class="column subtitle is-three-fifths has-text-info">
+                            Descripcion
+                        </p>
+                        <p class="column subtitle is-one-fifths has-text-info">
+                            Motivo
+                        </p>
+                        <p class="column subtitle is-one-fifth has-text-info">
+                            Cantidad
+                        </p>
+                    </div>
+                    <div class="pedidos_venta">
+                        <!-- Content in DB -->
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button id="regDev" class="button">Generar devolucion</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large exit-modal" aria-label="close"></button>
         </div>
-        <button
-          class="modal-close is-large exit-modal"
-          aria-label="close"
-        ></button>
-      </div>
     </div>
     <!-- End Modal -->
     <!-- Fin seccion Devolucion -->

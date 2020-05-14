@@ -109,10 +109,10 @@ $id_worker = $_SESSION['id_user'];
         ?>
 
         <?php
-        $total = 0;
+        $subtotal = 0;
         for ($i = $fila; $f = $res->fetch_object(); $i--) {
             $money = $f->cantidad * $f->precio;
-            $total += $money;
+            $subtotal += $money;
         ?>
             <div class="is-mobile columns has-text-centered card">
                 <!-- Fila de productos en pedido -->
@@ -131,11 +131,37 @@ $id_worker = $_SESSION['id_user'];
         ?>
         <hr>
 
-        <div class=" has-text-centered is-multiline">
-            <div class="columns">
-                <h1 class="column title is-half">Total:</h1>
-                <h1 class="has-text-success column title is-half">$<?= $total ?></h1>
-                <input id="total" class="is-hidden" value="<?= $total ?>">
+        <div class=" has-text-centered">
+            <div class="columns is-multiline">
+                <h1 class="column title is-half">Subtotal:</h1>
+                <h1 class="has-text-success column title is-half">$<?= $subtotal ?></h1>
+                
+                <div class="column is-half is-flex is-centered columns">
+                    <input id="codesc" class="input column is-one-third" placeholder="Descuento">
+                    <button id="desc" class="button is-success">Aplicar</button>
+                </div>
+                <h1 id="aplicaDesc" class="column subtitle is-half">Descuento: 0</h1>
+
+                <div class="column is-half"></div>
+                <?php
+                    $sql = "SELECT * FROM iva ORDER BY fecha DESC LIMIT 1";
+                    $res = mysqli_query($con,$sql);
+                    
+                    $iva = $res->fetch_object();
+                    $ivaP = $iva->porcentaje;
+                    $iva = $ivaP[2].$ivaP[3]
+                ?>
+                <input id="subtotal" class="is-hidden" value="<?= $subtotal ?>">
+                <input id="descuento" class="is-hidden" value="1">
+                <input id="iva" class="is-hidden" value="<?= $ivaP ?>">
+                <input id="subTotalIva" class="is-hidden" value="<?= $total = $subtotal+round(($subtotal*$ivaP)) ?>">
+                <input id="total" class="is-hidden" value="">
+                
+                <div class="column is-half">IVA: <?= $iva ?>%</div>
+
+                <div class="column is-half"></div>
+                <div id="cantidadTotal" class="title column is-half"></div>
+
             </div>
             <div class="columns">
                 <div class="column">
@@ -184,22 +210,8 @@ $id_worker = $_SESSION['id_user'];
 
                     <!-- Formulario Ambos -->
                     <form id="both" class="bothForm is-hidden">
+                        <hr>
                         <div class="datos-entrada">
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input" type="text" name="numCard" placeholder="Numero de Tarjeta" />
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input" type="text" name="fecha" placeholder="Fecha vencimiento" />
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input" type="text" name="code" placeholder="Codigo CCV" />
-                                </div>
-                            </div>
                             <div class="field">
                                 <div class="control">
                                     <input id="cardBoth" class="input" type="text" name="reciboCard" placeholder="Recibido Tarjeta" />
@@ -229,7 +241,7 @@ $id_worker = $_SESSION['id_user'];
                 </div>
             </div>
             <div id="imprimir" class="is-hidden">
-                <a class="button is-dark" href="../back/ticket.php?id_v=<?= $id_venta ?>" target="_blank">Imprimir ticket</a>
+                <a class="button is-dark">Imprimir ticket</a>
             </div>
             <hr>
             

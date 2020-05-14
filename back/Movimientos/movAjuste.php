@@ -26,7 +26,7 @@
         $f = $res->fetch_object();
         $sql = "UPDATE producto SET existencia=existencia-'$f->cantidad'
                 WHERE id='$f->id_producto'";
-        $res = mysqli_query($con, $sql);
+        $resM = mysqli_query($con, $sql);
         
         $fila--;
     }

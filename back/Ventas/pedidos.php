@@ -3,18 +3,18 @@
 
     $term = $_POST["search"];       // Termino a buscar
      
-    
     $output = '';                   // Almacena los resultados 
 
     // Si es busqueda
-    $sql = "SELECT ventas.id AS id_venta, ventas.fecha, ventas.id_empleado, cliente.email, cliente.nombre
-            FROM cliente INNER JOIN ventas ON cliente.id = ventas.id_cliente
-            WHERE (ventas.id LIKE '%$term%' OR email LIKE '%$term%')";
+    $sql = "SELECT *, ventas.id AS id_venta, empleado.nombre AS nomEmp 
+    FROM ventas INNER JOIN empleado ON empleado.id = ventas.id_empleado 
+    INNER JOIN cliente ON cliente.id = ventas.id_cliente INNER JOIN movimiento 
+    ON movimiento.id_mov_asoc = ventas.id 
+    WHERE motivo = 3 AND (ventas.id LIKE '%$term%' OR cliente.email LIKE '%$term%')";
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
-    
     if (!$fila) echo 0;     // En caso de no encontrar coincidencias
 
     else {                  // En caso de encontrar coincidencias, imprime todas
@@ -31,21 +31,15 @@
                             
                     <div class="content">
                         <p class="title">' . $f->email . '</p>
-                        <p class="subtitle has-text-info">Fecha: ' . $f->fecha . '</p>
-                        <p class="subtitle"> ID Empleado: ' . $f->id_empleado . '</p>
+                        <p class="fecha subtitle has-text-info">Fecha: ' . $f->fecha . '</p>
+                        <p class="subtitle">Empleado: ' . $f->nomEmp . '</p>
                     </div>
                 </div>
                 <footer id="' .$f->id_venta. '" class="card-footer">
-                    <a class="todo button card-footer-item is-primary is-light">
-                        <span>Todo</span>
-                        <span class="icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </span>
-                    </a>
                     <a class="unit button card-footer-item is-primary is-light">
-                        <span>Unitario</span>
+                        <span>Productos</span>
                         <span class="icon">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-list"></i>
                         </span>
                     </a>
                 </footer>

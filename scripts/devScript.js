@@ -1,57 +1,37 @@
 $(document).ready(function () {
-  /** Devoluciones */
-  $("#tipo").on("change", function () {
-    $("#motivo").prop("selectedIndex", 0); // Reinicia Select
-    $("#busqueda").addClass("is-hidden");
-
-    let tipo = $(this).val();
-    $(".motivo").removeClass("is-hidden");
-    switch (tipo) {
-      case "1": // Entrada
-        $("#motivo  option[value='1']").attr("disabled", false);
-        $("#motivo  option[value='2']").attr("disabled", false);
-        $("#motivo  option[value='3']").attr("disabled", true);
-        $("#motivo  option[value='4']").attr("disabled", true);
-        break;
-
-      case "2": // Salida
-        $("#motivo  option[value='1']").attr("disabled", true);
-        $("#motivo  option[value='2']").attr("disabled", true);
-        $("#motivo  option[value='3']").attr("disabled", false);
-        $("#motivo  option[value='4']").attr("disabled", false);
-        break;
-
-      default:
-        break;
-    }
-  });
-
+  /** Almacenista */
   $("#motivo").on("change", function () {
     let motivo = $(this).val();
+
     switch (motivo) {
       case "1": // Entrada - Devolucion
+        $("#titulo").html("INGRESE EL ID DE DEVOLUCION");
         $("#busqueda").removeClass("is-hidden");
         break;
-      case "2": // Entrada - Compra
+        case "2": // Entrada - Compra
         $("#busqueda").addClass("is-hidden");
         break;
-      case "3": // Salida - Devolucion Cliente
-        $("#busqueda").addClass("is-hidden");
+        case "3": // Salida - Venta
+        $("#titulo").html("INGRESE EL ID DE VENTA");
+        $("#busqueda").removeClass("is-hidden");
         break;
-      case "4": // Salida - Devolucion Proveedor
-        $("#busqueda").addClass("is-hidden");
-        break;
-
       default:
         break;
     }
   });
-
+  // Busqueda de Devoluciones
   $("#enviar").on("click", function () {
     let search = $("#searchInput").val();
+    let url;
+    if(motivo == 1) {
+      url = "../back/Devoluciones/movimientos.php"
+    }
+    else {
+      url = "../back/Ventas/movimientos.php"
+    }
     $.ajax({
       type: "POST",
-      url: "../back/Ventas/productos.php",
+      url: url,
       data: { search: search },
       dataType: "text",
       success: function (response) {
@@ -63,7 +43,8 @@ $(document).ready(function () {
           }, 1800);
         } else {
           $(".modal").addClass("is-active");
-          $(".pedidos_venta").html(response);
+          $("#info-modal").html(response);
+          $.getScript("../scripts/designScript.js");
         }
       },
     });
@@ -71,23 +52,65 @@ $(document).ready(function () {
 
   /** Fin Devoluciones */
 
-  // Boton para agregar producto en carrito
-  $(".unit").on("click", function () {
-    $(".modal").addClass("is-active");
-
-    let id_v = $(this).parent().attr("id"); // Almacena Id venta
-    $.ajax({
-      type: "POST",
-      url: "../back/Ventas/productos.php",
-      data: { search: id_v },
-      dataType: "text",
-      success: function (response) {
-        $(".pedidos_venta").html(response);
-      },
+  // Registro Devolucion
+  $("#regDev").on("click", function () {
+    let flag = false; // Bandera para validar al menos un checbox seleccionado
+    var fDev = false; // Bandera para validar la devolucion en caso de ser mas de un producto
+    $(".productoSel").each(function () {
+      // Valida que haya algun producto seleccionado
+      if ($(this).prop("checked")) flag = true;
     });
-  });
-
-  $(".modal-background, .exit-modal").on("click", function () {
-    $(".modal").removeClass("is-active");
+    if (flag) {
+      // Hay seleccionados
+      $(".row").each(function () {
+        // Valida que los seleccionados tengan motivo
+        if (
+          ($(this).find(".motivo").val() &&
+            !$(this).find(".productoSel").prop("checked")) ||
+          (!$(this).find(".motivo").val() &&
+            $(this).find(".productoSel").prop("checked"))
+        ) {
+          flag = false;
+        }
+      });
+      if (flag) {
+        // Existe al menos un producto seleccionado
+        $(".row").each(function () {
+          let venta = $(this).parent().attr("class");
+          let id = $(this).attr("id");
+          let cant = $(this).find(".productoDev").val();
+          let motiv = $(this).find(".motivo").val();
+          if ($(this).find(".productoSel").prop("checked") && motiv) {
+            // Algun producto es seleccionado
+            $.ajax({
+              type: "post",
+              url: "../back/Devoluciones/devolucion.php",
+              data: {
+                producto: id,
+                cantidad: cant,
+                id_venta: venta,
+                motivo: motiv,
+                flag: fDev,
+              },
+              dataType: "text",
+              success: function (response) {},
+            });
+            fDev = true;
+          }
+        });
+      }
+      $("#regDev").addClass("is-loading");
+      setTimeout(() => {
+        $("#regDev").removeClass("is-loading");
+        alert("Realizado con exito");
+        window.open("../back/ticket.php?type=1", "_blank");
+        location.reload();
+      }, 1200);
+      // Terminar devolucion, generar ticket
+    }
+    if (!flag) {
+      // No existen productos seleccionados
+      alert("Por favor Revise los campos");
+    }
   });
 });

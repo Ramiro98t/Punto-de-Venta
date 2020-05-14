@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once('../back/conecta.php');  //Conecta a la Base de datos
+session_start();                        // Administrador de Sesiones
+require_once('../back/conecta.php');    // Conecta a la Base de datos
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
     <!-- Relacion archivo(online) jquery-script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
-    <script src="../scripts/managementScript.js"></script>
+    <script src="../scripts/designScript.js"></script>
     <script src="../scripts/devScript.js"></script>
 </head>
 
@@ -43,8 +43,6 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                     </div>
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
-                            <a class="navbar-item is-active">Movimientos</a>
-                            <a class="navbar-item">Ajustes</a>
                             <span class="navbar-item">
                                 <a id="logout" class="button is-primary is-inverted">
                                     <span class="icon">
@@ -74,41 +72,30 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
         </div>
     </section> <!-- Fin header -->
     <hr>
-    <div id="mov">
-        <!-- Selects Motivos -->
-        <section class="container has-text-centered">
-            <div class="select is-large">
-                <select id="tipo">
-                    <option disabled selected>Tipo</option>
-                    <option value="1">Entrada</option>
-                    <option value="2">Salida</option>
-                </select>
-            </div>
-            <hr>
-            <div class="select is-large is-hidden motivo">
-                <select id="motivo">
-                    <option disabled selected>Motivo</option>
-                    <option value="1">Devolucion</option>
-                    <option value="2">Compra</option>
-                    <option value="3">Devolucion Cliente</option>
-                    <option value="4">Devolucion Proveedor</option>
-                </select>
-            </div>
-        </section>
-        <hr>
-        <!-- End Selects Motivos -->
-    </div>
+    <!-- Select Motivos -->
+    <section class="container has-text-centered">
+        <div class="select is-large motivo">
+            <select id="motivo">
+                <option disabled selected>Motivo</option>
+                <option value="1">Entrada - Devolucion</option>
+                <option value="2">Entrada - Compra</option>
+                <option value="3">Salida - Venta</option>
+            </select>
+        </div>
+    </section>
+    <hr>
+    <!-- End Select Motivos -->
 
     <!-- Busqueda Ventas -->
     <section id="busqueda" class="is-hidden">
         <div class="container has-text-centered">
             <h1 class="title" id="titulo">
-                INGRESE EL CODIGO DE VENTA
+                
             </h1>
             <!-- Search Bar -->
             <div id="search">
                 <div class="control has-icons-left">
-                    <input class="input is-rounded" type="text" id="searchInput" name="search" placeholder="ID o Correo del Cliente">
+                    <input class="input is-rounded" id="searchInput" placeholder="ID">
                     <span class="icon is-small is-left">
                         <i class="fas fa-search"></i>
                     </span>
@@ -124,32 +111,14 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
         <div class="modal">
             <div class="modal-background"></div>
             <div class="modal-content">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Devolucion unitaria</p>
-                        <button class="delete exit-modal" aria-label="close"></button>
-                    </header>
-                    <section class="modal-card-body">
-                        <p class="title">
-                            Pedido
-                        </p>
-                        <p class="subtitle pedidos_venta">
-
-                        </p>
-                        <p class="help has-text-grey">Por Ramiro Mendez</p>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <!-- <button class="button is-success">Entendido</button> -->
-                        <!-- <button class="button">Cerrar</button> -->
-                    </footer>
+                <div id="info-modal" class="modal-card">
+                    <!-- Content in DB -->                        
                 </div>
                 <button class="modal-close is-large exit-modal" aria-label="close"></button>
             </div>
         </div>
         <!-- End Modal -->
     </section> <!-- Busqueda Ventas -->
-    <div id="adjust" class="is-hidden">
-    </div>
 </body>
 
 </html>

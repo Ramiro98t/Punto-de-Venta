@@ -21,6 +21,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
     <script src="../scripts/operationsScript.js"></script>
+    <script src="../scripts/designScript.js"></script>
   </head>
 
   <body>
@@ -33,6 +34,12 @@
           <h2 class="subtitle">
             Registros & Vistas
           </h2>
+          <a id="logout" class="button is-inverted">
+            <span class="icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span>Log Out</span>
+          </a>
         </div>
       </div>
     </section>
@@ -57,10 +64,18 @@
       <hr />
       <div class="columns">
         <div class="column is-half">
-          <a id="regBtn" class="button is-large is-dark is-outlined is-hidden"></a><br />
+          <a
+            id="regBtn"
+            class="button is-large is-dark is-outlined is-hidden"
+          ></a
+          ><br />
         </div>
         <div class="column is-half">
-          <a id="viewBtn" class="button is-large is-dark is-outlined is-hidden"></a><br />
+          <a
+            id="viewBtn"
+            class="button is-large is-dark is-outlined is-hidden"
+          ></a
+          ><br />
         </div>
       </div>
       <button id="corte" class="button is-primary is-outlined">
