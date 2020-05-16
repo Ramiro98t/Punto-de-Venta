@@ -2,24 +2,20 @@
     require_once('../conecta.php');  //Conecta a la Base de datos
 
     // Recibe variables del formulario
-    $descripcion = $_POST["descripcion"];
-    $departamento = $_POST["departamento"];
+    $descripcion = strtolower($_POST["descripcion"]);
+    $proveedor = $_POST["proveedor"];
+    $departamento = strtolower($_POST["departamento"]);
     $precio = $_POST["precio"];
     $existencia = $_POST["existencia"];
     $stock_max = $_POST["stock_max"];
     $stock_min = $_POST["stock_min"];
     $status = $_POST["status"];
 
-    if ($status == 'activo') {
-        $status = 1;
-    } else {
-        $status = 0;
-    }
+    $status = $status == "activo" ? "1" : "0";
 
-    $descripcion = strtolower($descripcion);
-    $departamento = strtolower($departamento);
+    $sql = "INSERT INTO producto VALUES (0, '$proveedor', '$descripcion', 
+    '$departamento','$precio','$existencia','$stock_max','$stock_min','$status')";
 
-    $sql = "INSERT INTO producto VALUES (0,'$descripcion','$departamento','$precio','$existencia','$stock_max','$stock_min','$status')";
     $ejecutarInsertar = mysqli_query($con, $sql);
 
     if (!$ejecutarInsertar) {

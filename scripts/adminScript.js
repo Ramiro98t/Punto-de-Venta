@@ -22,7 +22,7 @@ $(document).ready(function () {
         break;
 
       case "2":           // Registro y Vista de Productos
-        $("#regBtn").attr("href", "./productos.html");
+        $("#regBtn").attr("href", "./productos.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Productos");
         break;
 
@@ -48,12 +48,12 @@ $(document).ready(function () {
         $("#viewBtn").attr("href", "./generalList.php?label=Devoluciones");
         break;
 
-      case "7":
+      case "7":           // Registro y Vista de Ajustes
         $("#regBtn").attr("href", "./ajuste.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Ajustes");
         break;
 
-      case "8":
+      case "8":           // Registro de Compras y Vista de Movimientos
         $("#regBtn").html("Registrar Compra");
         $("#regBtn").attr("href", "./compra.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");

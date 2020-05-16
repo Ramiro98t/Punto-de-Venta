@@ -11,9 +11,9 @@
     // Si es busqueda
     if($flag) {
          // Consulta MySql por busqueda
-        $sql = "SELECT * FROM cliente WHERE (LOWER(nombre) LIKE LOWER('%$term%') 
-        OR LOWER(telefono) LIKE LOWER('%$term%') OR LOWER(email) LIKE LOWER('%$term%')) 
-        AND status = 1 ORDER BY id DESC";
+        $sql = "SELECT * FROM cliente WHERE (nombre LIKE LOWER('%$term%') 
+        OR telefono LIKE LOWER('%$term%') OR email LIKE LOWER('%$term%') 
+        AND status = 1) ORDER BY id DESC";
     }
 
     // Muestra la lista completa
@@ -35,12 +35,12 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="">
-                            <p class="title has-text-primary">' . $f->nombre . '</p>
+                            <p class="title has-text-primary">' . ucwords($f->nombre) . '</p>
                         </div>
 
                         <div class="content">
-                            <p class="title is-4">' . $f->telefono . '</p>
-                            <p class="subtitle is-5">Cargo: ' . $f->email . '</p>
+                            <p class="title is-4">Tel: ' . $f->telefono . '</p>
+                            <p class="subtitle is-5">Correo: ' . $f->email . '</p>
                         </div>
                     </div>
                 </div>

@@ -9,11 +9,11 @@
     $output = '';                   // Almacena los resultados 
 
     // Si es busqueda
-    if ($flag) {
+    if ($flag == "true") {
         // Consulta MySql por busqueda
-        $sql = "SELECT * FROM producto WHERE (LOWER(id) LIKE LOWER('%$term%') 
-        OR LOWER(descripcion) LIKE LOWER('%$term%') OR LOWER(departamento) LIKE LOWER('%$term%')) 
-        AND status = 1 AND existencia > 0 ORDER BY id DESC";
+        $sql = "SELECT * FROM producto WHERE (id LIKE LOWER('%$term%') 
+        OR descripcion LIKE LOWER('%$term%') OR departamento LIKE LOWER('%$term%') 
+        AND status = 1 AND existencia > 0) ORDER BY id DESC";
     }
 
     // Muestra la lista completa
@@ -35,11 +35,11 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="">
-                            <p class="title is-1 has-text-primary">$' . $f->precio . '</p>
+                            <p class="title has-text-primary">$' . $f->precio . '</p>
                         </div>
 
                         <div class="content">
-                            <p class="title is-4">' . $f->departamento . '</p>
+                            <p class="title is-5">' . $f->departamento . '</p>
                             <p class="subtitle is-6">Existencia: ' . $f->existencia . '</p>
                             Detalles: ' . $f->descripcion . '
                         </div>

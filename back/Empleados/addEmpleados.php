@@ -2,20 +2,16 @@
     require_once('../conecta.php');  //Conecta a la Base de datos
 
     // Recibe variables del formulario
-    $nombre = $_POST["nombre"];
-    $direccion = $_POST["direccion"];
-    $ciudad = $_POST["ciudad"];
+    $nombre = strtolower($_POST["nombre"]);
+    $direccion = strtolower($_POST["direccion"]);
+    $ciudad = strtolower($_POST["ciudad"]);
     $telefono = $_POST["telefono"];
-    $email = $_POST["email"];
-    $cargo = $_POST["cargo"];
+    $email = strtolower($_POST["email"]);
+    $cargo = strtolower($_POST["cargo"]);
     $salario = $_POST["salario"];
     $status = $_POST["status"];
     
-    if ($status == 'activo') {
-        $status = 1;
-    } else {
-        $status = 0;
-    }
+    $status = $status == "activo" ? "1" : "0";
 
     $sql = "INSERT INTO empleado VALUES (0,'$nombre','$direccion','$ciudad','$telefono','$email','$cargo','$salario','$status')";
     $ejecutarInsertar = mysqli_query($con, $sql);

@@ -1,6 +1,20 @@
 $(document).ready(function () {
   // GENERALES
   /**
+   * Metodos input
+   */
+  // Si el campo esta completado agrega un contorno verde
+  $(".input").on("keyup", function () {
+    if ($(this).val() != "") {
+      $target = $(event.target);
+      $target.addClass("is-success");
+    } else {
+      $target = $(event.target);
+      $target.removeClass("is-success");
+    }
+  });
+
+  /**
    * Metodos Menu hamburguesa
    */
   $(".navbar-burger").click(function () {

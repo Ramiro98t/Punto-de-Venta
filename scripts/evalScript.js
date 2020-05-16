@@ -30,6 +30,7 @@ function evalFormWorker() {
 function evalFormProduct() {
   // Variables que almacenan el valor de los input
   var descripcion = $('input[name="descripcion"]').val();
+  var proveedor = $('select[name="proveedor"]').val();
   var departamento = $('input[name="departamento"]').val();
   var precio = $('input[name="precio"]').val();
   var existencia = $('input[name="existencia"]').val();
@@ -38,6 +39,7 @@ function evalFormProduct() {
   // Verifica que todos los datos del formulario hayan sido ingresados
   if (
     !descripcion.length ||
+    !proveedor ||
     !departamento.length ||
     !precio.length ||
     !existencia.length ||
@@ -93,18 +95,7 @@ function evalFormClient() {
 }
 
 $(document).ready(function () {
-  // Si el campo esta completado agrega un contorno verde
-  $(".input").on("keyup", function () {
-    if ($(this).val() != "") {
-      $target = $(event.target);
-      $target.addClass("is-success");
-    } else {
-      $target = $(event.target);
-      $target.removeClass("is-success");
-    }
-  });
-
-  // Se cargan funciones al terminar de cargar la pagina completa
+  // Boton Registrar
   $(".enviar").on("click", function () {
     let bandera = false;
     let route = $(".wForm").val(); // Almacena el tipo: Empleado, Producto, Proveedor
@@ -143,15 +134,13 @@ $(document).ready(function () {
         cache: false,
         success: function (res) {
           if (res == 1) {
-            // Modifica el contenedor 'mensaje', inserta al html la imagen
-            $(".mensaje").html(
-              'Realizando registro!<img src="../img/loading.gif" width="25px" height = "25px"/>'
-            );
-            setTimeout("$('.mensaje').html('')", 1500);
-            // setTimeout("$('.mensaje').html('')", 1500);
+            
+            $(".mensaje").html("Realizando registro...");
             setTimeout(function () {
+              $(".mensaje").html("Completado");
               location.reload();
             }, 1500);
+
           } else {
             $(".mensaje").html("Datos incorrectos!"); // Mensaje de error
             setTimeout("$('.mensaje').html('')", 3000);
@@ -160,10 +149,10 @@ $(document).ready(function () {
       });
     }
   });
+
+  // Boton Cancelar
   $(".cancelar").on("click", function () {
     $(".input").val("");
     location.href = "operations.html";
   });
 });
-
-// ** FIN FUNCIONES EMPLEADO

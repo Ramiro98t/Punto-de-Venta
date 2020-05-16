@@ -38,7 +38,7 @@ $label = $_GET["label"]
                     </div>
                     <div class="column has-text-right">
                         <a href="#">
-                            <img src="../img/logo.png" class="logo" alt="Logo">
+                            <img src="../img/icon.png" class="logo" alt="Logo">
                         </a>
                     </div>
                 </div>

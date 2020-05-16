@@ -11,9 +11,9 @@
     // Si es busqueda
     if($flag) {
          // Consulta MySql por busqueda
-        $sql = "SELECT * FROM empleado WHERE (LOWER(nombre) LIKE LOWER('%$term%') 
-        OR LOWER(ciudad) LIKE LOWER('%$term%') OR LOWER(cargo) LIKE LOWER('%$term%')) 
-        AND status = 1 ORDER BY id DESC";
+        $sql = "SELECT * FROM empleado WHERE (nombre LIKE LOWER('%$term%') 
+        OR ciudad LIKE LOWER('%$term%') OR cargo LIKE LOWER('%$term%')
+        AND status = 1) ORDER BY id DESC";
     }
 
     // Muestra la lista completa
@@ -35,12 +35,12 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="">
-                            <p class="title has-text-primary">' . $f->nombre . '</p>
+                            <p class="title has-text-primary">' . ucwords($f->nombre) . '</p>
                         </div>
 
                         <div class="content">
-                            <p class="title is-4">' . $f->ciudad . '</p>
-                            <p class="subtitle is-5">Cargo: ' . $f->cargo . '</p>
+                            <p class="title is-4">' . ucwords($f->ciudad) . '</p>
+                            <p class="subtitle is-5">Cargo: ' . ucwords($f->cargo) . '</p>
                             <p class="subtitle is-6">Tel: ' . $f->telefono . '</p>
                         </div>
                     </div>

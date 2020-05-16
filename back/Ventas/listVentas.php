@@ -10,15 +10,15 @@
 
     // Si es busqueda
     if ($flag) {
-        $sql = "SELECT ventas.id, ventas.fecha, empleado.nombre FROM ventas 
-                INNER JOIN empleado ON ventas.id_empleado = empleado.id 
-                WHERE (ventas.id LIKE '%$term%')";
+        $sql = "SELECT venta.id, venta.fecha, empleado.nombre FROM venta 
+                INNER JOIN empleado ON venta.id_empleado = empleado.id 
+                WHERE (venta.id LIKE '%$term%')";
     }
 
     // Muestra la lista completa
     else {
-        $sql = "SELECT ventas.id, ventas.fecha, empleado.nombre FROM ventas 
-                INNER JOIN empleado ON ventas.id_empleado = empleado.id";
+        $sql = "SELECT venta.id, venta.fecha, empleado.nombre FROM venta 
+                INNER JOIN empleado ON venta.id_empleado = empleado.id";
     }
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
