@@ -9,7 +9,8 @@ $(document).ready(function () {
         $("#busqueda").removeClass("is-hidden");
         break;
         case "2": // Entrada - Compra
-        $("#busqueda").addClass("is-hidden");
+        $("#titulo").html("COMPLETAR EL FORMULARIO");
+        $("#compra").removeClass("is-hidden");
         break;
         case "3": // Salida - Venta
         $("#titulo").html("INGRESE EL ID DE VENTA");

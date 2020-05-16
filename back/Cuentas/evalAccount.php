@@ -31,7 +31,7 @@
         $_SESSION['id_client'] = "";        // Inicializa sesion del cliente en nulo
         $_SESSION['client'] = "";           
 
-        switch ($cargo) {                   // Administra los roles de empleado
+        switch (strtolower($cargo)) {       // Administra los roles de empleado
             case "administrador":
                 echo 1;                     // Retorna 1 si Administrador
                 break;

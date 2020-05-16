@@ -1,68 +1,71 @@
 $(document).ready(function () {
-  $("#corte").on("click", function () {
-    // Trigger Click
-    alert("CORTE DE CAJA"); // Corte de Caja
-  });
-
+  /**
+   * Metodos para botones de redireccionamiento administrador
+   */
   $("select").on("change", function () {
-    $(".button").removeClass("is-hidden");
-    // Metodo para cambios en el select
-    // Inicializa el text de Botones
-    $("#regBtn").html("Registrar");
-    $("#viewBtn").html("Lista de");
     // Modifica el titulo con la opcion seleccionada
     let title = $("select option:selected").text();
-    let op = $(this).val();
-    $("#title").html(title);
-    // Agrega al boton un indicador de categoria
-    $("#regBtn").html($("#regBtn").html() + " " + title);
-    $("#viewBtn").html($("#viewBtn").html() + " " + title);
+    $("#title").html("Metodos " + title);
 
-    switch (op) {
-      case "1":
+    // Almacena la opcion seleccionada
+    let op = $(this).val();
+    
+    // Formato a botones
+    $("#regBtn").html("Registrar" + " " + title);
+    $("#viewBtn").html("Lista de"  + " " + title);
+    $(".button").removeClass("is-hidden");
+
+    switch (op) {         // En funcion de la opcion accede a las distintas vistas
+      case "1":           // Registro y Vista de Empleados
         $("#regBtn").attr("href", "./empleados.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Empleados");
         break;
 
-      case "2":
+      case "2":           // Registro y Vista de Productos
         $("#regBtn").attr("href", "./productos.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Productos");
         break;
 
-      case "3":
+      case "3":           // Registro y Vista de Clientes
         $("#regBtn").attr("href", "./clientes.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Clientes");
         break;
 
-      case "4":
+      case "4":           // Registro y Vista de Proveedores
         $("#regBtn").attr("href", "./proveedores.html");
         $("#viewBtn").attr("href", "./generalList.php?label=Proveedores");
         break;
-      
-      case "5":
-        $("#regBtn").html($("#viewBtn").html());
+
+      case "5":           // Vista de Ventas
+        $("#regBtn").html($("#viewBtn").html());  // Formatea ambos botones a "Lista de"
         $("#regBtn").attr("href", "./generalList.php?label=Ventas");
         $("#viewBtn").attr("href", "./generalList.php?label=Ventas");
         break;
 
-      case "6":
+      case "6":           // Vista de Devoluciones
         $("#regBtn").html($("#viewBtn").html());
         $("#regBtn").attr("href", "./generalList.php?label=Devoluciones");
         $("#viewBtn").attr("href", "./generalList.php?label=Devoluciones");
         break;
 
       case "7":
-        $("#regBtn").html("Registrar Ajuste");
         $("#regBtn").attr("href", "./ajuste.php");
+        $("#viewBtn").attr("href", "./generalList.php?label=Ajustes");
+        break;
+
+      case "8":
+        $("#regBtn").html("Registrar Compra");
+        $("#regBtn").attr("href", "./compra.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");
         break;
 
       default:
         break;
     }
-    $(".button").show();
   });
+
+  // Reinicia Select al escoger una opcion
   $(".button").on("click", function () {
-    $("select").prop("selectedIndex", 0); // Reinicia Select
+    $("select").prop("selectedIndex", 0); 
   });
 });

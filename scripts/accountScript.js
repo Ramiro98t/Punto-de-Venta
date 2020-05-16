@@ -1,11 +1,8 @@
 $(document).ready(function () {
-  
   /**
    * Metodo para validar empleado
    */
   $("#btnLogin").on("click", function () {
-    // Trigger Click
-    $(this).addClass("is-loading"); // Boton cargando
     // Recibe valores de inputs
     let email = $("#email").val(); // Almacena correo empleado
     let position = $("#position").val(); // Almacena posicion empleado
@@ -37,7 +34,7 @@ $(document).ready(function () {
                 location.href = "./front/mainPage.php";
                 break;
             }
-          }, 1200);
+          }, 1000);
         } else {                      // Datos incorrectos
           $("#btnLogin").removeClass("is-loading");
           $(".help").html("Alguno de los datos es incorrecto");

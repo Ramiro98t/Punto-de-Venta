@@ -22,6 +22,9 @@ $(document).ready(function () {
     $(".modal").removeClass("is-active");
   });
 
+  /**
+   * Metodos para sesiones
+   */
   // Cerrar Sesion
   $("#logout").on("click", function () {
     if (confirm("¿Seguro que desea salir?")) {
@@ -29,8 +32,15 @@ $(document).ready(function () {
     }
   });
 
-  // Registro Devoluciones
+  /**
+   * Metodo para Corte de caja
+   */
+  $(".corte").on("click", function () {
+    // Trigger Click
+    alert("CORTE DE CAJA"); // Corte de Caja
+  });
 
+  // Registro Devoluciones
   // Boton para seleccionar productos a devolucion
   $(".unit").on("click", function () {
     let id_v = $(this).parent().attr("id"); // Almacena Id venta
@@ -59,6 +69,7 @@ $(document).ready(function () {
     }, 1200);
   });
 
+  // Registro Ventas
   // Registrar movimientos de ventas
   $(".regMovVenta").on("click", function () {
     $(this).addClass("is-loading");

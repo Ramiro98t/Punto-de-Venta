@@ -90,7 +90,7 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
     <section id="busqueda" class="is-hidden">
         <div class="container has-text-centered">
             <h1 class="title" id="titulo">
-                
+
             </h1>
             <!-- Search Bar -->
             <div id="search">
@@ -112,13 +112,39 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
             <div class="modal-background"></div>
             <div class="modal-content">
                 <div id="info-modal" class="modal-card">
-                    <!-- Content in DB -->                        
+                    <!-- Content in DB -->
                 </div>
                 <button class="modal-close is-large exit-modal" aria-label="close"></button>
             </div>
         </div>
         <!-- End Modal -->
     </section> <!-- Busqueda Ventas -->
+
+    <!-- Entrada Compras -->
+    <section id="compra" class="is-hidden container has-text-centered">
+        <div class="columns is-centered">
+            <div class="column select is-large">
+                <select id="proveedor">
+                    <option disabled selected>Proveedor</option>
+                    <option value="1">Gamesa</option>
+                    <option value="2">Bimbo</option>
+                    <option value="3">ToyBoy's</option>
+                </select>
+            </div>
+            <div class="column select is-large">
+                <select id="producto">
+                    <option disabled selected>Motivo</option>
+                    <option value="1">Entrada - Devolucion</option>
+                    <option value="2">Entrada - Compra</option>
+                    <option value="3">Salida - Venta</option>
+                </select>
+            </div>
+            <div class="column">
+                <input type="text" class="input is-large" placeholder="Cantidad">
+            </div>
+        </div>
+    </section>
+    <!-- End Entrada Compras -->
 </body>
 
 </html>
