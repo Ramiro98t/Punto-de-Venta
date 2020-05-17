@@ -20,6 +20,7 @@ $(document).ready(function () {
 
     case "Ventas":
     case "Devoluciones":
+    case "Ajustes":
       $("#search").attr("placeholder", "ID, Nombre Empleado, Fecha");
       break;
 

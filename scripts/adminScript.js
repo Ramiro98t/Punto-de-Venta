@@ -36,24 +36,19 @@ $(document).ready(function () {
         $("#viewBtn").attr("href", "./generalList.php?label=Proveedores");
         break;
 
-      case "5":           // Vista de Ventas
-        $("#regBtn").html($("#viewBtn").html());  // Formatea ambos botones a "Lista de"
+      case "5":           // Vista de Ventas y Devoluciones
+        $("#regBtn").html("Lista de Ventas");  // Formatea ambos botones a "Lista de"
+        $("#viewBtn").html("Lista de Devoluciones");  // Formatea ambos botones a "Lista de"
         $("#regBtn").attr("href", "./generalList.php?label=Ventas");
-        $("#viewBtn").attr("href", "./generalList.php?label=Ventas");
-        break;
-
-      case "6":           // Vista de Devoluciones
-        $("#regBtn").html($("#viewBtn").html());
-        $("#regBtn").attr("href", "./generalList.php?label=Devoluciones");
         $("#viewBtn").attr("href", "./generalList.php?label=Devoluciones");
         break;
 
-      case "7":           // Registro y Vista de Ajustes
+      case "6":           // Registro y Vista de Ajustes
         $("#regBtn").attr("href", "./ajuste.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Ajustes");
         break;
 
-      case "8":           // Registro de Compras y Vista de Movimientos
+      case "7":           // Registro de Compras y Vista de Movimientos
         $("#regBtn").html("Registrar Compra");
         $("#regBtn").attr("href", "./compra.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");

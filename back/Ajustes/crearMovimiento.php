@@ -19,12 +19,13 @@
     // Vistas de cantidad a actualizar de cada producto seleccionado del ajuste
     $sql = "SELECT detalle_ajuste.cantidad, detalle_ajuste.id_producto 
             FROM detalle_ajuste WHERE (id_ajuste='$ajuste')";
+            
     $res = mysqli_query($con,$sql);     // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
     
     while ($fila) {
         $f = $res->fetch_object();
-        $sql = "UPDATE producto SET existencia=existencia-'$f->cantidad'
+        $sql = "UPDATE producto SET existencia=existencia+'$f->cantidad'
                 WHERE id='$f->id_producto'";
         $resM = mysqli_query($con, $sql);
         

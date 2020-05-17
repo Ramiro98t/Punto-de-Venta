@@ -60,11 +60,8 @@ $id_worker = $_SESSION['id_user'];
                             ?>
                         </select>
                     </div>
-                    <div class="select">
-                        <select id="cantidad">
-                            <option disabled selected>Cantidad</option>
-                            <!-- <option value="1">1</option> -->
-                        </select>
+                    <div class="">
+                        <input type="number" class="input" id="cantidad" step="1" title="Cantidad" placeholder="Cantidad">
                     </div>
                     <div class="control">
                         <input class="input" id="motivo" placeholder="Motivo" />

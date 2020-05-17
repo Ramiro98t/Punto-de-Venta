@@ -10,7 +10,6 @@ function evalView(thisView) {
     $("#clientSession").removeClass("is-hidden");
     $(".clientField").removeClass("is-hidden");
   }
-
   // Ventana devolucion
   if (thisView == "Devolucion") {
     $(".clientField").addClass("is-hidden");
@@ -64,21 +63,6 @@ $(document).ready(function () {
     $("#carrito").toggleClass("is-hidden"); // Activa la vista de la lista
   });
 
-  // Valida si hay click en algun elemento del navbar
-  $(".navbar-item").on("click", function () {
-    // Selecciona el elemento como activo agregando 'is-active'
-    $(".navbar-item").attr("class", "navbar-item");
-    $(this).toggleClass("is-active");
-    evalView($(this).text());
-  });
-
-  // Valida si hay click en menu hamburguesa
-  $(".navbar-burger").click(function () {
-    // Toggle a la clase 'is-active' en el menu del navbar y al menu hamburguesa
-    $(".navbar-burger").toggleClass("is-active");
-    $(".navbar-menu").toggleClass("is-active");
-  });
-
   /* BUSQUEDA */
   function ajaxSearch(data, flag) {
     $.ajax({
@@ -118,12 +102,6 @@ $(document).ready(function () {
     } else {
       // Si no contiene nada muestra todos los productos
       ajaxSearch(data, false);
-    }
-  });
-
-  $("#logout").on("click", function () {
-    if (confirm("¿Seguro que desea salir?")) {
-      location.href = "../back/desconecta.php";
     }
   });
 

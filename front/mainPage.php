@@ -21,6 +21,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
     <script src="../scripts/managementScript.js"></script>
+    <script src="../scripts/designScript.js"></script>
 </head>
 
 <body>
@@ -141,8 +142,8 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
         </span> -->
         <img class="icono-carrito icono" src="../img/carrito.svg" alt="logo carrito" title="Productos venta"> <!-- SVG de icono carrito de compras -->
         <?php
-        $sql = "SELECT ventas.*, SUM(cantidad) AS total FROM venta_producto
-                INNER JOIN ventas ON venta_producto.id_venta = ventas.id WHERE status = 0";    // Suma la cantidad total de articulos en el pedido
+        $sql = "SELECT venta.*, SUM(cantidad) AS total FROM detalle_venta
+                INNER JOIN venta ON detalle_venta.id_venta = venta.id WHERE status = 0";    // Suma la cantidad total de articulos en el pedido
         $res = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
         $cant = $res->fetch_object();
         $cant = $cant->total;            // Se le asigna el campo de retorno del query
@@ -166,7 +167,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
 
             <?php
             // Hace consulta de los pedidos pendientes, status = 0 del usuario en linea
-            $sql = "SELECT * FROM ventas WHERE status='0'";
+            $sql = "SELECT * FROM venta WHERE status='0'";
             $res = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
             $fila = mysqli_num_rows($res);  // Obtiene el numero de filas
 
@@ -174,8 +175,8 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                 $id_venta = $res->fetch_object();
                 $id_venta = $id_venta->id;
 
-                $sql = "SELECT producto.descripcion, venta_producto.* FROM venta_producto INNER JOIN
-                        producto ON venta_producto.id_producto = producto.id WHERE id_venta='$id_venta' AND cantidad != 0";
+                $sql = "SELECT producto.descripcion, detalle_venta.* FROM detalle_venta INNER JOIN
+                        producto ON detalle_venta.id_producto = producto.id WHERE id_venta='$id_venta' AND cantidad != 0";
                 $res  = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
                 $fila = mysqli_num_rows($res);       // Obtiene el numero de filas
             }

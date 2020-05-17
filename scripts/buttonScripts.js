@@ -4,6 +4,9 @@ $(document).ready(function () {
     let url = "";
     let type = $(this).parent().attr("id");
     switch (type) {
+      case "ajuste":
+        url = "../back/Ajustes/detalles.php";
+        break;
       case "venta":
         url = "../back/Ventas/detalles.php";
         break;
@@ -29,6 +32,4 @@ $(document).ready(function () {
       },
     });
   });
-
-
 });

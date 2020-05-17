@@ -95,4 +95,19 @@ $(document).ready(function () {
       )}`;
     }, 1200);
   });
+
+  // Valida si hay click en algun elemento del navbar
+  $(".navbar-item").on("click", function () {
+    // Selecciona el elemento como activo agregando 'is-active'
+    $(".navbar-item").attr("class", "navbar-item");
+    $(this).toggleClass("is-active");
+    evalView($(this).text());
+  });
+
+  // Valida si hay click en menu hamburguesa
+  $(".navbar-burger").click(function () {
+    // Toggle a la clase 'is-active' en el menu del navbar y al menu hamburguesa
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+  });
 });
