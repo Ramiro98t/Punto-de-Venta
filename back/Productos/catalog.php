@@ -45,7 +45,7 @@
                         <p class="subtitle"> Detalles: ' . $f->descripcion . '</p>
                     </div>
                 </div>
-                <footer id="' .$f->id. '" class="card-footer">
+                <footer id="' .$f->id. ','.$f->existencia.'" class="card-footer">
                     <a class="addBtn button card-footer-item is-primary is-light">
                         <span>Añadir al carrito</span>
                         <span class="icon">

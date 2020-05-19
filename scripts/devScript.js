@@ -8,11 +8,11 @@ $(document).ready(function () {
         $("#titulo").html("INGRESE EL ID DE DEVOLUCION");
         $("#busqueda").removeClass("is-hidden");
         break;
-        case "2": // Entrada - Compra
+      case "2": // Entrada - Compra
         $("#titulo").html("COMPLETAR EL FORMULARIO");
         $("#compra").removeClass("is-hidden");
         break;
-        case "3": // Salida - Venta
+      case "3": // Salida - Venta
         $("#titulo").html("INGRESE EL ID DE VENTA");
         $("#busqueda").removeClass("is-hidden");
         break;
@@ -24,11 +24,10 @@ $(document).ready(function () {
   $("#enviar").on("click", function () {
     let search = $("#searchInput").val();
     let url;
-    if(motivo == 1) {
-      url = "../back/Devoluciones/movimientos.php"
-    }
-    else {
-      url = "../back/Ventas/movimientos.php"
+    if (motivo == 1) {
+      url = "../back/Devoluciones/movimientos.php";
+    } else {
+      url = "../back/Ventas/movimientos.php";
     }
     $.ajax({
       type: "POST",
@@ -55,7 +54,7 @@ $(document).ready(function () {
 
   // Registro Devolucion
   $("#regDev").on("click", function () {
-    let flag = false; // Bandera para validar al menos un checbox seleccionado
+    let flag = false; // Bandera para validar al menos un checkbox seleccionado
     var fDev = false; // Bandera para validar la devolucion en caso de ser mas de un producto
     $(".productoSel").each(function () {
       // Valida que haya algun producto seleccionado
@@ -99,15 +98,16 @@ $(document).ready(function () {
             fDev = true;
           }
         });
+
+        // Terminar devolucion, generar ticket
+        $("#regDev").addClass("is-loading");
+        setTimeout(() => {
+          $("#regDev").removeClass("is-loading");
+          alert("Realizado con exito");
+          window.open("../back/ticket.php?type=1", "_blank");
+          location.reload();
+        }, 1200);
       }
-      $("#regDev").addClass("is-loading");
-      setTimeout(() => {
-        $("#regDev").removeClass("is-loading");
-        alert("Realizado con exito");
-        window.open("../back/ticket.php?type=1", "_blank");
-        location.reload();
-      }, 1200);
-      // Terminar devolucion, generar ticket
     }
     if (!flag) {
       // No existen productos seleccionados

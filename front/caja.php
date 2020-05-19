@@ -90,10 +90,9 @@ $id_worker = $_SESSION['id_user'];
                 <h2 class="title">Cantidad</h2>
             </div>
         </div>
-
         <?php
         // Hace consulta de los pedidos pendientes, status = 0 del usuario en linea
-        $sql = "SELECT * FROM ventas WHERE id_empleado='$id_worker' AND status='0'";
+        $sql = "SELECT * FROM venta WHERE id_empleado='$id_worker' AND status='0'";
         $res = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
         $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
@@ -101,8 +100,8 @@ $id_worker = $_SESSION['id_user'];
             $id_venta = $res->fetch_object();
             $id_venta = $id_venta->id;
 
-            $sql = "SELECT producto.*, venta_producto.* FROM venta_producto INNER JOIN
-                    producto ON venta_producto.id_producto = producto.id WHERE id_venta='$id_venta' AND cantidad != 0";
+            $sql = "SELECT producto.*, detalle_venta.* FROM detalle_venta INNER JOIN
+                    producto ON detalle_venta.id_producto = producto.id WHERE id_venta='$id_venta'";
             $res  = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
             $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
         }
@@ -130,12 +129,11 @@ $id_worker = $_SESSION['id_user'];
         }
         ?>
         <hr>
-
         <div class=" has-text-centered">
             <div class="columns is-multiline">
                 <h1 class="column title is-half">Subtotal:</h1>
                 <h1 class="has-text-success column title is-half">$<?= $subtotal ?></h1>
-                
+
                 <div class="column is-half is-flex is-centered columns">
                     <input id="codesc" class="input column is-one-third" placeholder="Descuento">
                     <button id="desc" class="button is-success">Aplicar</button>
@@ -144,19 +142,19 @@ $id_worker = $_SESSION['id_user'];
 
                 <div class="column is-half"></div>
                 <?php
-                    $sql = "SELECT * FROM iva ORDER BY fecha DESC LIMIT 1";
-                    $res = mysqli_query($con,$sql);
-                    
-                    $iva = $res->fetch_object();
-                    $ivaP = $iva->porcentaje;
-                    $iva = $ivaP[2].$ivaP[3]
+                $sql = "SELECT * FROM iva ORDER BY fecha DESC LIMIT 1";
+                $res = mysqli_query($con, $sql);
+
+                $iva = $res->fetch_object();
+                $ivaP = $iva->porcentaje;
+                $iva = $ivaP[2] . $ivaP[3]
                 ?>
                 <input id="subtotal" class="is-hidden" value="<?= $subtotal ?>">
-                <input id="descuento" class="is-hidden" value="1">
+                <input id="descuento" class="is-hidden" value="0">
                 <input id="iva" class="is-hidden" value="<?= $ivaP ?>">
-                <input id="subTotalIva" class="is-hidden" value="<?= $total = $subtotal+round(($subtotal*$ivaP)) ?>">
+                <input id="subTotalIva" class="is-hidden" value="<?= $total = $subtotal + ($subtotal * $ivaP) ?>">
                 <input id="total" class="is-hidden" value="">
-                
+
                 <div class="column is-half">IVA: <?= $iva ?>%</div>
 
                 <div class="column is-half"></div>
@@ -244,7 +242,7 @@ $id_worker = $_SESSION['id_user'];
                 <a class="button is-dark">Imprimir ticket</a>
             </div>
             <hr>
-            
+
         </div>
 
     </main>

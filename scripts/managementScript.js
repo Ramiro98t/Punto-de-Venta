@@ -106,10 +106,11 @@ $(document).ready(function () {
   });
 
   /** CAJA */
-  $("#cantidadTotal").html("TOTAL $" + $("#subTotalIva").val());  // Inicializa el total
+  $("#cantidadTotal").html("TOTAL $" + $("#subTotalIva").val()); // Inicializa el total
   $("#total").val($("#subTotalIva").val());
 
   // Descuento
+  let discProduct = 0;
   $("#desc").on("click", function () {
     if (!$("#codesc").val()) {
       $(".mensaje").html("No se ha ingresado Codigo");
@@ -130,16 +131,17 @@ $(document).ready(function () {
               $(".mensaje").html("");
             }, 2000);
           } else {
+            discProduct = r;
             // Modifica Descuento
             $("#aplicaDesc").html("Descuento: " + r[2] + r[3] + "%");
-            $("#descuento").val(r);       // Porcentaje descuento
+            $("#descuento").val(r); // Porcentaje descuento
 
             let new_total = $("#subtotal").val(); // Subtotal
-            new_total *= r;               // Total = Subtotal * Descuento
+            new_total -= new_total * r; // Total = Subtotal * Descuento
             new_total += new_total * $("#iva").val(); // Total += Total * IVA
-            
+
             // Redondeo new total
-            new_total = Math.round(new_total * 100) / 100
+            new_total = Math.round(new_total * 100) / 100;
 
             // Asigna nuevo total
             $("#total").val(new_total);
@@ -177,11 +179,11 @@ $(document).ready(function () {
     }
   });
 
-  function ejecutaPago(metodo) {
+  function ejecutaPago(metodo, descuento) {
     $.ajax({
       type: "post",
       url: "../back/validaCompra.php",
-      data: { pago: metodo },
+      data: { pago: metodo, disc: descuento },
       dataType: "text",
       success: function () {
         $("#imprimir").removeClass("is-hidden");
@@ -192,6 +194,7 @@ $(document).ready(function () {
   $(".enviar").on("click", function () {
     let total = $("#total").val();
     let cash = $("#cashInput").val();
+    let descuento = $("#descuento").val();
     // let card = $("#cardInput").val();    // No se va a tomar una cantidad de la tarjeta
     let card = 1;
     // Validar info tarjetas
@@ -210,7 +213,7 @@ $(document).ready(function () {
 
         case "2": // Tarjeta
           absMoney = charge(0, total, total);
-          ejecutaPago(op);
+          ejecutaPago(op, descuento);
           break;
 
         case "3": // Ambos
@@ -228,7 +231,7 @@ $(document).ready(function () {
         else {
           alert("Gracias por su compra!");
         }
-        ejecutaPago(op);
+        ejecutaPago(op, descuento);
       }
       // No se ajusta
       if (absMoney > 0) {
@@ -247,7 +250,19 @@ $(document).ready(function () {
   });
 
   $("#imprimir").on("click", function () {
-    window.open("../back/ticket.php?type=0", "_blank");
+    let cash = $("#cashInput").val();     // Almacena cantidad efectivo
+    let card = 1;                         // Bandera de tarjeta
+                                          // Ambos metodos de pago
+    let cardBoth = $("#cardBoth").val();  // Almacena cantidad tarjeta
+    let cashBoth = $("#cashBoth").val();  // Almacena cantidad efectivo
+
+    if(!cash) cash = 0;                   // Pago con tarjeta o "ambos"
+    else {                                // Pago con efectivo solamente
+      card = 0;
+      cardBoth = 0;
+      cashBoth = 0;
+    } 
+    window.open(`../back/ticket.php?type=0,${cash},${cashBoth},${cardBoth},${card}`, "_blank");
     location.reload();
     // onClick="window.location.reload();" href="../back/ticket.php?type=0" target="_blank"
   });

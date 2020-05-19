@@ -7,28 +7,28 @@
     $bandera = $_POST["bandera"];   // Valida si se vacia el carrito
 
     if ($bandera) { // Modificacion total (Vaciar carrito)
-        $sql = "SELECT * FROM ventas WHERE status = 0";
+        $sql = "SELECT * FROM venta WHERE status = 0";
         $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
        
         $id_v = $res->fetch_object();
         $id_v = $id_v->id;
 
         // Cerrar venta
-        $sql = "DELETE FROM ventas WHERE status = 0";
+        $sql = "DELETE FROM venta WHERE status = 0";
         $res = mysqli_query($con, $sql);
 
-        $sql = "UPDATE venta_producto SET cantidad = '$cantidad' WHERE id_venta = '$id_v'";
+        $sql = "UPDATE detalle_venta SET cantidad = '$cantidad' WHERE id_venta = '$id_v'";
     }
     
     else {          // Modificacion individual
-        $sql = "UPDATE venta_producto SET cantidad = '$cantidad'
+        $sql = "UPDATE detalle_venta SET cantidad = '$cantidad'
                 WHERE id_producto='$producto'";
     }
 
     $res = mysqli_query($con, $sql);
 
     // Eliminar donde sea cantidad llegue a 0
-    $xSql = "DELETE FROM venta_producto WHERE cantidad = 0";
+    $xSql = "DELETE FROM detalle_venta WHERE cantidad = 0";
     $xRes = mysqli_query($con, $xSql);
 
     if ($res) {

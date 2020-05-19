@@ -6,11 +6,9 @@
     $output = '';                   // Almacena los resultados 
 
     // Si es busqueda
-    $sql = "SELECT *, ventas.id AS id_venta, empleado.nombre AS nomEmp 
-    FROM ventas INNER JOIN empleado ON empleado.id = ventas.id_empleado 
-    INNER JOIN cliente ON cliente.id = ventas.id_cliente INNER JOIN movimiento 
-    ON movimiento.id_mov_asoc = ventas.id 
-    WHERE motivo = 3 AND (ventas.id LIKE '%$term%' OR cliente.email LIKE '%$term%')";
+    $sql = "SELECT *, empleado.nombre AS nombreEmp, venta.id AS id_venta FROM venta INNER JOIN empleado ON empleado.id = venta.id_empleado 
+            INNER JOIN cliente ON cliente.id = venta.id_cliente 
+            WHERE (venta.status = 2 AND (venta.id LIKE '%$term%' OR cliente.email LIKE '%$term%'))";
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
@@ -32,7 +30,7 @@
                     <div class="content">
                         <p class="title">' . $f->email . '</p>
                         <p class="fecha subtitle has-text-info">Fecha: ' . $f->fecha . '</p>
-                        <p class="subtitle">Empleado: ' . $f->nomEmp . '</p>
+                        <p class="subtitle">Empleado: ' . $f->nombreEmp . '</p>
                     </div>
                 </div>
                 <footer id="' .$f->id_venta. '" class="card-footer">

@@ -92,10 +92,9 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                     <div id="clientSession">
                         <div id="clientUser" class="<?= $flagTitle ?>">
                             <h2 class="subtitle is-5">
-                                Cliente: <?= $_SESSION['client'] ?> -
-                            </h2>
+                                Cliente: <?= $_SESSION['client'] ?>                            </h2>
                         </div>
-                        <a id="manageClient" class="is-small button is-primary is-inverted is-rounded">
+                        <button id="manageClient" class="is-small button is-primary is-inverted is-rounded">
                             <span class="icon">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -104,7 +103,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                             else $btn = "Ingresar"
                             ?>
                             <span id="type"><?= $btn ?></span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -216,7 +215,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                 <!-- Search Bar -->
                 <div id="search-dev">
                     <div class="control has-icons-left">
-                        <input class="input is-rounded" type="text" id="searchDev" name="search" placeholder="ID">
+                        <input class="input is-rounded" type="text" id="searchDev" name="search" placeholder="ID(Venta) o Email Cliente">
                         <span class="icon is-small is-left">
                             <i class="fas fa-search"></i>
                         </span>
