@@ -6,10 +6,10 @@
     $output = '';                   // Almacena los resultados 
 
     // Si es busqueda
-    $sql = "SELECT producto.descripcion, venta_producto.*, ventas.* FROM producto 
-            INNER JOIN venta_producto ON producto.id = venta_producto.id_producto
-            INNER JOIN ventas ON venta_producto.id_venta = ventas.id
-            WHERE (ventas.id = $term)";
+    $sql = "SELECT producto.descripcion, detalle_venta.*, venta.* FROM producto 
+            INNER JOIN detalle_venta ON producto.id = detalle_venta.id_producto
+            INNER JOIN venta ON detalle_venta.id_venta = venta.id
+            WHERE (venta.id = $term)";
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas

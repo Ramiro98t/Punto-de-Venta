@@ -104,10 +104,4 @@ $(document).ready(function () {
     evalView($(this).text());
   });
 
-  // Valida si hay click en menu hamburguesa
-  $(".navbar-burger").click(function () {
-    // Toggle a la clase 'is-active' en el menu del navbar y al menu hamburguesa
-    $(".navbar-burger").toggleClass("is-active");
-    $(".navbar-menu").toggleClass("is-active");
-  });
 });

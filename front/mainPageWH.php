@@ -21,7 +21,7 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
     <script src="../scripts/designScript.js"></script>
-    <script src="../scripts/devScript.js"></script>
+    <script src="../scripts/almacenScript.js"></script>
 </head>
 
 <body>
@@ -120,28 +120,47 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
         <!-- End Modal -->
     </section> <!-- Busqueda Ventas -->
 
+    <?php
+    // Consulta MySql general
+    $sql = "SELECT * FROM proveedor";
+    $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
+    $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
+
+    ?>
+
     <!-- Entrada Compras -->
     <section id="compra" class="is-hidden container has-text-centered">
-        <div class="columns is-centered">
-            <div class="column select is-large">
+        <div class="container is-flex">
+            <div class="select">
                 <select id="proveedor">
                     <option disabled selected>Proveedor</option>
-                    <option value="1">Gamesa</option>
-                    <option value="2">Bimbo</option>
-                    <option value="3">ToyBoy's</option>
+                    <?php
+                    for ($i = $fila; $f = $res->fetch_object(); $i--) {
+                        echo "<option value='$f->id'>$f->nombre</option>";
+                    }
+                    ?>
                 </select>
             </div>
-            <div class="column select is-large">
+            <div class="select">
                 <select id="producto">
-                    <option disabled selected>Motivo</option>
-                    <option value="1">Entrada - Devolucion</option>
-                    <option value="2">Entrada - Compra</option>
-                    <option value="3">Salida - Venta</option>
+                    <option disabled selected>Producto</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                 </select>
             </div>
-            <div class="column">
-                <input type="text" class="input is-large" placeholder="Cantidad">
+            <div class="control">
+                <input type="number" class="input" id="cantidad" step="1" title="Cantidad" placeholder="Cantidad">
             </div>
+            <div class="control">
+                <input type="submit" class="button is-outlined is-warning agregar" value="Agregar" />
+            </div>
+            <div class="control">
+                <button type="submit" class="button is-outlined is-success enviar">Terminar</button>
+            </div>
+        </div>
+        <div class="mensaje">
+            <!-- Contiene mensaje del sistema -->
         </div>
     </section>
     <!-- End Entrada Compras -->
