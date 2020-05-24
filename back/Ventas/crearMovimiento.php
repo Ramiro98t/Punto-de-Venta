@@ -14,8 +14,8 @@
     $res = mysqli_query($con,$sql);
     
     // Vistas de cantidad a actualizar de cada producto seleccionado del ajuste
-    $sql = "SELECT venta_producto.cantidad, venta_producto.id_producto 
-            FROM venta_producto WHERE (id_venta='$venta')";
+    $sql = "SELECT detalle_venta.cantidad, detalle_venta.id_producto 
+            FROM detalle_venta WHERE (id_venta='$venta')";
 
     $res = mysqli_query($con,$sql);     // Ejecuta la consulta en 'sql', con la conexion establecida
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas

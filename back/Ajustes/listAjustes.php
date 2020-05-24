@@ -10,14 +10,14 @@
 
     // Si es busqueda
     if ($flag) {
-        $sql = "SELECT ajuste.id, ajuste.fecha, empleado.nombre FROM ajuste 
+        $sql = "SELECT ajuste.id, ajuste.fecha, empleado.nombre, empleado.id AS id_e FROM ajuste 
                 INNER JOIN empleado ON ajuste.id_empleado = empleado.id 
                 WHERE (ajuste.id LIKE '%$term%')";
     }
 
     // Muestra la lista completa
     else {
-        $sql = "SELECT ajuste.id, ajuste.fecha, empleado.nombre FROM ajuste 
+        $sql = "SELECT ajuste.id, ajuste.fecha, empleado.nombre, empleado.id AS id_e FROM ajuste 
                 INNER JOIN empleado ON ajuste.id_empleado = empleado.id";
     }
 
@@ -39,7 +39,7 @@
                             
                     <div class="content">
                         <p class="title">' . $f->fecha . '</p>
-                        <p class="subtitle has-text-info">Empleado: ' . $f->nombre . '</p>
+                        <p class="subtitle has-text-info">Empleado: '.$f->id_e.' - ' . $f->nombre . '</p>
                     </div>
                 </div>
                 <footer id="ajuste" class="card-footer">

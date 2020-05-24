@@ -6,7 +6,10 @@
     $output = '';                   // Almacena los resultados 
 
     // Si es busqueda
-    $sql = "SELECT *, empleado.nombre AS nombreEmp, venta.id AS id_venta FROM venta INNER JOIN empleado ON empleado.id = venta.id_empleado 
+    $sql = "SELECT empleado.id AS id_e, empleado.nombre AS nombre_e, 
+            cliente.id AS id_c, cliente.nombre AS nombre_c, cliente.email,
+            venta.fecha, venta.id AS id_venta FROM venta 
+            INNER JOIN empleado ON empleado.id = venta.id_empleado 
             INNER JOIN cliente ON cliente.id = venta.id_cliente 
             WHERE (venta.status = 2 AND (venta.id LIKE '%$term%' OR cliente.email LIKE '%$term%'))";
 
@@ -28,9 +31,10 @@
                     </div>
                             
                     <div class="content">
-                        <p class="title">' . $f->email . '</p>
-                        <p class="fecha subtitle has-text-info">Fecha: ' . $f->fecha . '</p>
-                        <p class="subtitle">Empleado: ' . $f->nombreEmp . '</p>
+                        <p class="fecha title">' . $f->fecha . '</p>
+                        <p class="subtitle has-text-info">Cliente: ' . $f->id_c . ' - '.$f->nombre_c.'</p>
+                        <p class="subtitle">Empleado: ' . $f->id_e . ' - ' . $f->nombre_e . '</p>
+                        <p class="help has-text-grey">' . $f->email . '</p>
                     </div>
                 </div>
                 <footer id="' .$f->id_venta. '" class="card-footer">

@@ -25,18 +25,18 @@
                 break;
                 
             case "2":           // Entrada - Devolucion
-                $sql = "SELECT producto.descripcion, detalle_devolucion.cantidad, 
+                $sql = "SELECT producto.id, producto.descripcion, detalle_devolucion.cantidad, 
                 detalle_devolucion.motivo FROM detalle_devolucion INNER JOIN producto 
                 ON detalle_devolucion.id_producto = producto.id WHERE id_devolucion = $id_mov";
                 break;
                 
             case "3":           // Salida - Venta
-                $sql = "SELECT * FROM venta_producto INNER JOIN producto 
-                ON venta_producto.id_producto = producto.id WHERE id_venta = $id_mov";
+                $sql = "SELECT * FROM detalle_venta INNER JOIN producto 
+                ON detalle_venta.id_producto = producto.id WHERE id_venta = $id_mov";
                 break;
                 
             case "4":           // Salida - Ajuste
-                $sql = "SELECT detalle_ajuste.id_ajuste, producto.descripcion, detalle_ajuste.cantidad,
+                $sql = "SELECT producto.id, detalle_ajuste.id_ajuste, producto.descripcion, detalle_ajuste.cantidad,
                 detalle_ajuste.motivo  FROM detalle_ajuste INNER JOIN ajuste 
                 ON detalle_ajuste.id_ajuste = ajuste.id INNER JOIN producto 
                 ON detalle_ajuste.id_producto = producto.id WHERE id_ajuste = $id_mov";
@@ -55,9 +55,9 @@
         </p>
         <div class="columns">
             <p class="column subtitle is-three-fifths has-text-info">
-                Descripcion
+                ID - Descripcion
             </p>
-            <p class="column subtitle is-one-fifths has-text-info">
+            <p class="column subtitle is-one-fifth has-text-info">
                 Motivo
             </p>
             <p class="column subtitle is-one-fifth has-text-info">
@@ -68,15 +68,12 @@
         ';
         for ($i = $fila; $f = $res->fetch_object(); $i--) {
             $motivoAux = $motivo == "3" ? "Venta" : $f->motivo;
-            // if ($motivo == "3") {
-            //     $motivoAux = "Venta";
-
-            // }
+            
             $output .= '
             <p class="column is-three-fifths">
-                '. $f->descripcion .'
+                '. $f->id .' - '. $f->descripcion .'
             </p>
-            <p class="column is-one-fifths">
+            <p class="column is-one-fifth">
                 '. $motivoAux .'
             </p>
             <p class="column is-one-fifth has-text-centered">

@@ -1,8 +1,9 @@
 $(document).ready(function () {
   /** Almacenista */
   //   Titulos y Forms
+  let motivo;
   $("#motivo").on("change", function () {
-    let motivo = $(this).val();
+    motivo = $(this).val();
     switch (motivo) {
       case "1": // Entrada - Devolucion
         $("#titulo").html("INGRESE EL ID DE DEVOLUCION");
@@ -50,7 +51,7 @@ $(document).ready(function () {
           $("#info-modal").html(response);
           $.getScript("../scripts/designScript.js");
         }
-      },
+      }
     });
   });
 });

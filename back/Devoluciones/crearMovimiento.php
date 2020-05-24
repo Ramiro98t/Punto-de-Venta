@@ -6,8 +6,8 @@
     
     $fecha = date('d-m-Y');
     $devolucion = $_GET["dev"];       // Id Devolucion
-    
-    $sql = "UPDATE venta SET status = 3 WHERE id = '$dev'";
+
+    $sql = "UPDATE devolucion SET status = 1 WHERE id = $devolucion";
     $res = mysqli_query($con,$sql);
 
     $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '0','$id_worker', '2', '$devolucion')";

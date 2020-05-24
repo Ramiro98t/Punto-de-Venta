@@ -247,7 +247,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                     </p>
                     <div class="columns">
                         <p class="column subtitle is-three-fifths has-text-info">
-                            Descripcion
+                            ID - Descripcion
                         </p>
                         <p class="column subtitle is-one-fifths has-text-info">
                             Motivo

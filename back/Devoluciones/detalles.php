@@ -6,7 +6,7 @@
     $output = '';                   // Almacena los resultados 
 
     // Consulta MySql general
-    $sql = "SELECT producto.descripcion, detalle_devolucion.cantidad, 
+    $sql = "SELECT producto.id, producto.descripcion, detalle_devolucion.cantidad, 
             detalle_devolucion.motivo FROM detalle_devolucion INNER JOIN producto 
             ON detalle_devolucion.id_producto = producto.id WHERE id_devolucion = $term";
 
@@ -22,7 +22,7 @@
         </p>
         <div class="columns">
             <p class="column subtitle is-three-fifths has-text-info">
-                Descripcion
+                ID - Descripcion
             </p>
             <p class="column subtitle is-one-fifths has-text-info">
                 Motivo
@@ -36,7 +36,7 @@
         for ($i = $fila; $f = $res->fetch_object(); $i--) {
             $output .= '
             <p class="column is-three-fifths">
-                '. $f->descripcion .'
+                '. $f->id .' - '. $f->descripcion .'
             </p>
             <p class="column is-one-fifths">
                 '. $f->motivo .'

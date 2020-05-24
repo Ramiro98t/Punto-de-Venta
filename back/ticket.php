@@ -91,10 +91,15 @@ else {
     $devolucion = $res->fetch_object();
     $devolucion = $devolucion->id;
     
-    // PENDIENTE //
-    $sql = "SELECT * FROM detalle_devolucion INNER JOIN producto 
-            ON producto.id = detalle_devolucion.id_producto WHERE(id_devolucion = '$devolucion')";
+    $sql = "SELECT detalle_devolucion.cantidad, producto.descripcion, 
+            detalle_devolucion.motivo, detalle_venta.precio FROM detalle_devolucion 
+            INNER JOIN devolucion ON detalle_devolucion.id_devolucion = devolucion.id
+            INNER JOIN detalle_venta ON detalle_venta.id_producto = detalle_devolucion.id_producto 
+            AND devolucion.id_venta = detalle_venta.id_venta
+            INNER JOIN producto ON producto.id = detalle_devolucion.id_producto
+            WHERE(id_devolucion = '$devolucion')";
     $res  = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
+
     $fpdf->Text(40, 97, "Folio movimiento: $devolucion");
 }
 $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
@@ -176,7 +181,7 @@ else {
     $fpdf->Text(10, 119, "de compra, no mayor a 30 dias");
     $fpdf->Text(10, 122, "desde su fecha de expedicion");
 
-    $fpdf->Text(60, 107, "Monto Devuelto: $$subtotal");
+    $fpdf->Text(60, 107, "Monto a Devolver: $$subtotal");
 
     // Articulos 
     $sql = "SELECT devolucion.id, SUM(cantidad) AS total FROM detalle_devolucion

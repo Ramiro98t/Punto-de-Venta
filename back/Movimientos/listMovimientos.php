@@ -14,15 +14,17 @@
 
     // Si es busqueda
     if ($flag) {
-        $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre FROM movimiento 
-        INNER JOIN empleado ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo 
+        $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre, empleado.id AS id_e,
+        movimiento.id_mov_asoc FROM movimiento INNER JOIN empleado 
+        ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo  
         AND movimiento.motivo = $motivo AND movimiento.id LIKE '%$term%')";
     }
 
     // Muestra la lista completa
     else {
-        $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre FROM movimiento 
-        INNER JOIN empleado ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo
+        $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre, empleado.id AS id_e,
+        movimiento.id_mov_asoc FROM movimiento INNER JOIN empleado 
+        ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo 
         AND movimiento.motivo = $motivo)";
     }
 
@@ -44,8 +46,9 @@
                             
                     <div class="content">
                         <p class="title">' . $f->fecha . '</p>
-                        <p class="subtitle has-text-info">Empleado: ' . $f->nombre . '</p>
+                        <p class="subtitle has-text-info">Empleado: '.$f->id_e.' - ' . $f->nombre . '</p>
                     </div>
+                    <p class="help has-text-grey">Folio Generador: '.$f->id_mov_asoc.'</p>
                 </div>
                 <footer id="movimiento" class="card-footer">
                     <a id="' .$f->id. '" class="details button card-footer-item is-primary is-light">
