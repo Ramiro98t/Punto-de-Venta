@@ -103,5 +103,4 @@ $(document).ready(function () {
     $(this).toggleClass("is-active");
     evalView($(this).text());
   });
-
 });

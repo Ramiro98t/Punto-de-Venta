@@ -190,39 +190,51 @@ $(document).ready(function () {
       },
     });
   }
-
+  let total, cash, descuento, card, cashBoth, cardBoth, subtotal;
   $(".enviar").on("click", function () {
-    let total = $("#total").val();
-    let cash = $("#cashInput").val();
-    let descuento = $("#descuento").val();
-    // let card = $("#cardInput").val();    // No se va a tomar una cantidad de la tarjeta
-    let card = 1;
-    // Validar info tarjetas
-    let cashBoth = $("#cashBoth").val();
-    let cardBoth = $("#cardBoth").val();
+    total = $("#total").val();
+    subtotal = $("#subtotal").val();
+    // Validar efectivo
+    cash = $("#cashInput").val();
+    descuento = $("#descuento").val();
+    // Validar tarjeta
+    card = $("input[name='numCard']").val();
+    // Validar info tarjeta
+    cashBoth = $("#cashBoth").val();
+    cardBoth = $("#cardBoth").val();
+
     let absMoney = 0;
 
     // Valida si algun input de pago ha sido recibido
     if (cash || card || cashBoth || cardBoth) {
-      switch (
-        op // Valida el metodo de pago seleccionado
-      ) {
+      // Valida el metodo de pago seleccionado
+      switch (op) {
         case "1": // Efectivo
+          card = 0;
+          cashBoth = 0;
+          cardBoth = 0;
           absMoney = charge(cash, 0, total);
           break;
 
         case "2": // Tarjeta
+          cash = 0;
+          card = total;
+          cashBoth = 0;
+          cardBoth = 0;
           absMoney = charge(0, total, total);
-          ejecutaPago(op, descuento);
           break;
 
         case "3": // Ambos
+          efectivo = 0;
+          cash = 0;
+          card = 0;
           absMoney = charge(cashBoth, cardBoth, total);
           break;
       }
-      absMoney = absMoney.toFixed(2); // Muestra dos decimales
+      absMoney = absMoney.toFixed(2); // Resultado a 2 decimales
+
+      // Valida si hay cambio o si se pago(sin cambio)
       if (absMoney < 0 || absMoney == 0) {
-        // Valida si hay cambio o si se pago(sin cambio)
         // Hay cambio
         if (absMoney < 0) {
           alert(`Le sobran: $${absMoney}, Gracias por su compra!`);
@@ -231,10 +243,27 @@ $(document).ready(function () {
         else {
           alert("Gracias por su compra!");
         }
-        ejecutaPago(op, descuento);
-      }
-      // No se ajusta
-      if (absMoney > 0) {
+
+        $.ajax({
+          type: "post",
+          url: "../back/flujo.php",
+          data: {
+            efectivo: cash,
+            credito: cardBoth,
+            efectivoB: cashBoth,
+            total: total,
+          },
+          success: function (response) {
+            if (response == 1) {
+              alert("Es necesario un corte de caja");
+              $(".modal").addClass("is-active");
+            } else {
+              ejecutaPago(op, descuento);
+            }
+          },
+        });
+      } else {
+        // No se ajusta
         alert("Es insuficiente");
       }
     } else {
@@ -246,25 +275,18 @@ $(document).ready(function () {
   });
 
   $(".cancelar").on("click", function () {
-    alert("cancelaar");
+    location.reload();
   });
 
   $("#imprimir").on("click", function () {
-    let cash = $("#cashInput").val();     // Almacena cantidad efectivo
-    let card = 1;                         // Bandera de tarjeta
-                                          // Ambos metodos de pago
-    let cardBoth = $("#cardBoth").val();  // Almacena cantidad tarjeta
-    let cashBoth = $("#cashBoth").val();  // Almacena cantidad efectivo
-
-    if(!cash) cash = 0;                   // Pago con tarjeta o "ambos"
-    else {                                // Pago con efectivo solamente
-      card = 0;
-      cardBoth = 0;
-      cashBoth = 0;
-    } 
-    window.open(`../back/ticket.php?type=0,${cash},${cashBoth},${cardBoth},${card}`, "_blank");
+    // alert(
+    //   `T:${total}, E:${cash}, D:${descuento}, C:${card}, E2:${cashBoth}, C2:${cardBoth}`
+    // );
+    window.open(
+      `../back/ticket.php?type=0,${cash},${cashBoth},${cardBoth},${card},${subtotal}`,
+      "_blank"
+    );
     location.reload();
-    // onClick="window.location.reload();" href="../back/ticket.php?type=0" target="_blank"
   });
   /** DEVOLUCION */
 

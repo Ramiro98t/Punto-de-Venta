@@ -15,7 +15,7 @@
         $id_worker = $_SESSION['id_user']; 
         $fecha = date('d-m-Y');
 
-        $sql = "INSERT INTO devolucion VALUES (0, '$fecha', '$venta', '$id_worker')";
+        $sql = "INSERT INTO devolucion VALUES (0, '$fecha', '$venta', '$id_worker', 0)";
         $res = mysqli_query($con, $sql);
         
     }

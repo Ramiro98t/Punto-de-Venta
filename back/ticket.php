@@ -10,16 +10,23 @@ $id_client = $_SESSION['id_client'];
 $client = $_SESSION['client']; 
 
 $date = date('d-m-Y');
-$tipo = $_GET['type'];          // 0 -> Venta, 1 -> Devolucion
+$tipo = $_GET['type'];          
 $arr = explode(',',trim($tipo));
 
-$tipo = $arr[0];          // 0 -> Venta, 1 -> Devolucion
-$moneyInCash = $arr[1];
-$moneyInBoth = $arr[2];
-$moneyInBothC = $arr[3];
-$card = $arr[4];
-$descuento = 0;
+$tipo = $arr[0];
+if($tipo == 0){
+    $efectivo = (float)$arr[1];
+    $efectivoB = (float)$arr[2];
+    $creditoB = (float)$arr[3];
+    $tarjeta = (float)$arr[4];
+    $subtotal = (float)$arr[5];
+    $descuento = 0;
+}
+else {
+    $subtotal = 0;
+} 
 
+// Concepto de ticket, Venta o Devolucion
 $concepto = $tipo == 0 ? "Venta" : "Devolucion";
 
 $fpdf = new FPDF('P', 'mm', array(100, 150));
@@ -41,6 +48,7 @@ $fpdf->SetFont('Arial', '', 7);
 $fpdf->Text(13, 34, "Caja: Ventas03");
 $fpdf->Text(37, 34, "Fecha: $date");
 $fpdf->Text(65, 34, "Empleado: $id_worker, $worker");
+if($tipo == 0)
 $fpdf->Text(65, 37, "Cliente: $id_client, $client");
 
 
@@ -49,8 +57,10 @@ $fpdf->Text(11, 44, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 $fpdf->Text(15, 44, "Piezas");
 if ($tipo == 0) {
     // Venta
-    $fpdf->Text(40, 44, "Descripcion");
+    $fpdf->Text(30, 44, "Descripcion");
+    $fpdf->Text(60, 44, "Precio");
 } else {
+    // Devolucion
     $fpdf->Text(30, 44, "Descripcion");
     $fpdf->Text(55, 44, "Motivo");
 }
@@ -66,7 +76,6 @@ if ($tipo == 0) {
     $metodoPago = $venta->pago;
     $descuento = $venta->disc;
     $venta = $venta->id;
-
     
     $sql = "SELECT *, detalle_venta.precio AS importe FROM detalle_venta INNER JOIN producto 
             ON producto.id = detalle_venta.id_producto WHERE(id_venta = '$venta')";
@@ -82,6 +91,7 @@ else {
     $devolucion = $res->fetch_object();
     $devolucion = $devolucion->id;
     
+    // PENDIENTE //
     $sql = "SELECT * FROM detalle_devolucion INNER JOIN producto 
             ON producto.id = detalle_devolucion.id_producto WHERE(id_devolucion = '$devolucion')";
     $res  = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
@@ -89,54 +99,52 @@ else {
 }
 $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
-$rPx = 48;
-$subtotal = 0;
+$yValue = 48;
 for ($i = $fila; $f = $res->fetch_object(); $i--) {
-    if ($tipo == 0) {
+    if ($tipo == 0) {       // Ventas
         $money = $f->cantidad * $f->importe;
-        $subtotal += $money;
-        // Ventas
-        $fpdf->Text(40, $rPx, "$f->descripcion");
-    } else {
+        $fpdf->Text(30, $yValue, "$f->descripcion");
+        $fpdf->Text(60, $yValue, "$f->precio");
+    } else {                // Devolucion
+        // PENDIENTE //
         $money = $f->cantidad * $f->precio;
         $subtotal += $money;
-        // Devolucion
-        $fpdf->Text(30, $rPx, "$f->descripcion");
-        $fpdf->Text(55, $rPx, "$f->motivo");
+        $fpdf->Text(30, $yValue, "$f->descripcion");
+        $fpdf->Text(55, $yValue, "$f->motivo");
     }
-    $fpdf->Text(15, $rPx, "$f->cantidad pz");
-    $fpdf->Text(75, $rPx, "$$money");
-    $rPx += 3;
+    $fpdf->Text(15, $yValue, "$f->cantidad pz");
+    $fpdf->Text(75, $yValue, "$$money");
+    $yValue += 3;
 }
 
+// Ventas
 if ($tipo == 0) {
-    $ahorro = ((1-$descuento)*$subtotal)+$descuento*$subtotal;
-    // Ventas
-    // Metodo de pago y Total
+    $ahorro = $descuento*$subtotal;
+    // Metodo de pago y Subtotal
     $fpdf->Text(12, 104, "Metodo de pago: $metodoPago");
     $fpdf->Text(60, 104, "Subtotal: $$subtotal");
-    $iva = (($subtotal) * 0.16);
+    $iva = round(($subtotal-$ahorro) * 0.16);
 
-    $total = $subtotal + $iva;
+    $total = ($subtotal-$ahorro) + $iva;
     $descuento *= 100;
     $fpdf->Text(60, 107, "Descuento: $descuento%");
-    $fpdf->Text(60, 110, "IVA: 16%: $$iva");
+    $fpdf->Text(60, 110, "IVA: 16%: - $$iva");
     $fpdf->Text(60, 113, "Total: $$total");
 
-    if($moneyInCash){
-        $moneyOut = $moneyInCash - $total;
-        $fpdf->Text(60, 119, "Efectivo Recibido: $$moneyInCash");
+    if($efectivo != 0){
+        $moneyOut = $efectivo - $total;
+        $fpdf->Text(60, 119, "Efectivo Recibido: $$efectivo");
     }
 
-    else if($card != "1") {
+    else if($tarjeta != 0) {
         $fpdf->Text(60, 116, "Credito Recibido: $$total");
         $moneyOut = 0;
     }
     
     else {
-        $moneyOut = ($moneyInBothC+$moneyInBoth) - $total;
-        $fpdf->Text(60, 116, "Credito Recibido: $$moneyInBothC");
-        $fpdf->Text(60, 119, "Efectivo Recibido: $$moneyInBoth");
+        $moneyOut = ($creditoB+$efectivoB) - $total;
+        $fpdf->Text(60, 116, "Credito Recibido: $$creditoB");
+        $fpdf->Text(60, 119, "Efectivo Recibido: $$efectivoB");
     }
     $fpdf->Text(60, 122, "Cambio: -$$moneyOut");
 
@@ -148,7 +156,7 @@ if ($tipo == 0) {
     $fpdf->Text(10, 122, "desde su fecha de expedicion");
 
     // Usted ahorro y numero de Articulos
-    if(!$card){
+    if(!$tarjeta){
         $fpdf->Text(40, 130, "Usted ahorro: $$ahorro");
     }
     $sql = "SELECT venta.id, SUM(cantidad) AS total FROM detalle_venta
@@ -158,6 +166,8 @@ if ($tipo == 0) {
     $cant = $cant->total;            // Se le asigna el campo de retorno del query
     $fpdf->Text(45, 133, "Articulos: $cant pz");
 }
+
+// Devolucion
 else {
     // Disclaimer: Para cualquier duda o aclaracion presentar su ticket de compra.
     $fpdf->Text(10, 110, "Favor de Conservar este ticket.");

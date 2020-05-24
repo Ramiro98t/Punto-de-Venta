@@ -23,6 +23,7 @@ $id_worker = $_SESSION['id_user'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Funciones -->
     <script src="../scripts/managementScript.js"></script>
+    <script src="../scripts/accountScript.js"></script>
 </head>
 
 <body>
@@ -45,14 +46,14 @@ $id_worker = $_SESSION['id_user'];
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
                             <a class="navbar-item" href="mainPage.php">Seguir comprando</a>
-                            <span class="navbar-item">
+                            <!-- <span class="navbar-item">
                                 <a id="logout" class="button is-primary is-inverted">
                                     <span class="icon">
                                         <i class="fas fa-user"></i>
                                     </span>
                                     <span>Log Out</span>
                                 </a>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                 </div>
@@ -77,6 +78,55 @@ $id_worker = $_SESSION['id_user'];
         </div>
     </section> <!-- Fin header -->
 
+    <!-- Modal Corte de caja -->
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Login Administrador</p>
+                    <!-- <button class="delete exit-modal" aria-label="close"></button> -->
+                </header>
+                <section class="modal-card-body">
+                    <p class="title">
+                        Permiso de administador
+                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <p class="control has-icons-left has-icons-right">
+                                    <input id="email" class="input" type="email" placeholder="Correo electronico" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <p class="control has-icons-left">
+                                    <input id="position" class="input" type="password" placeholder="Cargo" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-sitemap"></i>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button id="btnLoginAdmin" class="button is-success is-outlined">Verificar</button>
+                        </div>
+                    </div>
+                    <div class="help is-danger"></div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button id="corte" class="button is-hidden">Corte de Caja</button>
+                </footer>
+            </div>
+            <!-- <button class="modal-close is-large exit-modal" aria-label="close"></button> -->
+        </div>
+    </div>
+    <!-- Fin Modal Corte de caja -->
+
     <main class="container">
         <hr>
         <div class="is-mobile columns has-text-centered">
@@ -84,10 +134,10 @@ $id_worker = $_SESSION['id_user'];
                 <h2 class="title">Articulo</h2>
             </div>
             <div class="column is-one-third">
-                <h2 class="title">Precio($)</h2>
+                <h2 class="title">Cantidad</h2>
             </div>
             <div class="column is-one-third">
-                <h2 class="title">Cantidad</h2>
+                <h2 class="title">Importe($)</h2>
             </div>
         </div>
         <?php
@@ -119,10 +169,10 @@ $id_worker = $_SESSION['id_user'];
                     <div><?= $f->descripcion ?></div>
                 </div>
                 <div class="column subtitle is-one-third is-marginless">
-                    <p>$<?= $money ?></p>
+                    <p><?= $f->cantidad ?></p>
                 </div>
                 <div class="column subtitle is-one-third is-marginless">
-                    <p><?= $f->cantidad ?></p>
+                    <p>$<?= $money ?></p>
                 </div>
             </div>
         <?php
@@ -242,9 +292,7 @@ $id_worker = $_SESSION['id_user'];
                 <a class="button is-dark">Imprimir ticket</a>
             </div>
             <hr>
-
         </div>
-
     </main>
 </body>
 

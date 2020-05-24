@@ -45,6 +45,8 @@ $label = $_GET["label"]
                 <?php $hidden = $label == "Movimientos" ? "no" : "is-hidden" ?>
                 <div class="select is-small <?= $hidden ?> ">
                     <select>
+                        <!-- PENDIENTE -->
+                        <!-- Checar las vistas -->
                         <option disabled selected>Tipo</option>
                         <option value="1">Entrada - Compra</option>
                         <option value="2">Entrada - Devolucion</option>

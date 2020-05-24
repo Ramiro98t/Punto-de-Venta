@@ -21,10 +21,10 @@
             ID Ajuste: '. $term .'
         </p>
         <div class="columns">
-            <p class="column subtitle is-three-fifths has-text-info">
+            <p class="column subtitle is-three-fifth has-text-info">
                 ID - Descripcion
             </p>
-            <p class="column subtitle is-one-fifths has-text-info">
+            <p class="column subtitle is-one-fifth has-text-info">
                 Motivo
             </p>
             <p class="column subtitle is-one-fifth has-text-info">
@@ -35,10 +35,10 @@
         ';
         for ($i = $fila; $f = $res->fetch_object(); $i--) {
             $output .= '
-            <p class="column is-three-fifths">
+            <p class="column is-three-fifth">
                 '. $f->id .' - '. $f->descripcion .'
             </p>
-            <p class="column is-one-fifths">
+            <p class="column is-one-fifth">
                 '. $f->motivo .'
             </p>
             <p class="column is-one-fifth has-text-centered">

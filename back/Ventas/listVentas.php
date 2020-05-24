@@ -10,15 +10,20 @@
 
     // Si es busqueda
     if ($flag) {
-        $sql = "SELECT venta.id, venta.fecha, empleado.nombre FROM venta 
-                INNER JOIN empleado ON venta.id_empleado = empleado.id 
-                WHERE (venta.id LIKE '%$term%')";
+        $sql = "SELECT venta.id, venta.fecha, empleado.nombre, empleado.id AS id_v,
+                cliente.id AS id_c, cliente.nombre AS nombre_c 
+                FROM venta JOIN empleado ON venta.id_empleado = empleado.id
+                INNER JOIN cliente ON venta.id_cliente = cliente.id 
+                WHERE (venta.id LIKE '%$term%' OR empleado.nombre LIKE '%$term%'
+                OR venta.fecha LIKE '%$term%')";
     }
 
     // Muestra la lista completa
     else {
-        $sql = "SELECT venta.id, venta.fecha, empleado.nombre FROM venta 
-                INNER JOIN empleado ON venta.id_empleado = empleado.id";
+        $sql = "SELECT venta.id, venta.fecha, empleado.nombre, empleado.id AS id_v,
+                cliente.id AS id_c, cliente.nombre AS nombre_c 
+                FROM venta INNER JOIN empleado ON venta.id_empleado = empleado.id
+                INNER JOIN cliente ON venta.id_cliente = cliente.id";
     }
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
@@ -39,7 +44,8 @@
                             
                     <div class="content">
                         <p class="title">' . $f->fecha . '</p>
-                        <p class="subtitle has-text-info">Empleado: ' . $f->nombre . '</p>
+                        <p class="subtitle has-text-info">Empleado: ' . $f->id_v . ' - ' . $f->nombre . '</p>
+                        <p class="subtitle has-text-info">Cliente: ' . $f->id_c . ' - ' . $f->nombre_c . '</p>
                     </div>
                 </div>
                 <footer id="venta" class="card-footer">

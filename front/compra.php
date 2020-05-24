@@ -61,6 +61,9 @@ $id_worker = $_SESSION['id_user'];
                         </select>
                     </div>
                     <div class="">
+                        <!-- PENDIENTE  -->
+                        <!-- Registro de mas de un producto al proveedor -->
+                        <!-- BD - Detalle compra -->
                         <input type="number" class="input" id="cantidad" step="1" title="Cantidad" placeholder="Cantidad">
                     </div>
                 </div>

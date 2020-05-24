@@ -90,7 +90,6 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
     <section id="busqueda" class="is-hidden">
         <div class="container has-text-centered">
             <h1 class="title" id="titulo">
-
             </h1>
             <!-- Search Bar -->
             <div id="search">
@@ -101,6 +100,7 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
                     </span>
                 </div>
                 <div class="msg has-text-danger is-title"></div>
+                <hr>
                 <button id="enviar" class="button is-success">
                     Buscar
                 </button>
