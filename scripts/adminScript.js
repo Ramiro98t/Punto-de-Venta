@@ -49,8 +49,8 @@ $(document).ready(function () {
         break;
 
       case "7":           // Registro de Compras y Vista de Movimientos
-        $("#regBtn").html("Registrar Compra");
-        $("#regBtn").attr("href", "./compra.php");
+        $("#regBtn").html("Registrar Compra/Devolucion");
+        $("#regBtn").attr("href", "./movProveedor.php");
         $("#viewBtn").attr("href", "./generalList.php?label=Movimientos");
         break;
 

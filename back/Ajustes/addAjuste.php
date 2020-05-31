@@ -16,7 +16,7 @@
 
     // Si es primer elemento del ajuste
     if ($flag == "true") {
-        echo $id_worker, $producto, $cantidad;
+        // echo $id_worker, $producto, $cantidad;
         $fecha = date('d-m-Y');
         $sql = "INSERT INTO ajuste VALUES (0, '$fecha', '$id_worker')";
         $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida

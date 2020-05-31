@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // AJUSTE INVENTARIO
-  let flag = true; // Valida que sea el mismo juste
+  let flag = true; // Valida que sea el mismo ajuste
   $(".agregar").on("click", function () {
     // Almacena los valores del ajuste
     let producto = $("#producto").val();

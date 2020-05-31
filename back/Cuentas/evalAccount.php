@@ -36,6 +36,8 @@
                 echo 1;                     // Retorna 1 si Administrador
                 break;
             case "vendedor":
+            case "cajero":
+            case "cajera":
                 echo 2;                     // Retorna 2 si Vendedor
                 break;      
             case "almacenista":
