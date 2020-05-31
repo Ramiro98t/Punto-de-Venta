@@ -14,7 +14,7 @@
     $output = "";                   // Almacena los resultados 
     $movimiento = "";               // Almacena id del movimiento actual
 
-    if($flag) {     // Primer elemento del movimiento
+    if($flag == "true") {     // Primer elemento del movimiento
         $fecha = date('d-m-Y');
 
         if (!$folio) {      // Devolucion
@@ -25,26 +25,18 @@
         }
         $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     }
-
-    else {              // Ya existe un movimiento en curso
-        if(!$folio) {   // Devolucion
-            // Toma de referencia el ultimo movimiento, devolucion
-            $sql = "SELECT * FROM movimiento WHERE id_mov_asoc = 0 ORDER BY id DESC LIMIT 1";
-            
-        }
-        else {          // Venta
-            // Toma de referencia el ultimo movimiento, compra
-            $sql = "SELECT * FROM movimiento ORDER BY id DESC LIMIT 1";
-        }
-    }
+    
+    
+    // Toma de referencia el ultimo movimiento 
+    $sql = "SELECT * FROM movimiento ORDER BY id DESC LIMIT 1";
     $res = mysqli_query($con,$sql);
     
     // Obtiene el id del movimiento actual
     $movimiento = $res->fetch_object();
     $movimiento = $movimiento->id;
 
-    // Devolucion
-    if (!$folio) $motivo = 0;
+    // Compra
+    if ($folio) $motivo = "compra";
 
     // Agrega al movimiento los productos mientras sea el mismo movimiento
     $sql = "INSERT INTO detalle_movimiento VALUES ('$movimiento', '$producto', '$cantidad', '$motivo')";
@@ -66,6 +58,5 @@
         ';
     }
     echo $output;
-
 
     // echo $folio, " ", $producto, " ", $cantidad, " ", $motivo, " ", $flag;

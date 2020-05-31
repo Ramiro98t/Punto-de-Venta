@@ -60,6 +60,7 @@ $id_worker = $_SESSION['id_user'];
             <div class="control folio">
                 <input class="input" name="folio" placeholder="Folio de Compra"/>
             </div>
+            <p class="help is-info">La cantidad debe ser negativa</p>
             <div class="field is-flex">
                 <div class="control select">
                     <select name="producto">

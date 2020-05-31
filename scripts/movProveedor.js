@@ -1,6 +1,6 @@
 /**
  * Metodo para validar si existen datos de entrada
- * @param {*} type  
+ * @param {*} type
  */
 
 function evalInputs(type) {
@@ -11,13 +11,20 @@ function evalInputs(type) {
   if (type == 1) {
     // Compra
     if (!producto || !cantidad || !folio) {
+      $(".mensaje").html("Revise de nuevo la informacion");
       return false;
     }
   } else if (type == 2) {
     // Devolucion
     var motivo = $('input[name="motivo"]').val();
-    if (!producto || !cantidad || !motivo) {
+    if (!producto || !cantidad || !motivo || cantidad >= 0) {
+      $(".mensaje").html("Revise de nuevo la informacion");
       return false;
+    } else {
+      if ((-cantidad > producto[2])) {
+        $(".mensaje").html("La cantidad supera la existencia");
+        return false;
+      }
     }
   }
   return true;
@@ -32,12 +39,12 @@ $(document).ready(function () {
     $(".cont-mobile").removeClass("is-hidden");
     if ($(this).val() == 1) {
       // Compra
-      $(".motivo").addClass("is-hidden");
+      $(".motivo, .help").addClass("is-hidden");
       $(".folio").removeClass("is-hidden");
     } else {
       // Devolucion
       $(".folio").addClass("is-hidden");
-      $(".motivo").removeClass("is-hidden");
+      $(".motivo, .help").removeClass("is-hidden");
     }
     type = $(this).val();
   });
@@ -51,61 +58,29 @@ $(document).ready(function () {
       // Datos recibidos correctamente
       var form = $("#mainForm")[0];
       var data = new FormData(form);
+      data.append("flag", flag);
       $.ajax({
         url: "../back/Movimientos/proveedor.php",
         type: "POST",
-        data: { data, flag },
+        data: data,
         enctype: "multipart/form-data",
         processData: false, // Important!
         contentType: false,
         cache: false,
-        success: function (res) {},
+        success: function (res) {
+          $(".ls").html(res);
+          $(".table").removeClass("is-hidden");
+          // Reinicia Select
+          $('select[name="producto"]').prop("selectedIndex", 0);
+          $('input[name="cantidad"]').val(" ");
+          $('input[name="motivo"]').val(" ");
+          $('input[name="folio"]').addClass("is-hidden");
+        },
       });
+      flag = false; // Movimiento en curso
     } else {
       // Faltan datos
-      $(".mensaje").html("Revise de nuevo la informacion");
       setTimeout("$('.mensaje').html('')", 2000);
-    }
-  });
-
-  $(".agre").on("click", function () {
-    // Valida que esten llenos
-    if (producto && cant && motivo) {
-      producto = producto.split(","); // Separa producto de la existencia
-      let existencia = producto[1];
-
-      if (parseInt(cant) + parseInt(existencia) >= 0) {
-        $.ajax({
-          type: "post",
-          url: "../back/Movimientos/proveedor.php",
-          data: {
-            producto: producto[0],
-            cantidad: cant,
-            motivo: motivo,
-            flag: flag,
-          },
-          dataType: "text",
-          success: function (response) {
-            $(".ls").html(response);
-            $(".table").removeClass("is-hidden");
-            $("#producto").prop("selectedIndex", 0); // Reinicia Select
-            $("#cantidad").val(""); // Reinicia Select
-            $("#motivo").val("");
-          },
-        });
-
-        flag = false; // Ajuste en curso
-      } else {
-        $(".mensaje").html("<hr> La cantidad supera la existencia");
-        setTimeout(() => {
-          $(".mensaje").html("");
-        }, 2000);
-      }
-    } else {
-      $(".mensaje").html("<hr> Revise todos los campos");
-      setTimeout(() => {
-        $(".mensaje").html("");
-      }, 2000);
     }
   });
 
@@ -114,7 +89,7 @@ $(document).ready(function () {
       $(this).addClass("is-loading");
       setTimeout(() => {
         alert("Finalizado");
-        location.href = "../back/Ajustes/crearMovimiento.php";
+        location.href = "../back/Movimientos/crearMovimiento.php";
       }, 1000);
     } else {
       $(".mensaje").html("Primero debe iniciar un ajuste");
