@@ -74,16 +74,16 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
     <hr>
     <!-- Select Motivos -->
     <section class="container has-text-centered">
-        <div class="select is-large motivo">
+        <div class="select is-large">
             <select id="motivo">
                 <option disabled selected>Motivo</option>
-                <option value="1">Entrada - Devolucion</option>
-                <option value="2">Entrada - Compra</option>
+                <option value="1">Entrada - Compra</option>
+                <option value="2">Entrada - Devolucion</option>
                 <option value="3">Salida - Venta</option>
+                <option value="4">Salida - Devolucion Proveedor</option>
             </select>
         </div>
     </section>
-    <hr>
     <!-- End Select Motivos -->
 
     <!-- Busqueda Ventas -->
@@ -120,50 +120,68 @@ require_once('../back/conecta.php');    // Conecta a la Base de datos
         <!-- End Modal -->
     </section> <!-- Busqueda Ventas -->
 
-    <?php
-    // Consulta MySql general
-    $sql = "SELECT * FROM proveedor";
-    $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
-    $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
+    <!-- Compras / Devoluciones a Proveedor -->
+    <section id="form" class="is-hidden container has-text-centered">
+        <?php
+        // Consulta MySql general
+        $sql = "SELECT * FROM producto WHERE existencia != 0";
+        $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
+        $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
+        ?>
 
-    ?>
-
-    <!-- Entrada Compras -->
-    <section id="compra" class="is-hidden container has-text-centered">
-        <div class="container is-flex">
-            <div class="select">
-                <select id="proveedor">
-                    <option disabled selected>Proveedor</option>
-                    <?php
-                    for ($i = $fila; $f = $res->fetch_object(); $i--) {
-                        echo "<option value='$f->id'>$f->nombre</option>";
-                    }
-                    ?>
-                </select>
+        <div class="container">
+            <form id="mainForm" method="post">
+                <div class="control folio">
+                    <input class="input" name="folio" placeholder="Folio de Compra" />
+                </div>
+                <p class="help is-info">La cantidad debe ser negativa</p>
+                <div class="field is-flex">
+                    <div class="control select">
+                        <select name="producto">
+                            <option disabled selected>Producto</option>
+                            <?php
+                            for ($i = $fila; $f = $res->fetch_object(); $i--) {
+                                echo "<option value='$f->id,$f->existencia'>$f->descripcion</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="control">
+                        <input type="number" class="input" name="cantidad" min="1" step="1" title="Cantidad" placeholder="Cantidad">
+                    </div>
+                    <div class="control motivo">
+                        <input class="input" name="motivo" placeholder="Motivo" />
+                    </div>
+                </div>
+            </form>
+            <div class="mensaje">
+                <!-- Contiene mensaje del sistema -->
             </div>
-            <div class="select">
-                <select id="producto">
-                    <option disabled selected>Producto</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
+            <hr />
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-outlined is-medium is-success agregar">Agregar</button>
+                </div>
+                <div class="control">
+                    <button class="button is-outlined is-medium is-danger terminar">Terminar</button>
+                </div>
             </div>
-            <div class="control">
-                <input type="number" class="input" id="cantidad" step="1" title="Cantidad" placeholder="Cantidad">
-            </div>
-            <div class="control">
-                <input type="submit" class="button is-outlined is-warning agregar" value="Agregar" />
-            </div>
-            <div class="control">
-                <button type="submit" class="button is-outlined is-success enviar">Terminar</button>
-            </div>
-        </div>
-        <div class="mensaje">
-            <!-- Contiene mensaje del sistema -->
+            <hr>
+            <table class="table is-hidden">
+                <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Descripcion</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody class="ls">
+                    <!-- Content in DB -->
+                </tbody>
+            </table>
         </div>
     </section>
-    <!-- End Entrada Compras -->
+    <!-- End Compras / Devoluciones a Proveedor -->
 </body>
 
 </html>

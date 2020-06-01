@@ -15,13 +15,16 @@
 
     else {                  // En caso de encontrar coincidencias, imprime todas
         $obj = $res->fetch_object();
-        $tipo = $obj->tipo;
         $motivo = $obj->motivo;
         $id_mov = $obj->id_mov_asoc;
 
         switch ($motivo) {
-            case "1":           // Entrada - Compra
-                $sql = "";
+            case "1":           // Entrada - Compra / Salida - Devolucion Proveedor
+            case "4":
+                $sql = "SELECT * FROM movimiento INNER JOIN detalle_movimiento ON 
+                detalle_movimiento.id_movimiento = movimiento.id 
+                INNER JOIN producto ON detalle_movimiento.id_producto = producto.id
+                WHERE id_movimiento = $term";
                 break;
                 
             case "2":           // Entrada - Devolucion
@@ -35,13 +38,6 @@
                 ON detalle_venta.id_producto = producto.id WHERE id_venta = $id_mov";
                 break;
                 
-            case "4":           // Salida - Ajuste
-                $sql = "SELECT producto.id, detalle_ajuste.id_ajuste, producto.descripcion, detalle_ajuste.cantidad,
-                detalle_ajuste.motivo  FROM detalle_ajuste INNER JOIN ajuste 
-                ON detalle_ajuste.id_ajuste = ajuste.id INNER JOIN producto 
-                ON detalle_ajuste.id_producto = producto.id WHERE id_ajuste = $id_mov";
-                break;                
-            
             default:
                 # code...
                 break;

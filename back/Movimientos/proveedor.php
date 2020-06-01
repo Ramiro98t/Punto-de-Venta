@@ -8,20 +8,19 @@
     $producto = $_POST["producto"];
     $cantidad = $_POST["cantidad"];
     $motivo = $_POST["motivo"];
-
     // Bandera que indica si es el primer elemento
     $flag = $_POST["flag"];  
+
     $output = "";                   // Almacena los resultados 
     $movimiento = "";               // Almacena id del movimiento actual
 
     if($flag == "true") {     // Primer elemento del movimiento
         $fecha = date('d-m-Y');
-
         if (!$folio) {      // Devolucion
-            $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '2','$id_worker', '4', 0)";
+            $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '$id_worker', '4', 0)";
         }
         else {              // Compra
-            $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '1','$id_worker', '1', '$folio')";
+            $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '$id_worker', '1', '$folio')";
         }
         $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida
     }
@@ -58,5 +57,3 @@
         ';
     }
     echo $output;
-
-    // echo $folio, " ", $producto, " ", $cantidad, " ", $motivo, " ", $flag;

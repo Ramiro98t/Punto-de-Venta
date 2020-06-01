@@ -34,17 +34,13 @@ function evalFormProduct() {
   var departamento = $('input[name="departamento"]').val();
   var precio = $('input[name="precio"]').val();
   var existencia = $('input[name="existencia"]').val();
-  var stock_max = $('input[name="stock_max"]').val();
-  var stock_min = $('input[name="stock_min"]').val();
   // Verifica que todos los datos del formulario hayan sido ingresados
   if (
     !descripcion.length ||
     !proveedor ||
     !departamento.length ||
     !precio.length ||
-    !existencia.length ||
-    !stock_max.length ||
-    !stock_min.length
+    !existencia.length
   ) {
     $(".mensaje").html("Faltan campos por llenar"); // Modifica el contenedor, inserta al html.
     setTimeout("$('.mensaje').html('')", 2000);

@@ -9,23 +9,18 @@
     
     $output = '';                       // Almacena los resultados 
 
-    // Entrada o salida, de ser motivo 1 o 2 es entrada, caso contrario Salida
-    $tipo = $motivo == 1 || $motivo == 2 ? "0" : "1";
-
     // Si es busqueda
     if ($flag) {
         $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre, empleado.id AS id_e,
         movimiento.id_mov_asoc FROM movimiento INNER JOIN empleado 
-        ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo  
-        AND movimiento.motivo = $motivo AND movimiento.id LIKE '%$term%')";
+        ON movimiento.id_empleado = empleado.id WHERE (movimiento.motivo = $motivo AND movimiento.id LIKE '%$term%')";
     }
 
     // Muestra la lista completa
     else {
         $sql = "SELECT movimiento.id, movimiento.fecha, empleado.nombre, empleado.id AS id_e,
         movimiento.id_mov_asoc FROM movimiento INNER JOIN empleado 
-        ON movimiento.id_empleado = empleado.id WHERE (movimiento.tipo = $tipo 
-        AND movimiento.motivo = $motivo)";
+        ON movimiento.id_empleado = empleado.id WHERE (movimiento.motivo = $motivo)";
     }
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta en 'sql', con la conexion establecida

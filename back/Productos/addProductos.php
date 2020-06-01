@@ -7,14 +7,12 @@
     $departamento = strtolower($_POST["departamento"]);
     $precio = $_POST["precio"];
     $existencia = $_POST["existencia"];
-    $stock_max = $_POST["stock_max"];
-    $stock_min = $_POST["stock_min"];
     $status = $_POST["status"];
 
     $status = $status == "activo" ? "1" : "0";
 
     $sql = "INSERT INTO producto VALUES (0, '$proveedor', '$descripcion', 
-    '$departamento','$precio','$existencia','$stock_max','$stock_min','$status')";
+    '$departamento','$precio', '$existencia', '$status')";
 
     $ejecutarInsertar = mysqli_query($con, $sql);
 

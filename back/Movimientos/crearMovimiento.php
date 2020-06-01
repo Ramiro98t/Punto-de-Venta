@@ -25,5 +25,6 @@
         $fila--;
     }
     
-    header("Location: ../../front/operations.html");  // Redirecciona a pagina principal
+    header("Location: ../../front/mainPageWH.php");  // Redirecciona a pagina principal
+
 ?>

@@ -82,17 +82,6 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
           </div>
         </div>
         <div class="field">
-          <div class="control">
-            <input class="input" type="text" name="stock_max" placeholder="Stock Maximo" />
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <input class="input" type="text" name="stock_min" placeholder="Stock Minimo" />
-          </div>
-        </div>
-
-        <div class="field">
           <label class="label">Status</label>
           <div class="control">
             <div class="select status">

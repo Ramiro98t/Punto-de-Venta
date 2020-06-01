@@ -10,7 +10,7 @@
     $sql = "UPDATE devolucion SET status = 1 WHERE id = $devolucion";
     $res = mysqli_query($con,$sql);
 
-    $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '0','$id_worker', '2', '$devolucion')";
+    $sql = "INSERT INTO movimiento VALUES(0, '$fecha', '$id_worker', '2', '$devolucion')";
     $res = mysqli_query($con,$sql);
     
     // Vistas de cantidad a actualizar de cada producto seleccionado del ajuste
