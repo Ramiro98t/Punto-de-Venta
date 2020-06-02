@@ -218,7 +218,7 @@ $id_worker = $_SESSION['id_user'];
                             <option disabled selected>Metodo de pago</option>
                             <option value="1">Efectivo</option>
                             <option value="2">Tarjeta</option>
-                            <option value="3">Ambas</option>
+                            <!-- <option value="3">Ambas</option> -->
                         </select>
                     </div>
                 </div>

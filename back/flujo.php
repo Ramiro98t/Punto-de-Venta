@@ -20,28 +20,28 @@ if(!$vouchers) {
 
 // No hay dinero en caja, Inicializa
 if(!$caja){
-    $caja = $total;
-    $_SESSION['caja'] = $total;
+    $caja = 0;
+    $_SESSION['caja'] = $caja;
 }
 
 // Validar que lo que haya en caja sea menor a 10,000
-else if($caja <= 10000){
+if($caja <= 10000){
     if ($efectivo) {                        // Efectivo
         $caja += $total;                    // Nuevo total en caja
         $_SESSION['caja'] = $caja;
     }
     
-    else if ($efectivoB && $tarjeta) {      // Ambos
-        // Tarjeta
-        $tarjeta;
-        $vouchers += $tarjeta;              // Nuevo total de vouchers
-        $_SESSION['vouchers'] = $vouchers;   
+    // else if ($efectivoB && $tarjeta) {      // Ambos
+    //     // Tarjeta
+    //     $tarjeta;
+    //     $vouchers += $tarjeta;              // Nuevo total de vouchers
+    //     $_SESSION['vouchers'] = $vouchers;   
         
-        // Efectivo
-        $newEfectivo = ((float)$total) - ((float)$tarjeta);
-        $caja += $newEfectivo;              // Nuevo total en caja
-        $_SESSION['caja'] = $caja;
-    }
+    //     // Efectivo
+    //     $newEfectivo = ((float)$total) - ((float)$tarjeta);
+    //     $caja += $newEfectivo;              // Nuevo total en caja
+    //     $_SESSION['caja'] = $caja;
+    // }
 
     else {                                  // Tarjeta
         $vouchers += $total;                // Nuevo total de vouchers

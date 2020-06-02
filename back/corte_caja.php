@@ -42,10 +42,11 @@ $y = 46;
 $total = 0;
 for ($i = $fila; $f = $res->fetch_object(); $i--) {
     $total_v = getTotalVenta($f->id);
+    $total_v += ($total_v * 0.16);
     if ($f->pago == "efectivo") {
         $total += $total_v;
     }
-
+    
     $fpdf->Text(11, $y, "  $f->id");
     $fpdf->Text(20, $y, "|  $f->pago");
     $fpdf->Text(34, $y, "|  $total_v");
@@ -65,10 +66,8 @@ $fpdf->Text(11, $y, "________________________");
 $y += 3;
 
 // Devolucion
-$sql = "SELECT devolucion.id, venta.pago, detalle_devolucion.cantidad, detalle_venta.precio 
-        FROM devolucion INNER JOIN venta ON devolucion.id_venta = venta.id
-        INNER JOIN detalle_devolucion ON detalle_devolucion.id_devolucion = devolucion.id
-        INNER JOIN detalle_venta ON detalle_venta.id_venta = venta.id";
+$sql = "SELECT devolucion.id, venta.pago 
+        FROM devolucion INNER JOIN venta ON devolucion.id_venta = venta.id";
 $res = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
 $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
 
@@ -79,20 +78,50 @@ $fpdf->Text(11, $y+=2, "________________________");
 $fpdf->Text(11, $y+=3, "|  Folio  |  Met. Pago  |  Total  |");
 $fpdf->Text(11, $y, "________________________");
 
-$totalDev = 0;
 $y += 3;
 
+$totalDev = 0;
 for ($i = $fila; $f = $res->fetch_object(); $i--) {
     $total_d = getTotalDevolucion($f->id);
-    if ($f->pago == "efectivo") {
-        $totalDev += $total_d;
-    }
+    $totalDev += $total_d;
+    
     $fpdf->Text(11, $y, "  $f->id");
     $fpdf->Text(20, $y, "|  $f->pago");
-    $fpdf->Text(34, $y, "|  $total_v");
+    $fpdf->Text(34, $y, "|  $total_d");
     $fpdf->Text(11, $y, "________________________");
     $y += 3;
 }
+$fpdf->Text(11, $y, " Total Efectivo");
+$fpdf->Text(34, $y, "|  $totalDev");
+$fpdf->Text(11, $y, "________________________");
+
+// FLujos de efectivo
+$sql = "SELECT * FROM flujo_efectivo";
+$res = mysqli_query($con, $sql);    // Hace consulta con la conexion establecida
+$fila = mysqli_num_rows($res);      // Obtiene el numero de filas
+
+$y += 3;
+$fpdf->Text(11, $y+=3, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
+$fpdf->Text(17, $y+=3, "FLUJO EFECTIVO");
+$fpdf->Text(11, $y+=2, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
+$fpdf->Text(11, $y+=2, "________________________");
+$fpdf->Text(11, $y+=3, "| Folio | Cantidad Entregada  |");
+$fpdf->Text(11, $y, "________________________");
+
+$y += 3;
+
+$totalFlu = 0;
+for ($i = $fila; $f = $res->fetch_object(); $i--) {
+    $entregado = $f->monto;
+    $totalFlu += $entregado;
+    $fpdf->Text(11, $y, "  $f->id");
+    $fpdf->Text(18, $y, "|           $entregado");
+    $fpdf->Text(11, $y, "________________________");
+    $y += 3;
+}
+$fpdf->Text(11, $y, " Total Entregado");
+$fpdf->Text(34, $y, "|  $totalFlu");
+$fpdf->Text(11, $y, "________________________");
 
 // Extras
 // Fecha
@@ -150,7 +179,7 @@ for ($i=0; $i < 5; $i++) {
 $fpdf->Text(50, 109, "___________________________");
 
 
-//session_destroy();              // Destruye toda la información asociada con la sesión actual.
+session_destroy();              // Destruye toda la información asociada con la sesión actual.
 $fpdf->Output();
 
 function getTotalVenta($id_v)
@@ -179,8 +208,11 @@ function getTotalDevolucion($id_d)
     require('./conecta.php');  //Conecta a la Base de datos
     $total = 0;
 
-    $sql = "SELECT * FROM detalle_venta INNER JOIN venta 
-    ON detalle_venta.id_venta = venta.id WHERE(id = '$id_d')";    // Suma la cantidad total de articulos en el pedido
+    $sql = "SELECT detalle_devolucion.id_devolucion, detalle_devolucion.cantidad, detalle_venta.precio 
+            FROM devolucion INNER JOIN venta ON devolucion.id_venta = venta.id
+            INNER JOIN detalle_devolucion ON detalle_devolucion.id_devolucion = devolucion.id
+            INNER JOIN detalle_venta ON detalle_venta.id_venta = venta.id
+            WHERE(id_devolucion = '$id_d');";
     $res = mysqli_query($con, $sql);
 
     $fila = mysqli_num_rows($res);      // Obtiene el numero de filas
