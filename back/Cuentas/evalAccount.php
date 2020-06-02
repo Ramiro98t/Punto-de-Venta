@@ -8,11 +8,11 @@
 
     // Consulta MySql
     if ($flag) {        // Si es de un empleado
-        $sql = "SELECT * FROM empleado WHERE LOWER(email) = LOWER('$correo') AND (LOWER(cargo) = LOWER('$cargo') AND status = 1)";
+        $sql = "SELECT * FROM empleado WHERE (email = LOWER('$correo') AND cargo = LOWER('$cargo') AND status = 1)";
     }
 
     else {              // Si es de un cliente
-        $sql = "SELECT * FROM cliente WHERE LOWER(email) = LOWER('$correo')";
+        $sql = "SELECT * FROM cliente WHERE (email = LOWER('$correo'))";
     }
 
     $res = mysqli_query($con, $sql);    // Ejecuta la consulta, con la conexion establecida
@@ -54,9 +54,10 @@
         $row = mysqli_fetch_assoc($res);        // Almacena el registro encontrado
         $id_client = $row['id'];                // Almacena el id del cliente
         $client = $row['nombre'];               // Almacena el nombre del cliente
+        $arr = explode(' ',trim($client));      // Subdivide el nombre, posteriormente solo se necesita el primer nombre
 
         $_SESSION['id_client'] = $id_client;    // Asigna a la sesion el id del cliente
-        $_SESSION['client'] = $client;          // Asigna a la sesion el nombre del cliente
+        $_SESSION['client'] = $arr[0];            // Asigna a la sesion el primer nombre del cliente
         echo $client;                           // Retorna Nombre del cliente
     }
     

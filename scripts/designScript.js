@@ -51,7 +51,7 @@ $(document).ready(function () {
    */
   $(".corte").on("click", function () {
     // Trigger Click
-    alert("CORTE DE CAJA"); // Corte de Caja
+    window.open("../back/corte_caja.php", "_blank");
   });
 
   // Registro Devoluciones

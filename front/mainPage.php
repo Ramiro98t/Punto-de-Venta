@@ -64,7 +64,7 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
             <div class="cont-mobile container has-text-centered">
                 <!-- Sesion en Empleado -->
                 <h1 class="title is-1">
-                    Bienvenido <?= $_SESSION['user'] ?>
+                    Bienvenido <?= ucwords($_SESSION['user']) ?>
                 </h1>
                 <input id="workerUser" name="<?= $_SESSION['id_user'] ?>" class="is-hidden">
                 <h2 id="module" class="subtitle is-3">
@@ -92,7 +92,8 @@ require_once('../back/conecta.php');  //Conecta a la Base de datos
                     <div id="clientSession">
                         <div id="clientUser" class="<?= $flagTitle ?>">
                             <h2 class="subtitle is-5">
-                                Cliente: <?= $_SESSION['client'] ?>                            </h2>
+                                Cliente: <?= ucwords($_SESSION['client']) ?>                            
+                            </h2>
                         </div>
                         <button id="manageClient" class="is-small button is-primary is-inverted is-rounded">
                             <span class="icon">

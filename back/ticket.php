@@ -133,7 +133,7 @@ if ($tipo == 0) {
     $total = ($subtotal-$ahorro) + $iva;
     $descuento *= 100;
     $fpdf->Text(60, 107, "Descuento: $descuento%");
-    $fpdf->Text(60, 110, "IVA: 16%: - $$iva");
+    $fpdf->Text(60, 110, "IVA: 16%: $$iva");
     $fpdf->Text(60, 113, "Total: $$total");
 
     if($efectivo != 0){

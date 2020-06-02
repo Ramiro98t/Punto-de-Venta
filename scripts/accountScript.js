@@ -65,8 +65,8 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "../back/Cuentas/evalAccount.php",
-      data: { correo: email, cargo: position, bandera: true },
+      url: "../back/Cuentas/admin.php",
+      data: { correo: email, cargo: position },
       success: function (response) {
         if (response != 0) {
           // Datos correctos
@@ -101,13 +101,14 @@ $(document).ready(function () {
    * Metodo para corte de caja
    */
   $("#corte").on("click", function () {
-    // Generar el pdf
-    window.open(
-      "../back/corte.php", "_blank"
-    );
-    
-    location.reload();
+    $.ajax({
+      url: "../back/flujo_efectivo.php",
+      success: function (response) {
+        $("#corte").addClass("is-loading");
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      },
+    });
   });
-
-
 });

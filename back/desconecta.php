@@ -12,7 +12,6 @@
     else {
         $_SESSION['id_user'] = "";
         $_SESSION['user'] = ""; 
-        // session_destroy();              // Destruye toda la información asociada con la sesión actual.
         header("Location: ../index.html");  // Redirecciona a pagina principal
     }
 ?>

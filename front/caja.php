@@ -119,7 +119,7 @@ $id_worker = $_SESSION['id_user'];
                     <div class="help is-danger"></div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button id="corte" class="button is-hidden">Corte de Caja</button>
+                    <button id="corte" class="button is-hidden">Retirar Efectivo</button>
                 </footer>
             </div>
             <!-- <button class="modal-close is-large exit-modal" aria-label="close"></button> -->
